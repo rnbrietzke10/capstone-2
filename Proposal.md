@@ -24,7 +24,7 @@ The data that will be for this application is from the users and different parks
 
 ### Schema (Tentative)
 
-![alt text](tx_anglers_app_schema.drawio.svg)
+![alt text](tx_anglers_app_schema.drawio.png)
 
 ### Potential Problems
 
@@ -36,6 +36,11 @@ The data that will be for this application is from the users and different parks
 
 ### Functionality
 
+- Users will be able to look up infomation on fishing locations. They will be able to view weather in that location. They will be able to add infomation about their catches, places to park, places to eat or get equipment near the location.
+
 ### User Flow
 
-[def]: TX_Anglers
+- Users can see basic information about fishing locations without having an account
+- If user has an account:
+  - the can rate and add information about their exprience at the location.
+  - They will also be able to view what others post, what fish are biting on and more
