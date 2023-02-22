@@ -24,7 +24,7 @@ The data that will be for this application is from the users and different parks
 
 ### Schema (Tentative)
 
-![alt text](tx_anglers_app_schema.drawio.png)
+![alt text](./TX_Anglers_app_schema.drawio.png)
 
 ### Potential Problems
 
