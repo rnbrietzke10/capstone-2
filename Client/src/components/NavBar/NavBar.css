@@ -17,3 +17,16 @@
   background-size: cover;
   margin-left: 25px;
 }
+
+.nav__route_links {
+  width: 400px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.nav_link {
+  text-decoration: none;
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: bold;
+}

@@ -1,0 +1,9 @@
+.home__header {
+  display: flex;
+  margin-top: 20px;
+  justify-content: space-evenly;
+}
+.home__main_img {
+  height: 400px;
+  border-radius: 5px;
+}
