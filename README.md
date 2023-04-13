@@ -12,6 +12,11 @@ View the deployed app [here](https://coding-quiz-app-rb.herokuapp.com/signup). -
 - [Weather API](https://www.weatherapi.com/)
 - Use to show weather at body of water selected for next 3 days
 
+## Data
+
+- Created web scraper to get data about lakes and rivers in Texas
+- Data will also come from users about fish caught and locations around body of water that may be important to other anglers
+
 ## Technology Stack
 
 - JavaScript
