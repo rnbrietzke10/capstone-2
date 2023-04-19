@@ -1,8 +1,7 @@
 'use strict';
 
 const app = require('./app');
-
-const PORT = 8080;
+const { PORT } = require('./config');
 
 app.listen(PORT, function () {
   console.log(`Started server on Port: ${PORT}`);
