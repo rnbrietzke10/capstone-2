@@ -1,6 +1,6 @@
 'use strict';
 
-/* Routes for */
+/* Routes for fishingLoactions/Bodies of water*/
 
 const express = require('express');
 

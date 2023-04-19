@@ -10,7 +10,7 @@ View the deployed app [here](https://coding-quiz-app-rb.herokuapp.com/signup). -
 - [Map API](https://www.openstreetmap.org/)
   - Use map to show body of water and add pins to locations to park, restrooms, places to eat
 - [Weather API](https://www.weatherapi.com/)
-- Use to show weather at body of water selected for next 3 days
+  - Use to show weather at body of water selected for next 3 days
 
 ## Data
 
