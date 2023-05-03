@@ -1,24 +1,25 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import './NavBar.css';
+import './NavBar.scss';
+
 const NavBar = () => {
   return (
-    <div className="container-f space">
+    <div className="navbar">
       <div>
         <Link to="/">
-          <div className="nav__site-logo"></div>
+          <div className="logo"></div>
         </Link>
       </div>
-      <div className="nav__route_links">
+      <div className="route_links">
         <Link to="/lake" className="nav_link">
           Lakes
         </Link>
         <Link to="/rivers" className="nav_link">
           Rivers
         </Link>
-        <Link to="/signup" className="nav_link">
-          Sign Up
+        <Link to="/register" className="nav_link">
+          Register
         </Link>
         <Link to="/login" className="nav_link">
           Login
