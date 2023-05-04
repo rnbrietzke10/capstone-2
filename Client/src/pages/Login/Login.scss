@@ -1,7 +1,35 @@
-.login {
-  height: calc(100% - 100px);
-  padding-top: 100px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+@import '/Users/rebeccabrietzke/Learning/SpringBoard/50-Capstone-Project-2/texas-anglers-app/Client/src/_breakpoints.scss';
+
+.container {
+  .login {
+    @include xs {
+      flex-direction: column;
+    }
+    @include lg {
+      flex-direction: row;
+    }
+
+    .bg-img {
+      background: linear-gradient(
+          rgba(75, 100, 74, 0.8),
+          rgba(75, 100, 74, 0.8)
+        ),
+        url('../../assets/pexels-the-lazy-artist-gallery-1569002.jpg') center;
+      background-size: cover;
+      @include xs {
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        border-bottom-left-radius: 0;
+      }
+
+      //   gap will add space between elements in the flexbox
+      gap: 30px;
+      color: #fff;
+      @include lg {
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+        border-top-right-radius: 0;
+      }
+    }
+  }
 }
