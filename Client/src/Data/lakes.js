@@ -1,0 +1,148 @@
+export const lakes = {
+  'lake-austin': {
+    key: 'lake-austin',
+    lakeName: 'Lake Austin',
+    location: 'On the Colorado River in the City of Austin',
+    surfaceArea: '1,599 acres',
+    maxDepth: '75 feet',
+    reservoirControllingAuthority: {
+      authorityName: 'Lower Colorado River Authority',
+      link: 'http://www.lcra.org/water/dams-and-lakes/',
+      address: '3700 Lake Austin Blvd. Austin, Texas 78703',
+      phoneNumbers: ['(512) 473-3200', '1(800) 776-5272'],
+    },
+    aquaticVegetation: ['Watermilfoil', 'pondweed'],
+    predominantFishSpecies: ['Largemouth bass', 'Catfish', 'Sunfish'],
+    anglingOppurtunities:
+      'Lake Austin has an excellent number of largemouth bass, often   weighing between 8 and 10 pounds. Bluegill, redbreast, redear fishing, flathead and blue catfish can also be found in Lake Austin. Summer fishing is best to do in late evening and night due to high boat traffic during the day.',
+    tips: [
+      'The best locations to catch Largemouth bass are in the edges of the weed beds on the shore line.',
+      'During summer plan fishing trips in the early morning or at night.',
+      'Baits that work well are white spinnerbaits and topwaters, pitching jigs with heavy bait casting tackle, plastic worms or jerkbaits.',
+    ],
+  },
+  'lake-buchanan': {
+    key: 'lake-buchanan',
+    lakeName: 'Lake Buchanan',
+    location: 'On the Colorado River west of the town of Burnet',
+    surfaceArea: '22,211 acres',
+    maxDepth: '132 feet',
+    reservoirControllingAuthority: {
+      authorityName: 'Lower Colorado River Authority',
+      link: 'http://www.lcra.org/water/dams-and-lakes/',
+      address: '3700 Lake Austin Blvd. Austin, Texas 78703',
+      phoneNumbers: ['(512) 473-3200', '1(800) 776-5272'],
+    },
+    aquaticVegetation: null,
+    predominantFishSpecies: [
+      'Largemouth bass',
+      'White bass',
+      'Striped Bass',
+      'Catfish',
+    ],
+    anglingOppurtunities:
+      'Lake Buchanan is excellent for striped and white bass fishing. Largemouth bass, blue, channel and flathead catfish , crappie, and sunfish can also be found in Lake Buchanan.',
+    tips: [
+      'Spring and fall is best for catching Largemouth bass.',
+      'Baits that work well are topwater lures, metal flake willow leaf spinnerbaits, shallow to medium depth crankbaits and jigs and plastic worms.',
+      'White and striped bass can be found around Beaver Creek and begin spawning in February.',
+      'To catch white bass include twister tail jigs, small hair jigs, small crankbaits, small topwaters, and Live bait fishing with minnows.',
+      'To catch striped bass use live shad fished with a carolina rig type set up on the bottom on humps and along dropoffs',
+      'Catfish can be found throughout the lake. Stinkbaits and cutbaits work well for blue and channel catfish. Live bait works best for catching flathead catfish.',
+    ],
+  },
+  'canyon-lake': {
+    key: 'canyon-lake',
+    lakeName: 'Canyon Lake',
+    location: 'On the Guadalupe River, 16 miles northwest of New Braunfels ',
+    surfaceArea: '8,308 acres',
+    maxDepth: '125 feet',
+    reservoirControllingAuthority: {
+      authorityName: 'US Army Corps of Engineers',
+      link: 'http://www.swf-wc.usace.army.mil/canyon/',
+      address: 'Canyon Project Office HC-4, Box 400 Canyon Lake, TX 78133-4112',
+      phoneNumbers: ['(830) 964-3341'],
+    },
+    aquaticVegetation: null,
+    predominantFishSpecies: [
+      'Largemouth bass',
+      'Smallmouth bass',
+      'Guadalupe bass',
+      'White bass',
+      'Striped Bass',
+      'Catfish',
+    ],
+    anglingOppurtunities:
+      'The highest population of fish in Canyon Lake is the Largemouth bass.',
+    tips: [
+      'Spring, fall and winter are the best times for catching Largemouth bass.',
+      `Baits that work well are topwater baits such as buzzbaits, Zara Spooks, and Pop-R's.`,
+      'Catfish can be found throughout the lake. Stinkbaits and cutbaits work well for blue and channel catfish. Live bait works best for catching flathead catfish.',
+    ],
+    mapUrl:
+      'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d46163.49471129125!2d-98.29677844784881!3d29.873499189280654!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x865c9bbea40ad011%3A0xba6571b88cb898b1!2sCanyon%20Lake%2C%20TX!5e0!3m2!1sen!2sus!4v1683297639154!5m2!1sen!2sus',
+  },
+  'lake-LBJ': {
+    key: 'lake-LBJ',
+    lakeName: 'Lake Lyndon B. Johnson',
+    location:
+      'On the Colorado River in Burnet County, near the towns of Marble Falls, Kingsland, and Granite Shoals',
+    surfaceArea: '6,449  acres',
+    maxDepth: '90 feet',
+    reservoirControllingAuthority: {
+      authorityName: 'Lower Colorado River Authority',
+      link: 'http://www.lcra.org/water/dams-and-lakes/',
+      address: '3700 Lake Austin Blvd. Austin, Texas 78703',
+      phoneNumbers: ['(512) 473-3200', '1(800) 776-5272'],
+    },
+    aquaticVegetation: [
+      'Water willow',
+      'bulrush',
+      'Eurasian watermilfoil',
+      'spatterdock',
+    ],
+    predominantFishSpecies: [
+      'Largemouth bass',
+      'White bass',
+      'Crappie',
+      'Catfish',
+    ],
+    anglingOppurtunities:
+      'The highest population of fish in Canyon Lake is the Largemouth bass. Blue, channel,and flathead catfish are abundant and are found throughout the lake ',
+    tips: [
+      'Spring and fall is best for catching Largemouth bass.',
+      `Bait that work well are worms and jigs`,
+    ],
+  },
+  'lake-travis': {
+    key: 'lake-travis',
+    lakeName: 'Lake Travis',
+    location: 'On the Colorado River northwest of Austin',
+    surfaceArea: '18,622 acres',
+    maxDepth: '190 feet',
+    reservoirControllingAuthority: {
+      authorityName: 'Lower Colorado River Authority',
+      link: 'http://www.lcra.org/water/dams-and-lakes/',
+      address: '3700 Lake Austin Blvd. Austin, Texas 78703',
+      phoneNumbers: ['(512) 473-3200', '1(800) 776-5272'],
+    },
+    aquaticVegetation: null,
+    predominantFishSpecies: [
+      'Largemouth bass',
+      'Guadalupe bass',
+      'White bass',
+      'Striped bass',
+      'Sunfish',
+      'Catfish',
+    ],
+    anglingOppurtunities:
+      'The highest population of fish in Lake Travis is the Largemouth bass. Blue, channel,and flathead catfish are abundant and are found throughout the lake ',
+    tips: [
+      'Spring and fall is best for catching Largemouth bass.',
+      'Bass fishing between June and August can be difficult.',
+      `Bait that work well are Topwater baits such as Zara Spooks, Jumping Minnows, Pop-R's, and suspended jerkbaits`,
+      'The ',
+    ],
+    mapUrl: '',
+  },
+};

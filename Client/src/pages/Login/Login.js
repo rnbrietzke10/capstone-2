@@ -9,7 +9,6 @@ const Login = () => {
       <div className="card login">
         <div className="col left bg-img">
           <h1>Welcome Back!</h1>
-
           <span>Don't have an account?</span>
           <Link to="/register">
             <button className="btn btn-light">Register</button>

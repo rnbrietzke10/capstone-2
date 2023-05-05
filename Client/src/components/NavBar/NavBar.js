@@ -12,7 +12,7 @@ const NavBar = () => {
         </Link>
       </div>
       <div className="route_links">
-        <Link to="/lake" className="nav_link">
+        <Link to="/lakes" className="nav_link">
           Lakes
         </Link>
         <Link to="/rivers" className="nav_link">
