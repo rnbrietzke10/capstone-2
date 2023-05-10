@@ -6,6 +6,7 @@ import './Location.scss';
 
 const Location = () => {
   const { lake } = useParams();
+
   const location = lakes[lake];
   return (
     <div className="Location">

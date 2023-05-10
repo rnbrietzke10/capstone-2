@@ -20,6 +20,8 @@ export const lakes = {
       'During summer plan fishing trips in the early morning or at night.',
       'Baits that work well are white spinnerbaits and topwaters, pitching jigs with heavy bait casting tackle, plastic worms or jerkbaits.',
     ],
+    mapUrl:
+      'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d55092.15992552629!2d-97.89331477086907!3d30.343560016320854!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x865b3435dbfe386d%3A0x7036e55ce0332d2e!2sLake%20Austin!5e0!3m2!1sen!2sus!4v1683736257683!5m2!1sen!2sus',
   },
   'lake-buchanan': {
     key: 'lake-buchanan',
@@ -50,6 +52,8 @@ export const lakes = {
       'To catch striped bass use live shad fished with a carolina rig type set up on the bottom on humps and along dropoffs',
       'Catfish can be found throughout the lake. Stinkbaits and cutbaits work well for blue and channel catfish. Live bait works best for catching flathead catfish.',
     ],
+    mapUrl:
+      'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d54832.28249940295!2d-98.45803506764217!3d30.802139159684458!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x865af9e0edbb56fb%3A0x7f0e121dabc72896!2sBuchanan%20Lake!5e0!3m2!1sen!2sus!4v1683736377536!5m2!1sen!2sus',
   },
   'canyon-lake': {
     key: 'canyon-lake',
@@ -113,6 +117,8 @@ export const lakes = {
       'Spring and fall is best for catching Largemouth bass.',
       `Bait that work well are worms and jigs`,
     ],
+    mapUrl:
+      'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d109851.73505960786!2d-98.47340301753852!3d30.637713523772387!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x865afde4a00a34eb%3A0xb4e89bc100df5a25!2sLake%20Lyndon%20B.%20Johnson!5e0!3m2!1sen!2sus!4v1683736443121!5m2!1sen!2sus',
   },
   'lake-travis': {
     key: 'lake-travis',
@@ -143,6 +149,7 @@ export const lakes = {
       `Bait that work well are Topwater baits such as Zara Spooks, Jumping Minnows, Pop-R's, and suspended jerkbaits`,
       'The ',
     ],
-    mapUrl: '',
+    mapUrl:
+      'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d110048.66709470155!2d-98.14704097254221!3d30.463847625461106!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x865b234b3c3d1495%3A0x74e585eef7396b82!2sLake%20Travis!5e0!3m2!1sen!2sus!4v1683736010857!5m2!1sen!2sus',
   },
 };

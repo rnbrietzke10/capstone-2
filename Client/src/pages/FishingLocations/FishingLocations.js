@@ -4,7 +4,7 @@ import './FishingLocations.scss';
 import { Link } from 'react-router-dom';
 
 const FishingLocations = () => {
-  const lakes = ['Cayon Lake', 'Lake Austin', 'Lake Buchanan'];
+  const lakes = ['Canyon Lake', 'Lake Austin', 'Lake Buchanan', 'Lake Travis'];
   return (
     <div className="fishing-locations">
       <ul>

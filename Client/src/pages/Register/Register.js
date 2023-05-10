@@ -1,22 +1,90 @@
-import React from 'react';
+import { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import Api from '../../ApiHelper';
 
 import '../../Card.scss';
 import './Register.scss';
-import { Link } from 'react-router-dom';
 
 const Register = () => {
+  const navigate = useNavigate();
+  const INITIAL_STATE = {
+    firstName: '',
+    lastName: '',
+    username: '',
+    email: '',
+    password: '',
+  };
+
+  const [itemData, setItemData] = useState(INITIAL_STATE);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setItemData((data) => ({ ...data, [name]: value }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const allDataEntered =
+      itemData.firstName &&
+      itemData.lastName &&
+      itemData.username &&
+      itemData.email &&
+      itemData.password;
+    if (allDataEntered) {
+      async function registerUser() {
+        const tokenValue = await Api.createUser(itemData);
+
+        let { password, ...user } = itemData;
+
+        localStorage.setItem('token', JSON.stringify(tokenValue));
+        localStorage.setItem('user', JSON.stringify(user));
+        navigate('/');
+      }
+      registerUser();
+    } else {
+      alert('Please enter all data');
+    }
+  };
+
   return (
     <div className="container">
       <div className="card register">
         <div className="col left">
           <h2>Register</h2>
-          <form>
-            <input type="text" placeholder="First Name" />
-            <input type="text" placeholder="Last Name" />
-            <input type="email" placeholder="Email" />
-            <input type="text" placeholder="Username" />
-            <input type="password" placeholder="Password" />
-            <button className="btn btn-dark">Register</button>
+          <form onSubmit={handleSubmit}>
+            <input
+              type="text"
+              placeholder="First Name"
+              required
+              onChange={handleChange}
+            />
+            <input
+              type="text"
+              placeholder="Last Name"
+              required
+              onChange={handleChange}
+            />
+            <input
+              type="email"
+              placeholder="Email"
+              required
+              onChange={handleChange}
+            />
+            <input
+              type="text"
+              placeholder="Username"
+              required
+              onChange={handleChange}
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              required
+              onChange={handleChange}
+            />
+            <button type="submit" className="btn btn-dark">
+              Register
+            </button>
           </form>
         </div>
         <div className="col right bg-img">
