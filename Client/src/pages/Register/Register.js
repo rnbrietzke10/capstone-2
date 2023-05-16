@@ -24,6 +24,7 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(itemData);
     const allDataEntered =
       itemData.firstName &&
       itemData.lastName &&
@@ -52,36 +53,59 @@ const Register = () => {
         <div className="col left">
           <h2>Register</h2>
           <form onSubmit={handleSubmit}>
-            <input
-              type="text"
-              placeholder="First Name"
-              required
-              onChange={handleChange}
-            />
-            <input
-              type="text"
-              placeholder="Last Name"
-              required
-              onChange={handleChange}
-            />
-            <input
-              type="email"
-              placeholder="Email"
-              required
-              onChange={handleChange}
-            />
-            <input
-              type="text"
-              placeholder="Username"
-              required
-              onChange={handleChange}
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              required
-              onChange={handleChange}
-            />
+            <div className="form-input-container">
+              {/* <label htmlFor="username" style={{ color: '#000' }}>
+                Username:
+              </label> */}
+              <input
+                id="username"
+                type="text"
+                name="username"
+                value={itemData.itemName}
+                placeholder="Username"
+                onChange={handleChange}
+              />
+            </div>
+            <div className="form-input-container">
+              <input
+                id="firstName"
+                type="text"
+                placeholder="First Name"
+                name="firstName"
+                value={itemData.itemName}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="form-input-container">
+              <input
+                id="lastName"
+                type="text"
+                placeholder="Last Name"
+                name="lastName"
+                value={itemData.itemName}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="form-input-container">
+              <input
+                id="email"
+                type="email"
+                placeholder="Email"
+                name="email"
+                value={itemData.itemName}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="form-input-container">
+              <input
+                id="password"
+                type="password"
+                placeholder="Password"
+                name="password"
+                value={itemData.itemName}
+                onChange={handleChange}
+              />
+            </div>
             <button type="submit" className="btn btn-dark">
               Register
             </button>

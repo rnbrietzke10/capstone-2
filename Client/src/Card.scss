@@ -47,10 +47,17 @@
       display: flex;
       flex-direction: column;
       gap: 30px;
+      .form-input-container {
+        margin-top: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
       input {
         border: none;
         border-bottom: 1px solid #d3d3d3;
         padding: 15px 10px;
+        width: 100%;
       }
       .btn-dark {
         background-color: #4b644a;

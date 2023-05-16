@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = process.env.REACT_APP_BASE_URL || 'http://localhost:3001';
+const BASE_URL = process.env.REACT_APP_BASE_URL || 'http://localhost:8080';
 
 /** API Class.
  *
@@ -30,34 +30,6 @@ class Api {
 
   // Individual API routes
 
-  /** Get all companies */
-  static async getCompanies() {
-    let res = await this.request(`companies`);
-    return res.companies;
-  }
-
-  /** Get all jobs */
-  static async getJobs() {
-    let res = await this.request(`jobs`);
-    return res.jobs;
-  }
-
-  /** Get details on a company by handle. */
-
-  static async getCompany(handle) {
-    let res = await this.request(`companies/${handle}`);
-    return res.company;
-  }
-
-  // Endpoint is whether it is a Job or Company
-  static async getSearchResults(searchTerm, location) {
-    if (location === 'jobs') {
-      let res = await this.request(`${location}?title=${searchTerm}`);
-      return res.jobs;
-    }
-    let res = await this.request(`${location}?name=${searchTerm}`);
-    return res.companies;
-  }
   // Signup user
   static async createUser(userData) {
     let res = await this.request(`auth/register`, userData, 'post');
@@ -84,26 +56,12 @@ class Api {
     console.log('UpdateUser res: ', res);
     return res.user;
   }
-  // Apply for job Route: /:username/jobs/:id
-  static async applyToJob(username, jobId, token) {
-    this.token = token;
-
-    let res = await this.request(
-      `users/${username}/jobs/${jobId}`,
-      { username, jobId },
-      'post'
-    );
-    let allUserInfo = await this.request(`users/${username}`);
-
-    console.log(res);
-    return allUserInfo;
-  }
 }
 
 // for now, put token ("testuser" / "password" on class)
-Api.token =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZ' +
-  'SI6InRlc3R1c2VyIiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTU5ODE1OTI1OX0.' +
-  'FtrMwBQwe6Ue-glIFgz_Nf8XxRT2YecFCiSpYL0fCXc';
+// Api.token =
+//   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZ' +
+//   'SI6InRlc3R1c2VyIiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTU5ODE1OTI1OX0.' +
+//   'FtrMwBQwe6Ue-glIFgz_Nf8XxRT2YecFCiSpYL0fCXc';
 
 export default Api;

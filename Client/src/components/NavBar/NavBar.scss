@@ -15,8 +15,11 @@
     background-size: cover;
     margin-left: 25px;
   }
+  .menu-icon {
+    display: none;
+  }
   .route_links {
-    width: 400px;
+    width: 50%;
     display: flex;
     justify-content: space-evenly;
     margin-right: 15px;
@@ -25,6 +28,77 @@
       color: #fff;
       font-size: 1.5rem;
       font-weight: bold;
+      cursor: pointer;
+      span {
+        margin-right: 10px;
+      }
+      .hidden {
+        display: none;
+      }
+    }
+    .nav_link_container {
+    }
+    .dropdown {
+      display: flex;
+      align-items: baseline;
+      width: 100px;
+    }
+  }
+}
+
+@media screen and (max-width: 960px) {
+  .navbar {
+    .route_links {
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100vh;
+      position: absolute;
+      top: 0;
+
+      .nav_link_container {
+        text-align: center;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+
+        margin-bottom: 30px;
+        .nav_link {
+          font-size: 3rem;
+        }
+      }
+
+      .dropdown {
+        align-items: center;
+        width: 100%;
+      }
+    }
+
+    .route_links.active {
+      background: #4b644a;
+      left: 0;
+      opacity: 0.85;
+      transition: all 0.5s ease;
+      z-index: 1;
+    }
+    .route_links.inactive {
+      display: none;
+    }
+
+    .fa_angle_down {
+      display: none;
+    }
+
+    .menu-icon {
+      display: block;
+      position: absolute;
+      top: 0;
+      right: 0;
+      transform: translate(-100%, 60%);
+      font-size: 1.8rem;
+      cursor: pointer;
+      z-index: 3;
     }
   }
 }

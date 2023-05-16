@@ -1,0 +1,59 @@
+@import '/Users/rebeccabrietzke/Learning/SpringBoard/50-Capstone-Project-2/texas-anglers-app/Client/src/_breakpoints.scss';
+
+.dropdown-menu {
+  margin-top: 20px;
+  list-style: none;
+  li {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px 20px;
+    border: 1px solid #fff;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .dropdown-link {
+      text-decoration: none;
+      color: #fff;
+      font-size: 1rem;
+    }
+    &:hover {
+      background-color: #fff;
+      border: 1px solid #4b644a;
+      transition: all 0.5s ease-out;
+      .dropdown-link {
+        color: #4b644a;
+      }
+    }
+  }
+}
+
+@include lg {
+  .dropdown-menu {
+    background: rgba(75, 100, 74, 0.85);
+    border: #fff 1px solid;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+      rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+      rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+    width: 225px;
+    position: absolute;
+    top: 55px;
+    border-radius: 5px;
+    text-align: center;
+    li {
+      border: none;
+      margin: 0;
+    }
+    .dropdown-link {
+      display: block;
+      height: 100%;
+      width: 100%;
+      padding: 16px;
+    }
+  }
+}
+
+.clicked {
+  display: none;
+}

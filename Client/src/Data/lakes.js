@@ -1,7 +1,7 @@
 export const lakes = {
   'lake-austin': {
     key: 'lake-austin',
-    lakeName: 'Lake Austin',
+    name: 'Lake Austin',
     location: 'On the Colorado River in the City of Austin',
     surfaceArea: '1,599 acres',
     maxDepth: '75 feet',
@@ -25,7 +25,7 @@ export const lakes = {
   },
   'lake-buchanan': {
     key: 'lake-buchanan',
-    lakeName: 'Lake Buchanan',
+    name: 'Lake Buchanan',
     location: 'On the Colorado River west of the town of Burnet',
     surfaceArea: '22,211 acres',
     maxDepth: '132 feet',
@@ -57,7 +57,7 @@ export const lakes = {
   },
   'canyon-lake': {
     key: 'canyon-lake',
-    lakeName: 'Canyon Lake',
+    name: 'Canyon Lake',
     location: 'On the Guadalupe River, 16 miles northwest of New Braunfels ',
     surfaceArea: '8,308 acres',
     maxDepth: '125 feet',
@@ -88,7 +88,7 @@ export const lakes = {
   },
   'lake-LBJ': {
     key: 'lake-LBJ',
-    lakeName: 'Lake Lyndon B. Johnson',
+    name: 'Lake Lyndon B. Johnson',
     location:
       'On the Colorado River in Burnet County, near the towns of Marble Falls, Kingsland, and Granite Shoals',
     surfaceArea: '6,449  acres',
@@ -122,7 +122,7 @@ export const lakes = {
   },
   'lake-travis': {
     key: 'lake-travis',
-    lakeName: 'Lake Travis',
+    name: 'Lake Travis',
     location: 'On the Colorado River northwest of Austin',
     surfaceArea: '18,622 acres',
     maxDepth: '190 feet',

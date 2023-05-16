@@ -1,32 +1,40 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { lakes } from '../../Data/lakes';
+import { rivers } from '../../Data/rivers';
 
 import './Location.scss';
 
 const Location = () => {
-  const { lake } = useParams();
-
-  const location = lakes[lake];
+  let { lake, river } = useParams();
+  const location = lake ? lakes[lake] : rivers[river];
   return (
     <div className="Location">
       <header>
         <div className="location-info">
           <div>
-            <h1>{location.lakeName}</h1>
+            <h1>{location.name}</h1>
             <ul>
               <li>
                 <span>Location: </span>
                 {location.location}
               </li>
-              <li>
-                <span>Lake Acreage: </span>
-                {location.surfaceArea}
-              </li>
-              <li>
-                <span>Max Detpth: </span>
-                {location.maxDepth}
-              </li>
+              {lake ? (
+                <li>
+                  <span>Lake Acreage: </span>
+                  {location.surfaceArea}
+                </li>
+              ) : (
+                ''
+              )}
+              {lake ? (
+                <li>
+                  <span>Max Depth: </span>
+                  {location.maxDepth}
+                </li>
+              ) : (
+                ''
+              )}
             </ul>
           </div>
           <div className="weather">WEATHER</div>
