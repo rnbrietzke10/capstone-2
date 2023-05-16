@@ -19,7 +19,7 @@ const router = express.Router();
  * Authorization required: logged In
  **/
 
-router.get('/', ensureLoggedIn, async function (req, res, next) {
+router.get('/', ensureCorrectUser, async function (req, res, next) {
   try {
     const users = await User.findAll();
     return res.json({ users });
