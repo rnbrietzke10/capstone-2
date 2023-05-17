@@ -47,18 +47,18 @@ const Location = () => {
             </ul>
           </div>
         </div>
-        <iframe
-          className="lake-map"
-          src={location.mapUrl}
-          width="800"
-          height="600"
-          style={{ border: 0 }}
-          allowFullScreen=""
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-          title={location.lakeName}
-        ></iframe>
       </header>
+      <iframe
+        className="lake-map"
+        src={location.mapUrl}
+        // width="800"
+        // height="600"
+        style={{ border: 0 }}
+        allowFullScreen=""
+        loading="lazy"
+        referrerPolicy="no-referrer-when-downgrade"
+        title={location.lakeName}
+      ></iframe>
       <div className=""></div>
     </div>
   );

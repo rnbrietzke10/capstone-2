@@ -13,6 +13,7 @@ function Dropdown({ items, locationsInfo, type, handleCloseMenus }) {
       <ul
         onClick={handleClick}
         className={click ? 'dropdown-menu clicked' : 'dropdown-menu'}
+        // className="dropdown-menu"
       >
         {items.map((item) => {
           return (

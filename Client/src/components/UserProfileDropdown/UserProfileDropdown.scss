@@ -1,6 +1,6 @@
 @import '/Users/rebeccabrietzke/Learning/SpringBoard/50-Capstone-Project-2/texas-anglers-app/Client/src/_breakpoints.scss';
 
-.dropdown-menu {
+.user-dropdown-menu {
   margin-top: 20px;
   list-style: none;
   li {
@@ -30,7 +30,7 @@
 }
 
 @include lg {
-  .dropdown-menu {
+  .user-dropdown-menu {
     background: rgba(75, 100, 74, 0.85);
     border: #fff 1px solid;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
@@ -38,7 +38,8 @@
       rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
     width: 225px;
     position: absolute;
-    top: 20px;
+    top: 65px;
+    right: 0;
     border-radius: 5px;
     text-align: center;
     li {

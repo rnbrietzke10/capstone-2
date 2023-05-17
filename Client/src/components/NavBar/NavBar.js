@@ -10,12 +10,15 @@ import {
   faBars,
   faAngleDown,
 } from '@fortawesome/free-solid-svg-icons';
+import UserProfileDropdown from '../UserProfileDropdown/UserProfileDropdown';
 
 const NavBar = () => {
   const user = JSON.parse(localStorage.getItem('user'));
   const [clickLakes, setClickLakes] = useState(false);
   const [clickRivers, setClickRivers] = useState(false);
+  const [clickUserProfile, setClickUserProfile] = useState(false);
   const [click, setClick] = useState(false);
+
   const iconStyles = {
     color: '#ffffff',
     marginLeft: '10px',
@@ -23,24 +26,34 @@ const NavBar = () => {
   };
   const handleClickLakes = () => {
     setClickRivers(false);
+    setClickUserProfile(false);
     setClickLakes(!clickLakes);
   };
 
   const handleClickRivers = () => {
     setClickLakes(false);
+    setClickUserProfile(false);
     setClickRivers(!clickRivers);
+  };
+
+  const handleClickUserProfile = () => {
+    setClickLakes(false);
+    setClickRivers(false);
+    setClickUserProfile(!clickUserProfile);
   };
 
   const handleClick = (e) => {
     if (e.target.tagName !== 'A' && e.target.tagName !== 'SPAN') {
       setClickLakes(false);
       setClickRivers(false);
+      setClickUserProfile(false);
       setClick(!click);
     }
   };
   const handleCloseMenus = () => {
     setClickLakes(false);
     setClickRivers(false);
+    setClickUserProfile(false);
     setClick(false);
   };
 
@@ -67,7 +80,7 @@ const NavBar = () => {
           <span className="nav_link">Lakes</span>
           <FontAwesomeIcon
             icon={faAngleDown}
-            size="md"
+            size="lg"
             style={iconStyles}
             className="fa_angle_down"
           />
@@ -89,7 +102,7 @@ const NavBar = () => {
           <span className="nav_link">Rivers</span>
           <FontAwesomeIcon
             icon={faAngleDown}
-            size="md"
+            size="lg"
             style={iconStyles}
             className="fa_angle_down"
           />
@@ -115,7 +128,6 @@ const NavBar = () => {
                 Register
               </Link>
             </div>
-
             <div className="nav_link_container">
               <Link to="/login" className="nav_link" onClick={handleCloseMenus}>
                 Login
@@ -123,15 +135,31 @@ const NavBar = () => {
             </div>
           </>
         ) : (
-          <div className="nav_link_container">
-            <Link
-              className="nav_link"
-              to={`/users/${user.username}`}
-              onClick={handleCloseMenus}
+          <div
+            onClick={handleClickUserProfile}
+            className="nav_user_link"
+            // nav_link_container dropdown
+          >
+            <img
+              className="user_info nav_link"
+              src="https://images.pexels.com/photos/516927/pexels-photo-516927.jpeg?auto=compress&cs=tinysrgb&w=1600"
+              alt={user.username}
+            />
+            <span
+              onClick={handleClickUserProfile}
+              className="nav_link user_profile_mobile"
             >
               {user.username}
-            </Link>
+            </span>
           </div>
+        )}
+        {clickUserProfile ? (
+          <UserProfileDropdown
+            info={{ ...user, path: `/users/${user.username}` }}
+            handleCloseMenus={handleCloseMenus}
+          />
+        ) : (
+          ''
         )}
       </div>
     </div>
