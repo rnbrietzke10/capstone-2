@@ -1,0 +1,12 @@
+.Posts {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  width: 90%;
+  margin: 20px;
+  padding: 40px 30px;
+  border-radius: 10px;
+  -webkit-box-shadow: 3px 3px 10px 0px rgba(39, 55, 34, 0.87);
+  -moz-box-shadow: 3px 3px 10px 0px rgba(39, 55, 34, 0.87);
+  box-shadow: 3px 3px 10px 0px rgba(39, 55, 34, 0.87);
+}

@@ -2,12 +2,11 @@
 
 .container {
   .login {
-    @include xs {
+    @include lg {
       flex-direction: column;
     }
-    @include lg {
-      flex-direction: row;
-    }
+
+    flex-direction: row;
 
     .bg-img {
       background: linear-gradient(
@@ -16,7 +15,7 @@
         ),
         url('../../assets/pexels-the-lazy-artist-gallery-1569002.jpg') center;
       background-size: cover;
-      @include xs {
+      @include lg {
         border-top-left-radius: 10px;
         border-top-right-radius: 10px;
         border-bottom-left-radius: 0;
@@ -25,11 +24,10 @@
       //   gap will add space between elements in the flexbox
       gap: 30px;
       color: #fff;
-      @include lg {
-        border-top-left-radius: 10px;
-        border-bottom-left-radius: 10px;
-        border-top-right-radius: 0;
-      }
+
+      border-top-left-radius: 10px;
+      border-bottom-left-radius: 10px;
+      border-top-right-radius: 0;
     }
   }
 }

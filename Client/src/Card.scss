@@ -12,10 +12,10 @@
     border-radius: 10px;
     flex-wrap: wrap;
 
-    @include xs {
+    @include md {
       width: 90%;
     }
-    @include md {
+    @include lg {
       width: 70%;
     }
 

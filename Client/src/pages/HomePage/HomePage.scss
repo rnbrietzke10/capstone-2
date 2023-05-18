@@ -1,13 +1,72 @@
+@import '/Users/rebeccabrietzke/Learning/SpringBoard/50-Capstone-Project-2/texas-anglers-app/Client/src/_breakpoints.scss';
+
 .home {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  height: calc(100% - 200px);
+  flex-direction: column;
+
   header {
     display: flex;
-    margin-top: 20px;
+    height: 400px;
+    margin: 20px;
     justify-content: space-evenly;
-    // h2 {
-    // }
-    img {
-      height: 400px;
-      border-radius: 5px;
+    border-radius: 20px;
+    // background-color: #afb3ba;
+    -webkit-box-shadow: 3px 3px 10px 0px rgba(39, 55, 34, 0.87);
+    -moz-box-shadow: 3px 3px 10px 0px rgba(39, 55, 34, 0.87);
+    box-shadow: 3px 3px 10px 0px rgba(39, 55, 34, 0.87);
+    @include md {
+      flex-direction: column-reverse;
+
+      height: 500px;
+      width: 90%;
+    }
+  }
+
+  .info-container {
+    flex: 1;
+    margin: 30px;
+    margin-right: 10px;
+    h2 {
+      font-size: 2rem;
+    }
+    .info {
+      margin-top: 10px;
+      h3 {
+        width: 30%;
+        border-bottom: 1px solid #343434;
+        margin-bottom: 10px;
+      }
+      ul {
+        list-style: none;
+
+        li {
+          .info_link {
+            text-decoration: none;
+            color: #000;
+            font-weight: 700;
+            line-height: 1.5rem;
+          }
+          span {
+            margin-left: 10px;
+          }
+        }
+      }
+    }
+  }
+  img {
+    object-fit: cover;
+    overflow: hidden;
+    flex: 2;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+
+    @include md {
+      width: 100%;
+      border-top-left-radius: 5px;
+      border-bottom-right-radius: 0;
     }
   }
 }

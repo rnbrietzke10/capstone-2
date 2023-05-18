@@ -1,0 +1,18 @@
+.UserProfile_container {
+  height: calc(100vh - 100px);
+  display: flex;
+  margin: 20px;
+  .profile_left {
+    width: 60%;
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    header {
+      width: 100%;
+      background-color: aqua;
+      height: 400px;
+    }
+    .user_post {
+    }
+  }
+}
