@@ -28,6 +28,9 @@ const UpdateUserForm = () => {
         firstName: itemData.firstName,
         lastName: itemData.lastName,
         email: itemData.email,
+        username: itemData.username,
+        profileImg: itemData.profileImg,
+        coverImg: itemData.coverImg,
       };
 
       const user = await Api.updateUser(updatedInfo, itemData.username, token);
@@ -39,24 +42,24 @@ const UpdateUserForm = () => {
   };
 
   return (
-    <div className='wrapper outer-container '>
+    <div className='container'>
       <div className='form-container'>
         <h2>Update Profile</h2>
         <form onSubmit={handleSubmit}>
           <div className='form-input-container'>
-            <label htmlFor='username'>Username:</label>
+            {/* <label htmlFor='username'>Username:</label> */}
             <input
-              disabled
               id='username'
               type='text'
               name='username'
               value={itemData.username}
               placeholder='Enter your username'
               className='form-input'
+              onChange={handleChange}
             />
           </div>
           <div className='form-input-container'>
-            <label htmlFor='firstName'>First Name:</label>
+            {/* <label htmlFor='firstName'>First Name:</label> */}
             <input
               id='firstName'
               type='text'
@@ -68,7 +71,7 @@ const UpdateUserForm = () => {
             />
           </div>
           <div className='form-input-container'>
-            <label htmlFor='lastName'>Last Name:</label>
+            {/* <label htmlFor='lastName'>Last Name:</label> */}
             <input
               id='lastName'
               type='text'
@@ -80,7 +83,7 @@ const UpdateUserForm = () => {
             />
           </div>{' '}
           <div className='form-input-container'>
-            <label htmlFor='email'>Email:</label>
+            {/* <label htmlFor='email'>Email:</label> */}
             <input
               id='email'
               type='email'
@@ -91,7 +94,31 @@ const UpdateUserForm = () => {
               onChange={handleChange}
             />
           </div>
-          <button className='btn submit-btn'>Save Changes</button>
+          <div className='form-input-container'>
+            {/* <label htmlFor='profileImg'>Profile Picture:</label> */}
+            <input
+              id='profileImg'
+              type='profileImg'
+              name='profileImg'
+              value={itemData.profileImg}
+              placeholder='Enter Your Profile Picture link'
+              className='form-input'
+              onChange={handleChange}
+            />
+          </div>
+          <div className='form-input-container'>
+            {/* <label htmlFor='coverImg'>Cover Photos:</label> */}
+            <input
+              id='coverImg'
+              type='coverImg'
+              name='coverImg'
+              value={itemData.coverImg}
+              placeholder='Enter Your Cover Photo'
+              className='form-input'
+              onChange={handleChange}
+            />
+          </div>
+          <button className='btn btn-dark'>Save Changes</button>
         </form>
       </div>
     </div>

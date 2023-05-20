@@ -15,4 +15,4 @@ DROP DATABASE texas_anglers_app_test;
 CREATE DATABASE texas_anglers_app_test;
 \connect texas_anglers_app_test
 
-\i texas_anglers_app-schema.sql
+\i texas-anglers-app-schema.sql

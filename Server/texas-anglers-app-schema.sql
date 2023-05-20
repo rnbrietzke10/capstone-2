@@ -7,6 +7,7 @@ CREATE TABLE users (
   email TEXT NOT NULL
     CHECK (position('@' IN email) > 1),
   profile_img TEXT,
+  cover_img TEXT,
   created_at TIMESTAMP
 );
 
