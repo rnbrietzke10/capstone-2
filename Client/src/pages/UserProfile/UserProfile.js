@@ -1,5 +1,5 @@
 import RightMenu from '../../components/RightMenu/RightMenu';
-import UserPost from '../../components/UserPost/UserPost';
+import Posts from '../../components/Posts/Posts';
 import './UserProfile.scss';
 
 const UserProfile = () => {
@@ -8,7 +8,7 @@ const UserProfile = () => {
       <div className="profile_left">
         <header>UserProfile header background image</header>
         <div className="user_post">
-          <UserPost />
+          <Posts />
         </div>
       </div>
       <RightMenu />
