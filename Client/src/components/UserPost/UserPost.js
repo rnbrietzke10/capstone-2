@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import Comments from '../Dropdown/Comments/Comments';
+import Comments from '../Comments/Comments';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faHeart,
@@ -15,28 +15,28 @@ const UserPost = ({ info }) => {
   let liked = false;
   const { author, content, postTime, img, profilePic, username } = info;
   return (
-    <div className="UserPost">
-      <div className="UserPost_container">
-        <div className="user">
-          <div className="userInfo">
-            <img src={profilePic} alt="" />
-            <div className="details">
+    <div className='UserPost'>
+      <div className='UserPost_container'>
+        <div className='user'>
+          <div className='userInfo'>
+            <img src={profilePic} alt='' />
+            <div className='details'>
               <Link
                 to={`/profile/${username}`}
                 style={{ textDecoration: 'none', color: 'inherit' }}
               >
-                <span className="name">{author}</span>
+                <span className='name'>{author}</span>
               </Link>
-              <span className="date">Posted {postTime.toDateString()}</span>
+              <span className='date'>Posted {postTime.toDateString()}</span>
             </div>
           </div>
         </div>
-        <div className="content">
+        <div className='content'>
           <p>{content}</p>
-          <img src={img} alt="" />
+          <img src={img} alt='' />
         </div>
-        <div className="info">
-          <div className="item">
+        <div className='info'>
+          <div className='item'>
             {liked ? (
               <FontAwesomeIcon icon={faHeart} />
             ) : (
@@ -44,11 +44,11 @@ const UserPost = ({ info }) => {
             )}
             12 Likes
           </div>
-          <div className="item" onClick={() => setCommentOpen(!commentOpen)}>
+          <div className='item' onClick={() => setCommentOpen(!commentOpen)}>
             <FontAwesomeIcon icon={faCommentDots} />
             12 Comments
           </div>
-          <div className="item">
+          <div className='item'>
             <FontAwesomeIcon icon={faShareFromSquare} />
             Share
           </div>
