@@ -12,7 +12,7 @@ CREATE TABLE users (
 
 CREATE TABLE friendships (
   user_one int NOT NULL,
-  user_two int NOT NULL, 
+  user_two int NOT NULL,
   date_requested TIMESTAMP NOT NULL,
   date_accepted TIMESTAMP,
   date_terminated TIMESTAMP
@@ -31,6 +31,12 @@ CREATE TABLE comments (
   post_id int, --post replied to
   author int NOT NULL, -- References User id that made comment
   content TEXT NOT NULL,
+  created_at TIMESTAMP
+);
+
+CREATE TABLE likes (
+  like_id int PRIMARY KEY,
+  post_id int NOT NULL, --post or comment liked
   created_at TIMESTAMP
 );
 -- CREATE TABLE lakes (
@@ -55,14 +61,14 @@ CREATE TABLE comments (
 
 -- CREATE TABLE fish (
 --   name VARCHAR(50) PRIMARY KEY,
---   image TEXT, 
+--   image TEXT,
 --   description TEXT
 -- );
 
 
 -- CREATE TABLE fish_location (
 --   id int PRIMARY KEY,
---   fish_name VARCHAR(50), 
+--   fish_name VARCHAR(50),
 --   location_handle VARCHAR(25)
 -- );
 
