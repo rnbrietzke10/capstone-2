@@ -42,7 +42,7 @@ const NavBar = () => {
     setClickUserProfile(!clickUserProfile);
   };
 
-  const handleClick = (e) => {
+  const handleClick = e => {
     if (e.target.tagName !== 'A' && e.target.tagName !== 'SPAN') {
       setClickLakes(false);
       setClickRivers(false);
@@ -58,37 +58,32 @@ const NavBar = () => {
   };
 
   return (
-    <div className="navbar">
+    <div className='navbar'>
       <div>
-        <Link to="/">
-          <div className="logo" onClick={handleCloseMenus}></div>
+        <Link to='/'>
+          <div className='logo' onClick={handleCloseMenus}></div>
         </Link>
       </div>
-      <div className="menu-icon" onClick={handleClick}>
+      <div className='menu-icon' onClick={handleClick}>
         <FontAwesomeIcon
           icon={click ? faXmark : faBars}
-          size="xl"
+          size='xl'
           style={{ color: '#ffffff' }}
-          className=""
+          className=''
         />
       </div>
       <div
         className={click ? 'route_links active' : 'route_links inactive'}
         onClick={handleClick}
       >
-        <div className="nav_link_container dropdown" onClick={handleClickLakes}>
-          <span className="nav_link">Lakes</span>
-          <FontAwesomeIcon
-            icon={faAngleDown}
-            size="lg"
-            style={iconStyles}
-            className="fa_angle_down"
-          />
+        <div className='nav_link_container dropdown' onClick={handleClickLakes}>
+          <span className='nav_link'>Lakes</span>
+
           {clickLakes ? (
             <Dropdown
               items={Object.keys(lakes)}
               locationsInfo={lakes}
-              type="lakes"
+              type='lakes'
               handleCloseMenus={handleCloseMenus}
             />
           ) : (
@@ -97,20 +92,15 @@ const NavBar = () => {
         </div>
         <div
           onClick={handleClickRivers}
-          className="nav_link_container dropdown"
+          className='nav_link_container dropdown'
         >
-          <span className="nav_link">Rivers</span>
-          <FontAwesomeIcon
-            icon={faAngleDown}
-            size="lg"
-            style={iconStyles}
-            className="fa_angle_down"
-          />
+          <span className='nav_link'>Rivers</span>
+
           {clickRivers ? (
             <Dropdown
               items={Object.keys(rivers)}
               locationsInfo={rivers}
-              type="rivers"
+              type='rivers'
               handleCloseMenus={handleCloseMenus}
             />
           ) : (
@@ -119,35 +109,32 @@ const NavBar = () => {
         </div>
         {!user ? (
           <>
-            <div className="nav_link_container">
+            <div className='nav_link_container'>
               <Link
-                to="/register"
-                className="nav_link"
+                to='/register'
+                className='nav_link'
                 onClick={handleCloseMenus}
               >
                 Register
               </Link>
             </div>
-            <div className="nav_link_container">
-              <Link to="/login" className="nav_link" onClick={handleCloseMenus}>
+            <div className='nav_link_container'>
+              <Link to='/login' className='nav_link' onClick={handleCloseMenus}>
                 Login
               </Link>
             </div>
           </>
         ) : (
-          <div
-            onClick={handleClickUserProfile}
-            className="nav_user_link"
-            // nav_link_container dropdown
-          >
-            <img
-              className="user_info nav_link"
-              src="https://images.pexels.com/photos/516927/pexels-photo-516927.jpeg?auto=compress&cs=tinysrgb&w=1600"
-              alt={user.username}
+          <div onClick={handleClickUserProfile} className='nav_user_link'>
+            <div
+              className='user_info nav_link'
+              style={{
+                backgroundImage: `url(${'https://images.pexels.com/photos/516927/pexels-photo-516927.jpeg?auto=compress&cs=tinysrgb&w=1600'})`,
+              }}
             />
             <span
               onClick={handleClickUserProfile}
-              className="nav_link user_profile_mobile"
+              className='nav_link user_profile_mobile'
             >
               {user.username}
             </span>

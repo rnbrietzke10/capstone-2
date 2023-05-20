@@ -6,31 +6,31 @@ $breakpoints: (
 );
 
 @mixin sm {
-  @media screen and (max-width: map-get($breakpoints, 'sm')) {
+  @media screen and (min-width: map-get($breakpoints, 'sm')) {
     @content;
   }
 }
 
 @mixin md {
-  @media screen and (max-width: map-get($breakpoints, 'md')) {
+  @media screen and (min-width: map-get($breakpoints, 'md')) {
     @content;
   }
 }
 
 @mixin lg {
-  @media screen and (max-width: map-get($breakpoints, 'lg')) {
+  @media screen and (min-width: map-get($breakpoints, 'lg')) {
     @content;
   }
 }
 
 @mixin xl {
-  @media (max-width: map-get($breakpoints, 'xl')) {
+  @media (min-width: map-get($breakpoints, 'xl')) {
     @content;
   }
 }
 
-// @mixin breakpoint($bp: 0) {
-//   @media (min-width: $bp) {
-//     @content;
-//   }
-// }
+@mixin breakpoint($bp: 0) {
+  @media (min-width: $bp) {
+    @content;
+  }
+}

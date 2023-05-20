@@ -5,16 +5,18 @@ import Login from '../pages/Login/Login';
 import Register from '../pages/Register/Register';
 import Location from '../pages/Location/Location';
 import UserProfile from '../pages/UserProfile/UserProfile';
+import UpdateUserForm from '../components/UpdateUserForm/UpdateUserForm';
 
 const AppRoutes = () => {
   return (
     <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-      <Route path="/lakes/:lake" element={<Location />} />
-      <Route path="/rivers/:river" element={<Location />} />
-      <Route path="/users/:username" element={<UserProfile />} />
+      <Route path='/' element={<HomePage />} />
+      <Route path='/login' element={<Login />} />
+      <Route path='/register' element={<Register />} />
+      <Route path='/lakes/:lake' element={<Location />} />
+      <Route path='/rivers/:river' element={<Location />} />
+      <Route path='/users/:username' element={<UserProfile />} />
+      <Route path='/users/:username/update' element={<UpdateUserForm />} />
     </Routes>
   );
 };
