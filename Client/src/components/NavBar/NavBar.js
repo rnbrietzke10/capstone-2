@@ -5,11 +5,7 @@ import { lakes } from '../../Data/lakes';
 import { rivers } from '../../Data/rivers';
 import './NavBar.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faXmark,
-  faBars,
-  faAngleDown,
-} from '@fortawesome/free-solid-svg-icons';
+import { faXmark, faBars } from '@fortawesome/free-solid-svg-icons';
 import UserProfileDropdown from '../UserProfileDropdown/UserProfileDropdown';
 
 const NavBar = () => {
@@ -19,11 +15,6 @@ const NavBar = () => {
   const [clickUserProfile, setClickUserProfile] = useState(false);
   const [click, setClick] = useState(false);
 
-  const iconStyles = {
-    color: '#ffffff',
-    marginLeft: '10px',
-    cursor: 'pointer',
-  };
   const handleClickLakes = () => {
     setClickRivers(false);
     setClickUserProfile(false);
@@ -126,12 +117,14 @@ const NavBar = () => {
           </>
         ) : (
           <div onClick={handleClickUserProfile} className='nav_user_link'>
-            <div
-              className='user_info nav_link'
-              style={{
-                backgroundImage: `url(${'https://images.pexels.com/photos/516927/pexels-photo-516927.jpeg?auto=compress&cs=tinysrgb&w=1600'})`,
-              }}
-            />
+            <Link to={`/users/${user.username}`}>
+              <div
+                className='user_info nav_link'
+                style={{
+                  backgroundImage: `url(${user.profileImg})`,
+                }}
+              />
+            </Link>
             <span
               onClick={handleClickUserProfile}
               className='nav_link user_profile_mobile'

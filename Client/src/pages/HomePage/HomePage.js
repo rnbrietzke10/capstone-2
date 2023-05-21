@@ -1,21 +1,26 @@
-import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import GuadalupeRiver1 from '../../assets/GuadalupeRiver.jpeg';
 import Posts from '../../components/Posts/Posts';
 
 import './HomePage.scss';
+import { useContext, useEffect } from 'react';
+import { UserContext } from '../../contexts/UserContext';
 
 const HomePage = () => {
   // Temp ---- need to create user context
-  const user = JSON.parse(localStorage.getItem('user'));
+  const { currentUser, setCurrentUser } = useContext(UserContext);
+  console.log('current user homepage', currentUser);
+  useEffect(() => {
+    setCurrentUser(JSON.parse(localStorage.getItem('user')));
+  }, []);
 
   return (
     <div className='home'>
       <header>
         <div className='info-container'>
           <h2>
-            {user
-              ? `Welcome back, ${user.firstName}!`
+            {currentUser
+              ? `Welcome back, ${currentUser.firstName}!`
               : 'Welcome to the best place to share your love for fishing!'}
           </h2>
           <div className='info'>
@@ -45,7 +50,7 @@ const HomePage = () => {
 
         <img src={GuadalupeRiver1} alt='Guadlupe River by Chandalyn Brietzke' />
       </header>
-      {user ? <Posts /> : ''}
+      {currentUser ? <Posts /> : ''}
     </div>
   );
 };

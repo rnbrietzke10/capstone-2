@@ -1,11 +1,13 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { UserContext } from '../../contexts/UserContext';
 import Api from '../../ApiHelper';
 
 import '../../Card.scss';
 import './Register.scss';
 
 const Register = () => {
+  const { setCurrentUser } = useContext(UserContext);
   const navigate = useNavigate();
   const INITIAL_STATE = {
     firstName: '',
@@ -17,12 +19,12 @@ const Register = () => {
 
   const [itemData, setItemData] = useState(INITIAL_STATE);
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     const { name, value } = e.target;
-    setItemData((data) => ({ ...data, [name]: value }));
+    setItemData(data => ({ ...data, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
     console.log(itemData);
     const allDataEntered =
@@ -39,6 +41,7 @@ const Register = () => {
 
         localStorage.setItem('token', JSON.stringify(tokenValue));
         localStorage.setItem('user', JSON.stringify(user));
+        setCurrentUser(user);
         navigate('/');
       }
       registerUser();
@@ -48,78 +51,78 @@ const Register = () => {
   };
 
   return (
-    <div className="container">
-      <div className="card register">
-        <div className="col left">
+    <div className='container'>
+      <div className='card register'>
+        <div className='col left'>
           <h2>Register</h2>
           <form onSubmit={handleSubmit}>
-            <div className="form-input-container">
+            <div className='form-input-container'>
               {/* <label htmlFor="username" style={{ color: '#000' }}>
                 Username:
               </label> */}
               <input
-                id="username"
-                type="text"
-                name="username"
+                id='username'
+                type='text'
+                name='username'
                 value={itemData.itemName}
-                placeholder="Username"
+                placeholder='Username'
                 onChange={handleChange}
               />
             </div>
-            <div className="form-input-container">
+            <div className='form-input-container'>
               <input
-                id="firstName"
-                type="text"
-                placeholder="First Name"
-                name="firstName"
+                id='firstName'
+                type='text'
+                placeholder='First Name'
+                name='firstName'
                 value={itemData.itemName}
                 onChange={handleChange}
               />
             </div>
-            <div className="form-input-container">
+            <div className='form-input-container'>
               <input
-                id="lastName"
-                type="text"
-                placeholder="Last Name"
-                name="lastName"
+                id='lastName'
+                type='text'
+                placeholder='Last Name'
+                name='lastName'
                 value={itemData.itemName}
                 onChange={handleChange}
               />
             </div>
-            <div className="form-input-container">
+            <div className='form-input-container'>
               <input
-                id="email"
-                type="email"
-                placeholder="Email"
-                name="email"
+                id='email'
+                type='email'
+                placeholder='Email'
+                name='email'
                 value={itemData.itemName}
                 onChange={handleChange}
               />
             </div>
-            <div className="form-input-container">
+            <div className='form-input-container'>
               <input
-                id="password"
-                type="password"
-                placeholder="Password"
-                name="password"
+                id='password'
+                type='password'
+                placeholder='Password'
+                name='password'
                 value={itemData.itemName}
                 onChange={handleChange}
               />
             </div>
-            <button type="submit" className="btn btn-dark">
+            <button type='submit' className='btn btn-dark'>
               Register
             </button>
           </form>
         </div>
-        <div className="col right bg-img">
+        <div className='col right bg-img'>
           <h1>Welcome to TX Anglers!</h1>
           <p>
             A place to find fishing locations near you and share your fishing
             experiences.
           </p>
           <span>Already have an account?</span>
-          <Link to="/login">
-            <button className="btn btn-light">Login</button>
+          <Link to='/login'>
+            <button className='btn btn-light'>Login</button>
           </Link>
         </div>
       </div>
