@@ -21,24 +21,25 @@ CREATE TABLE friendships (
 
 CREATE TABLE posts (
   post_id SERIAL PRIMARY KEY,
-  author VARCHAR(25) NOT NULL, -- References User id that made post
+  post_author VARCHAR(25) REFERENCES users(username), -- References User id that made post
   content TEXT NOT NULL,
-  page_posted_on TEXT NOT NULL,
+  img TEXT,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
 
 CREATE TABLE comments (
   comment_id SERIAL PRIMARY KEY,
-  post_id int, --post replied to
-  author VARCHAR(25) NOT NULL, -- References User id that made comment
+  comment_post_id int REFERENCES posts(post_id), --post replied to
+  comment_author VARCHAR(25) REFERENCES users(username), -- References User id that made comment
   content TEXT NOT NULL,
+  img TEXT,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
 
 CREATE TABLE likes (
   like_id int PRIMARY KEY,
-  username VARCHAR(25) NOT NULL, -- user who liked the comment
-  post_id int NOT NULL, --post or comment liked
+  like_username VARCHAR(25) REFERENCES users(username), -- user who liked the comment
+  like_post_id int REFERENCES posts(post_id), --post or comment liked
   created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
 -- CREATE TABLE lakes (

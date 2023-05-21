@@ -14,20 +14,20 @@ const {
 class Post {
   /** create new post
    *
-   * Returns { post_id, author, content, page_posted  }
+   * Returns { post_id, author, content  }
    *
    **/
 
-  static async createPost(content, username, pagePostedOn) {
+  static async createPost(content, username, img) {
     const result = await db.query(
       `INSERT INTO posts
-           (author,
+           (post_author,
             content,
-            page_posted_on
+            img
             )
-           VALUES ($1, $2, $3)
-           RETURNING post_id AS "postID", content, author AS "username"`,
-      [username, content, pagePostedOn]
+           VALUES ($1, $2, $3, $4)
+           RETURNING post_id AS "postId", content, post_author AS "username"`,
+      [username, content, img]
     );
     return result;
   }
@@ -37,15 +37,14 @@ class Post {
    * Returns [{ username, content, post_id}, ...]
    **/
 
-  static async findAll(pagePostedOn) {
+  static async findAll() {
     const result = await db.query(
-      `SELECT author AS "username",
+      `SELECT post_author AS "username",
                   content,
-                  post_id AS "postId"
-           FROM posts
-           WHERE page_posted_on = $1
-           ORDER BY username`,
-      [pagePostedOn]
+                  post_id AS "postId",
+                  img,
+                  created_at AS "postTime"
+           FROM posts`
     );
 
     return result.rows;

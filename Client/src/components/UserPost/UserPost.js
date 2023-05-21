@@ -12,8 +12,10 @@ import './UserPost.scss';
 
 const UserPost = ({ info }) => {
   const [commentOpen, setCommentOpen] = useState(false);
+  let profilePic =
+    'https://images.pexels.com/photos/1838599/pexels-photo-1838599.jpeg?auto=compress&cs=tinysrgb&w=1600';
   let liked = false;
-  const { author, content, postTime, img, profilePic, username } = info;
+  const { username, content, postTime, img } = info;
 
   return (
     <div className='UserPost'>
@@ -26,9 +28,9 @@ const UserPost = ({ info }) => {
                 to={`/profile/${username}`}
                 style={{ textDecoration: 'none', color: 'inherit' }}
               >
-                <span className='name'>{author}</span>
+                <span className='name'>{username}</span>
               </Link>
-              <span className='date'>Posted {postTime.toDateString()}</span>
+              <span className='date'>Posted {postTime}</span>
             </div>
           </div>
         </div>

@@ -1,9 +1,12 @@
 import { useState } from 'react';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faImage } from '@fortawesome/free-solid-svg-icons';
 import Api from '../../ApiHelper';
 import './PostForm.scss';
 const PostForm = () => {
-  let INITIAL_STATE = { content: '' };
+  const [addUploadImg, setAddUploadImg] = useState(false);
+  let INITIAL_STATE = { content: '', img: '' };
   const user = JSON.parse(localStorage.getItem('user'));
 
   const [itemData, setItemData] = useState(INITIAL_STATE);
@@ -11,12 +14,8 @@ const PostForm = () => {
     const { name, value } = e.target;
     setItemData(data => ({ ...data, [name]: value }));
   };
-  let pagePostedOn;
-  if (window.location.pathname === '/') {
-    pagePostedOn = 'homepage';
-  } else {
-    pagePostedOn = window.location.pathname;
-  }
+
+  const handleClick = () => setAddUploadImg(!addUploadImg);
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -26,10 +25,10 @@ const PostForm = () => {
       const updatedInfo = {
         content: itemData.content,
         username: user.username,
-        pagePostedOn: pagePostedOn,
       };
 
       await Api.createPost(updatedInfo, token);
+      setItemData(INITIAL_STATE);
     }
     addPost();
   };
@@ -50,9 +49,31 @@ const PostForm = () => {
           placeholder={`What's on your mind?`}
           onChange={handleChange}
         />
-        <button disabled={!itemData.content} className='btn btn-dark'>
-          Add Comment
-        </button>
+        <div className='form-input-row'>
+          {addUploadImg ? (
+            <input
+              id='img'
+              type='text'
+              name='img'
+              value={itemData.img}
+              placeholder={`Add image URL`}
+              onChange={handleChange}
+            />
+          ) : (
+            ''
+          )}
+          <div className='form-input-col'>
+            <FontAwesomeIcon
+              size='xl'
+              className='img-icon'
+              onClick={handleClick}
+              icon={faImage}
+            />
+            <button disabled={!itemData.content} className='btn btn-dark'>
+              Add Comment
+            </button>
+          </div>
+        </div>
       </form>
     </div>
   );

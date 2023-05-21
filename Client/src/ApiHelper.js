@@ -65,6 +65,12 @@ class Api {
     console.log(res);
     return res;
   }
+
+  // Get posts
+  static async getPosts() {
+    let res = await this.request(`posts`);
+    return res.posts;
+  }
 }
 
 // for now, put token ("testuser" / "password" on class)

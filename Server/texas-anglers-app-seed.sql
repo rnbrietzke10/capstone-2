@@ -1,22 +1,34 @@
 -- both test users have the password "password"
 
-INSERT INTO users (username, password, first_name, last_name, email)
+INSERT INTO users (username, password, first_name, last_name, email, profile_img, cover_img)
 VALUES ('testuser',
         '$2b$12$AZH7virni5jlTTiGgEg4zu3lSvAw68qVEfSIOjJ3RqtbJbdW/Oi5q',
         'Test',
         'User',
-        'joel@joelburton.com'),
+        'joel@joelburton.com',
+        'https://images.pexels.com/photos/1089243/pexels-photo-1089243.jpeg?auto=compress&cs=tinysrgb&w=1600',
+        'https://images.pexels.com/photos/210271/pexels-photo-210271.jpeg?auto=compress&cs=tinysrgb&w=1600'),
        ('testuser2',
         '$2b$12$AZH7virni5jlTTiGgEg4zu3lSvAw68qVEfSIOjJ3RqtbJbdW/Oi5q',
         'Test',
         'User2!',
-        'joel@joelburton.com');
+        'joel@joelburton.com',
+        'https://images.pexels.com/photos/1089243/pexels-photo-1089243.jpeg?auto=compress&cs=tinysrgb&w=1600',
+        'https://images.pexels.com/photos/210271/pexels-photo-210271.jpeg?auto=compress&cs=tinysrgb&w=1600');
 
+
+INSERT INTO posts (post_author, content, img)
+VALUES ('testuser',
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Dolor purus non enim praesent elementum facilisis leo vel fringilla.',
+        'https://images.pexels.com/photos/192454/pexels-photo-192454.jpeg?auto=compress&cs=tinysrgb&w=1600'),
+       ('testuser2',
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Dolor purus non enim praesent elementum facilisis leo vel fringilla.',
+        'https://images.pexels.com/photos/210271/pexels-photo-210271.jpeg?auto=compress&cs=tinysrgb&w=1600');
 -- INSERT INTO lakes (handle,
 --                        name,
 --                        description,
 --                        lake_acreage,
---                        depth, 
+--                        depth,
 --                        angling_oppurtunities,
 --                        tips,
 --                        map_url)

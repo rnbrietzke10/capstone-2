@@ -20,13 +20,18 @@ const router = express.Router();
 
 router.post('/new', ensureLoggedIn, async function (req, res, next) {
   try {
-    const { content, username, pagePostedOn } = req.body;
-    const post = await Post.createPost(content, username, pagePostedOn);
+    const { content, username } = req.body;
+    const post = await Post.createPost(content, username);
 
     return res.json({ post });
   } catch (err) {
     return next(err);
   }
+});
+
+router.get('/', async function (req, res, next) {
+  const posts = await Post.findAll();
+  return res.json({ posts });
 });
 
 module.exports = router;
