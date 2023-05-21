@@ -14,6 +14,7 @@ const UserPost = ({ info }) => {
   const [commentOpen, setCommentOpen] = useState(false);
   let liked = false;
   const { author, content, postTime, img, profilePic, username } = info;
+
   return (
     <div className='UserPost'>
       <div className='UserPost_container'>

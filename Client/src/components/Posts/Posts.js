@@ -1,3 +1,4 @@
+import PostForm from '../PostForm/PostForm';
 import UserPost from '../UserPost/UserPost';
 
 import './Posts.scss';
@@ -22,8 +23,9 @@ const Posts = () => {
     },
   ];
   return (
-    <div className="Posts">
-      {temp.map((info) => (
+    <div className='Posts'>
+      <PostForm />
+      {temp.map(info => (
         <UserPost info={info} key={info.postId} />
       ))}
     </div>

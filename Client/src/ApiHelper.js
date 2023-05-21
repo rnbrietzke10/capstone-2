@@ -56,6 +56,15 @@ class Api {
     console.log('UpdateUser res: ', res);
     return res.user;
   }
+
+  // Create post
+  //User data should contain post and user token
+  static async createPost(userData, token) {
+    this.token = token;
+    let res = await this.request(`posts/new`, userData, 'post');
+    console.log(res);
+    return res;
+  }
 }
 
 // for now, put token ("testuser" / "password" on class)

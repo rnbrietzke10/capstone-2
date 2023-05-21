@@ -12,33 +12,34 @@ CREATE TABLE users (
 );
 
 CREATE TABLE friendships (
-  user_one int NOT NULL,
-  user_two int NOT NULL,
+  user_one VARCHAR(25) NOT NULL,
+  user_two VARCHAR(25) NOT NULL,
   date_requested TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL,
   date_accepted TIMESTAMP,
   date_terminated TIMESTAMP
 );
 
 CREATE TABLE posts (
-  post_id int PRIMARY KEY,
-  author int NOT NULL, -- References User id that made post
+  post_id SERIAL PRIMARY KEY,
+  author VARCHAR(25) NOT NULL, -- References User id that made post
   content TEXT NOT NULL,
   page_posted_on TEXT NOT NULL,
-  created_at TIMESTAMP
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
 
 CREATE TABLE comments (
-  comment_id int PRIMARY KEY,
+  comment_id SERIAL PRIMARY KEY,
   post_id int, --post replied to
-  author int NOT NULL, -- References User id that made comment
+  author VARCHAR(25) NOT NULL, -- References User id that made comment
   content TEXT NOT NULL,
-  created_at TIMESTAMP
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
 
 CREATE TABLE likes (
   like_id int PRIMARY KEY,
+  username VARCHAR(25) NOT NULL, -- user who liked the comment
   post_id int NOT NULL, --post or comment liked
-  created_at TIMESTAMP
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
 -- CREATE TABLE lakes (
 --   handle VARCHAR(25) PRIMARY KEY CHECK (handle = lower(handle)),
