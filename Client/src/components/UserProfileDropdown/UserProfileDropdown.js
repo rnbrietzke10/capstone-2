@@ -1,10 +1,19 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useContext, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import './UserProfileDropdown.scss';
+import { UserContext } from '../../contexts/UserContext';
 
 const UserProfileDropdown = ({ info, handleCloseMenus }) => {
-  const [click, setClick] = useState(false);
+  const navigate = useNavigate();
+  const { setCurrentUser } = useContext(UserContext);
+  const logoutHandler = async () => {
+    await localStorage.removeItem('user');
+    await localStorage.removeItem('token');
+    setCurrentUser(null);
+    navigate('/');
+  };
 
+  const [click, setClick] = useState(false);
   const handleClick = () => setClick(!click);
   return (
     <ul
@@ -28,9 +37,9 @@ const UserProfileDropdown = ({ info, handleCloseMenus }) => {
         </Link>
       </li>
       <li>
-        <Link to='/logout' onClick={handleCloseMenus} className='dropdown-link'>
+        <div onClick={logoutHandler} className='dropdown-link'>
           Log out
-        </Link>
+        </div>
       </li>
     </ul>
   );

@@ -8,13 +8,13 @@ CREATE TABLE users (
     CHECK (position('@' IN email) > 1),
   profile_img TEXT,
   cover_img TEXT,
-  created_at TIMESTAMP
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE friendships (
   user_one int NOT NULL,
   user_two int NOT NULL,
-  date_requested TIMESTAMP NOT NULL,
+  date_requested TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL,
   date_accepted TIMESTAMP,
   date_terminated TIMESTAMP
 );

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import Dropdown from '../Dropdown/Dropdown';
 import { lakes } from '../../Data/lakes';
@@ -7,9 +7,10 @@ import './NavBar.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark, faBars } from '@fortawesome/free-solid-svg-icons';
 import UserProfileDropdown from '../UserProfileDropdown/UserProfileDropdown';
+import { UserContext } from '../../contexts/UserContext';
 
 const NavBar = () => {
-  const user = JSON.parse(localStorage.getItem('user'));
+  const { currentUser } = useContext(UserContext);
   const [clickLakes, setClickLakes] = useState(false);
   const [clickRivers, setClickRivers] = useState(false);
   const [clickUserProfile, setClickUserProfile] = useState(false);
@@ -98,7 +99,8 @@ const NavBar = () => {
             ''
           )}
         </div>
-        {!user ? (
+        {console.log(currentUser)}
+        {!currentUser ? (
           <>
             <div className='nav_link_container'>
               <Link
@@ -117,11 +119,11 @@ const NavBar = () => {
           </>
         ) : (
           <div onClick={handleClickUserProfile} className='nav_user_link'>
-            <Link to={`/users/${user.username}`}>
+            <Link to={`/users/${currentUser.username}`}>
               <div
                 className='user_info nav_link'
                 style={{
-                  backgroundImage: `url(${user.profileImg})`,
+                  backgroundImage: `url(${currentUser.profileImg})`,
                 }}
               />
             </Link>
@@ -129,13 +131,13 @@ const NavBar = () => {
               onClick={handleClickUserProfile}
               className='nav_link user_profile_mobile'
             >
-              {user.username}
+              {currentUser.username}
             </span>
           </div>
         )}
         {clickUserProfile ? (
           <UserProfileDropdown
-            info={{ ...user, path: `/users/${user.username}` }}
+            info={{ ...currentUser, path: `/users/${currentUser.username}` }}
             handleCloseMenus={handleCloseMenus}
           />
         ) : (

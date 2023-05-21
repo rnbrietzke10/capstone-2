@@ -25,7 +25,7 @@ const Login = () => {
     if (allDataEntered) {
       async function login(loginInfo) {
         await Api.loginUser(loginInfo);
-        const user = await localStorage.getItem('user');
+        const user = await JSON.parse(localStorage.getItem('user'));
         setCurrentUser(user);
       }
 
