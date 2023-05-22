@@ -49,6 +49,26 @@ class Post {
 
     return result.rows;
   }
+
+  /** create new comment on post
+   *
+   * Returns { comment_id, author, content, post_id }
+   *
+   **/
+
+  static async createComment(content, username, postId) {
+    const result = await db.query(
+      `INSERT INTO posts
+           (comment_author,
+            content,
+            comment_post_id
+            )
+           VALUES ($1, $2, $3, $4)
+           RETURNING comment_id AS "commentId", content, comment_author AS "username", comment_post_id AS "postId"`,
+      [username, content, postId]
+    );
+    return result;
+  }
 }
 
 module.exports = Post;

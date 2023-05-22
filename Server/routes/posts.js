@@ -34,4 +34,26 @@ router.get('/', async function (req, res, next) {
   return res.json({ posts });
 });
 
+/** POST /posts/postId/comment/news
+ *
+ * Returns comment content, author, postId
+ *
+ * Authorization required: loggedIn
+ */
+
+router.post(
+  '/:postId/comment/new',
+  ensureLoggedIn,
+  async function (req, res, next) {
+    try {
+      const { content, username, postId } = req.body;
+      const comment = await Post.createComment(content, username, postId);
+
+      return res.json({ comment });
+    } catch (err) {
+      return next(err);
+    }
+  }
+);
+
 module.exports = router;
