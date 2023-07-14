@@ -1,6 +1,7 @@
 
 CREATE TABLE users (
-  username VARCHAR(25) PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
+  username VARCHAR(25) UNIQUE,
   password TEXT NOT NULL,
   first_name TEXT NOT NULL,
   last_name TEXT NOT NULL,
@@ -12,35 +13,45 @@ CREATE TABLE users (
 );
 
 CREATE TABLE friendships (
-  user_one VARCHAR(25) NOT NULL,
-  user_two VARCHAR(25) NOT NULL,
-  date_requested TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  id SERIAL PRIMARY KEY,
+  user_one VARCHAR(25) NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  user_two VARCHAR(25) NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  date_requested TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
   date_accepted TIMESTAMP,
-  date_terminated TIMESTAMP
+  date_terminated TIMESTAMP,
+  UNIQUE(user_one, user_two)
 );
 
 CREATE TABLE posts (
-  post_id SERIAL PRIMARY KEY,
-  post_author VARCHAR(25) REFERENCES users(username), -- References User id that made post
+  id SERIAL PRIMARY KEY,
+  user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE, -- References User id that made post
   content TEXT NOT NULL,
   img TEXT,
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE comments (
-  comment_id SERIAL PRIMARY KEY,
-  comment_post_id int REFERENCES posts(post_id), --post replied to
-  comment_author VARCHAR(25) REFERENCES users(username), -- References User id that made comment
+  id SERIAL PRIMARY KEY,
+  post_id INTEGER REFERENCES posts(id), --post replied to
+  user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE, -- References User id that made comment
   content TEXT NOT NULL,
-  img TEXT,
+  img VARCHAR(300),
   created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
 
 CREATE TABLE likes (
-  like_id int PRIMARY KEY,
-  like_username VARCHAR(25) REFERENCES users(username), -- user who liked the comment
-  like_post_id int REFERENCES posts(post_id), --post or comment liked
+  id INTEGER PRIMARY KEY,
+ user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE, -- user who liked the comment
+  post_id INTEGER REFERENCES users(id) ON DELETE CASCADE, --post or comment liked
   created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL
+  comment_id INTEGER REFERENCES comments(id) ON DELETE CASCADE,
+	CHECK(
+		COALESCE((post_id)::BOOLEAN::INTEGER, 0)
+		+
+		COALESCE((comment_id)::BOOLEAN::INTEGER, 0)
+		= 1
+	),
+	UNIQUE(user_id, post_id, comment_id)
 );
 -- CREATE TABLE lakes (
 --   handle VARCHAR(25) PRIMARY KEY CHECK (handle = lower(handle)),
