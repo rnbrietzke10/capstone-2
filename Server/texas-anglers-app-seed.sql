@@ -18,10 +18,10 @@ VALUES ('testuser',
 
 
 INSERT INTO posts (user_id, content, img)
-VALUES ('testuser',
+VALUES (1,
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Dolor purus non enim praesent elementum facilisis leo vel fringilla.',
         'https://images.pexels.com/photos/192454/pexels-photo-192454.jpeg?auto=compress&cs=tinysrgb&w=1600'),
-       ('testuser2',
+       (2,
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Dolor purus non enim praesent elementum facilisis leo vel fringilla.',
         'https://images.pexels.com/photos/210271/pexels-photo-210271.jpeg?auto=compress&cs=tinysrgb&w=1600');
 -- INSERT INTO lakes (handle,

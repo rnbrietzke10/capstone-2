@@ -18,16 +18,16 @@ class Post {
    *
    **/
 
-  static async createPost(content, username, img) {
+  static async createPost(content, userId, img) {
     const result = await db.query(
       `INSERT INTO posts
-           (post_author,
+           (user_id,
             content,
             img
             )
-           VALUES ($1, $2, $3, $4)
-           RETURNING post_id AS "postId", content, post_author AS "username"`,
-      [username, content, img]
+           VALUES ($1, $2, $3)
+           RETURNING id, content, user_id AS "userId"`,
+      [userId, content, img]
     );
     return result;
   }
@@ -39,12 +39,13 @@ class Post {
 
   static async findAll() {
     const result = await db.query(
-      `SELECT post_author AS "username",
+      `SELECT username,
                   content,
-                  post_id AS "postId",
+                  posts.id,
                   img,
-                  created_at AS "postTime"
-           FROM posts`
+                  posts.created_at AS "postTime"
+           FROM posts
+           JOIN users ON users.id = posts.user_id`
     );
 
     return result.rows;
@@ -56,19 +57,19 @@ class Post {
    *
    **/
 
-  static async createComment(content, username, postId) {
-    const result = await db.query(
-      `INSERT INTO posts
-           (comment_author,
-            content,
-            comment_post_id
-            )
-           VALUES ($1, $2, $3, $4)
-           RETURNING comment_id AS "commentId", content, comment_author AS "username", comment_post_id AS "postId"`,
-      [username, content, postId]
-    );
-    return result;
-  }
+  // static async createComment(content, username, postId) {
+  //   const result = await db.query(
+  //     `INSERT INTO posts
+  //          (comment_author,
+  //           content,
+  //           comment_post_id
+  //           )
+  //          VALUES ($1, $2, $3, $4)
+  //          RETURNING comment_id AS "commentId", content, comment_author AS "username", comment_post_id AS "postId"`,
+  //     [username, content, postId]
+  //   );
+  //   return result;
+  // }
 }
 
 module.exports = Post;

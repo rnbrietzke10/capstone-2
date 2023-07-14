@@ -1,22 +1,15 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import Comments from '../Comments/Comments';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faHeart,
-  faCommentDots,
-  faShareFromSquare,
-} from '@fortawesome/free-solid-svg-icons';
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
 
-import './UserPost.scss';
+import './UserComment.scss';
 
-const UserPost = ({ info }) => {
-  const [commentOpen, setCommentOpen] = useState(false);
+const UserComment = ({ info }) => {
   let profilePic =
     'https://images.pexels.com/photos/1838599/pexels-photo-1838599.jpeg?auto=compress&cs=tinysrgb&w=1600';
   let liked = false;
   const { username, content, postTime, img } = info;
-
   return (
     <div className='UserPost'>
       <div className='UserPost_container'>
@@ -30,7 +23,7 @@ const UserPost = ({ info }) => {
               >
                 <span className='name'>{username}</span>
               </Link>
-              <span className='date'>Posted {postTime}</span>
+              <span className='date'>Posted: {postTime}</span>
             </div>
           </div>
         </div>
@@ -47,19 +40,10 @@ const UserPost = ({ info }) => {
             )}
             12 Likes
           </div>
-          <div className='item' onClick={() => setCommentOpen(!commentOpen)}>
-            <FontAwesomeIcon icon={faCommentDots} />
-            12 Comments
-          </div>
-          <div className='item'>
-            <FontAwesomeIcon icon={faShareFromSquare} />
-            Share
-          </div>
         </div>
-        {commentOpen && <Comments />}
       </div>
     </div>
   );
 };
 
-export default UserPost;
+export default UserComment;

@@ -7,7 +7,6 @@ import { useContext, useEffect } from 'react';
 import { UserContext } from '../../contexts/UserContext';
 
 const HomePage = () => {
-  // Temp ---- need to create user context
   const { currentUser, setCurrentUser } = useContext(UserContext);
   console.log('current user homepage', currentUser);
   useEffect(() => {

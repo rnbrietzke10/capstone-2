@@ -97,9 +97,9 @@ class User {
       `SELECT username,
                   first_name AS "firstName",
                   last_name AS "lastName",
-                  email
-           FROM users
-           ORDER BY username`
+                  email,
+                  profile_img AS "profileImg"
+           FROM users`
     );
 
     return result.rows;
@@ -113,10 +113,14 @@ class User {
 
   static async get(username) {
     const userRes = await db.query(
-      `SELECT username,
+      `SELECT
+                  id,
+                  username,
                   first_name AS "firstName",
                   last_name AS "lastName",
-                  email
+                  email,
+                  profile_img AS "profileImg",
+                  cover_img AS "coverImg"
            FROM users
            WHERE username = $1`,
       [username]

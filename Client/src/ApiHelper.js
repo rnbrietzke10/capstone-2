@@ -69,7 +69,17 @@ class Api {
   // Get posts
   static async getPosts() {
     let res = await this.request(`posts`);
+    console.log('getPosts', res);
     return res.posts;
+  }
+
+  // Create comment
+  //User data should contain comment and user token
+  static async createComment(userData, token) {
+    this.token = token;
+    let res = await this.request(`comments/new`, userData, 'post');
+    console.log(res);
+    return res;
   }
 }
 
