@@ -1,28 +1,43 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import Comments from '../Comments/Comments';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faHeart,
   faCommentDots,
-  faShareFromSquare,
+  // Future addition ⬇️
+  // faShareFromSquare,
 } from '@fortawesome/free-solid-svg-icons';
 
+import Comments from '../Comments/Comments';
+import Api from '../../ApiHelper';
 import './UserPost.scss';
 
 const UserPost = ({ info }) => {
   const [commentOpen, setCommentOpen] = useState(false);
-  let profilePic =
-    'https://images.pexels.com/photos/1838599/pexels-photo-1838599.jpeg?auto=compress&cs=tinysrgb&w=1600';
-  let liked = false;
-  const { username, content, postTime, img } = info;
+  const [like, setLike] = useState(false);
+  const { profileImg, id } = JSON.parse(localStorage.getItem('user'));
+  const token = localStorage.getItem('token');
+
+  const data = {
+    userId: id,
+    postId: info.id,
+  };
+
+  const handleLike = async () => {
+    await Api.addLike(data, 'posts', token);
+    setLike(true);
+  };
+  const handleUnlike = async () => {
+    setLike(false);
+  };
+  const { username, content, postTime } = info;
+  console.log(info.id);
 
   return (
     <div className='UserPost'>
       <div className='UserPost_container'>
         <div className='user'>
           <div className='userInfo'>
-            <img src={profilePic} alt='' />
+            <img src={profileImg} alt='' />
             <div className='details'>
               <Link
                 to={`/profile/${username}`}
@@ -35,25 +50,29 @@ const UserPost = ({ info }) => {
           </div>
         </div>
         <div className='content'>
-          <img src={img} alt='' />
+          {info.img ? <img src={info.img} alt='' /> : ''}
           <p>{content}</p>
         </div>
         <div className='info'>
           <div className='item'>
-            {liked ? (
-              <FontAwesomeIcon icon={faHeart} />
+            {like ? (
+              <FontAwesomeIcon
+                icon='fa-solid fa-heart'
+                style={{ color: '#e00000' }}
+                onClick={handleUnlike}
+              />
             ) : (
-              <FontAwesomeIcon icon={faHeart} />
+              <FontAwesomeIcon
+                icon='fa-regular fa-heart'
+                style={{ color: '#e00000' }}
+                onClick={handleLike}
+              />
             )}
             12 Likes
           </div>
           <div className='item' onClick={() => setCommentOpen(!commentOpen)}>
             <FontAwesomeIcon icon={faCommentDots} />
             12 Comments
-          </div>
-          <div className='item'>
-            <FontAwesomeIcon icon={faShareFromSquare} />
-            Share
           </div>
         </div>
         {commentOpen && <Comments />}
@@ -63,3 +82,9 @@ const UserPost = ({ info }) => {
 };
 
 export default UserPost;
+
+/* ⬇️ Future addition ⬇️  Will go next to comments and likes in post*/
+/* <div className='item'>
+            <FontAwesomeIcon icon={faShareFromSquare} />
+            Share
+          </div> */

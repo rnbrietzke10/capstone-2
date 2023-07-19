@@ -22,7 +22,7 @@ const Comments = () => {
   return (
     <div className='Comments'>
       <CommentForm />
-      {Comments.map(info => (
+      {comments.map(info => (
         <UserComment info={info} key={info.commentId} />
       ))}
     </div>

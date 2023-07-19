@@ -11,7 +11,6 @@ const Posts = () => {
   useEffect(() => {
     const getPosts = async () => {
       const data = await Api.getPosts();
-      console.log(data);
       setPosts(data);
     };
 
@@ -21,7 +20,7 @@ const Posts = () => {
     <div className='Posts'>
       <PostForm />
       {posts.map(info => (
-        <UserPost info={info} key={info.postId} />
+        <UserPost info={info} key={info.id} />
       ))}
     </div>
   );

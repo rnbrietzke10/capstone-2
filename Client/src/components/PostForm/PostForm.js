@@ -22,9 +22,12 @@ const PostForm = () => {
 
     async function addPost() {
       const token = await localStorage.getItem('token');
+      const userId = user.id;
+      console.log('type of', typeof userId);
       const updatedInfo = {
         content: itemData.content,
-        username: user.username,
+        userId: user.id,
+        img: itemData.img,
       };
 
       await Api.createPost(updatedInfo, token);

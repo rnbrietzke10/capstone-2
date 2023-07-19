@@ -20,8 +20,8 @@ const router = express.Router();
 
 router.post('/new', ensureLoggedIn, async function (req, res, next) {
   try {
-    const { content, username } = req.body;
-    const post = await Post.createPost(content, username);
+    const { content, userId, img } = req.body;
+    const post = await Post.createPost(content, userId, img);
 
     return res.json({ post });
   } catch (err) {
@@ -55,5 +55,21 @@ router.post(
     }
   }
 );
+
+/** POST /posts/postId/like
+ *
+ * return true if successful adding to db
+ *
+ * Authorization required: loggedIn
+ */
+
+router.post('/:postId/like', ensureLoggedIn, async function (req, res, next) {
+  try {
+    const { userId, postId } = req.body;
+    await Post.likePost(postId, userId);
+  } catch (err) {
+    return next(err);
+  }
+});
 
 module.exports = router;

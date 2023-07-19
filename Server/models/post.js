@@ -70,6 +70,24 @@ class Post {
   //   );
   //   return result;
   // }
+
+  /**
+   * Like a post
+   **/
+
+  static async likePost(userId, postId) {
+    const result = await db.query(
+      `INSERT INTO likes
+           (user_id,
+            post_id
+           )
+           VALUES ($1, $2)
+          `,
+      [userId, postId]
+    );
+
+    return result.rows;
+  }
 }
 
 module.exports = Post;

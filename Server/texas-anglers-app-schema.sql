@@ -40,7 +40,7 @@ CREATE TABLE comments (
 );
 
 CREATE TABLE likes (
-  id INTEGER PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE, -- user who liked the comment
   post_id INTEGER REFERENCES users(id) ON DELETE CASCADE, --post or comment liked
   created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL,

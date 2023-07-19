@@ -66,6 +66,15 @@ class Api {
     return res;
   }
 
+  // Create post
+  //User data should contain post and user token
+  static async deletePost(userData, token) {
+    this.token = token;
+    let res = await this.request(`posts/delete`, userData, 'delete');
+    console.log(res);
+    return res;
+  }
+
   // Get posts
   static async getPosts() {
     let res = await this.request(`posts`);
@@ -80,6 +89,16 @@ class Api {
     let res = await this.request(`comments/new`, userData, 'post');
     console.log(res);
     return res;
+  }
+
+  // Add like
+  // Should contain postId or commentId, user token and the users id
+  // postId/commentId will be id in the arguments
+  // idType will specify wether it is a post or comment
+  static async addLike(data, idType, token) {
+    this.token = token;
+    const { postId } = data;
+    let res = await this.request(`${idType}/${postId}/like`, data, 'post');
   }
 }
 
