@@ -10,6 +10,7 @@ import {
 import Comments from '../Comments/Comments';
 import Api from '../../ApiHelper';
 import './UserPost.scss';
+import ModalMenuButton from '../ModalMenuButton/ModalMenuButton';
 
 const UserPost = ({ info }) => {
   const [commentOpen, setCommentOpen] = useState(false);
@@ -48,6 +49,7 @@ const UserPost = ({ info }) => {
               <span className='date'>Posted {postTime}</span>
             </div>
           </div>
+          <ModalMenuButton className='modal-menu-btn' />
         </div>
         <div className='content'>
           {info.img ? <img src={info.img} alt='' /> : ''}

@@ -22,13 +22,30 @@ class Post {
     const result = await db.query(
       `INSERT INTO posts
            (user_id,
-            content,
-            img
+            content
             )
-           VALUES ($1, $2, $3)
-           RETURNING id, content, user_id AS "userId"`,
-      [userId, content, img]
+           VALUES ($1, $2)
+           RETURNING id`,
+      [userId, content]
     );
+    const postId = result.rows[0].id;
+    console.log(postId);
+    console.log(img);
+    if (img) {
+      console.log('IN IMAGE IF STATEMENT');
+      const addImageQuery = await db.query(`UPDATE posts
+                        SET img = '${img}'
+                        WHERE id = ${postId}
+                        RETURNING id AS "postId",
+                                  content,
+                                  user_id AS "userId",
+                                  img`);
+      // console.log('With Image:', addImageQuery);
+
+      console.log(addImageQuery);
+      return addImageQuery;
+    }
+    console.log(result.rows[0].id);
     return result;
   }
 
@@ -45,10 +62,42 @@ class Post {
                   img,
                   posts.created_at AS "postTime"
            FROM posts
-           JOIN users ON users.id = posts.user_id`
+           JOIN users ON users.id = posts.user_id
+           ORDER BY posts.id DESC`
     );
 
     return result.rows;
+  }
+
+  /** Update post
+   *  This is a "partial update" --- it's fine if data doesn't contain all the fields; this only changes provided ones.
+   *
+   * Data can include:
+   *   { content, img, userId, postId}
+   *
+   * Returns { content, img if an image, postId, username}
+   **/
+
+  static async update(data, postId) {
+    const { setCols, values } = sqlForPartialUpdate(data, {
+      content: 'content',
+      img: 'img',
+    });
+    const postIdVarIdx = '$' + (values.length + 1);
+
+    const querySql = `UPDATE posts
+                      SET ${setCols}
+                      WHERE post_id = ${postIdVarIdx}
+                      RETURNING post_id,
+                                content,
+                                user_id,
+                                img`;
+
+    const results = await db.query(querySql, [...values, postId]);
+    const post = results.rows[0];
+    if (!post) throw new NotFoundError(`No post with id ${postId}`);
+
+    return post;
   }
 
   /** create new comment on post

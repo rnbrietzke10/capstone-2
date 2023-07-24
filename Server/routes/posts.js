@@ -13,7 +13,7 @@ const router = express.Router();
 
 /** POST /posts/new
  *
- * Returns post content, author, postId
+ * Returns {post content, username, postId}
  *
  * Authorization required: none
  */
@@ -55,6 +55,25 @@ router.post(
     }
   }
 );
+
+/** PATCH /[postId]
+ *
+ * Data can include:
+ *   { content, img, userId, postId}
+ *
+ * Returns { content, img, postId, username}
+ *
+ * Authorization required: same-user-as-userId on post
+ **/
+
+router.patch(':postId', ensureCorrectUser, async function (req, res, next) {
+  try {
+    const post = await Post.update(req.params.postId, req.body);
+    return res.json({ post });
+  } catch (err) {
+    return next(err);
+  }
+});
 
 /** POST /posts/postId/like
  *
