@@ -23,7 +23,9 @@ const Comments = ({ postId }) => {
     <div className='Comments'>
       <CommentForm />
       {comments
-        ? comments.map(info => <UserComment info={info} key={info.commentId} />)
+        ? comments.map(info => (
+            <UserComment postId={postId} info={info} key={info.commentId} />
+          ))
         : ''}
     </div>
   );

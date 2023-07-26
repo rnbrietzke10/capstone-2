@@ -1,12 +1,17 @@
 import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import Likes from '../Likes/Likes';
 
 import './UserComment.scss';
 
-const UserComment = ({ info }) => {
-  let liked = false;
+const UserComment = ({ info, postId }) => {
   const { username, content, commentTime } = info;
+  const user = JSON.parse(localStorage.getItem('user'));
+  const data = {
+    userId: user.id,
+    commentId: info.id,
+    type: 'comments',
+    postId: postId,
+  };
   return (
     <div className='UserComment_container'>
       <div className='user'>
@@ -27,14 +32,7 @@ const UserComment = ({ info }) => {
         <p>{content}</p>
       </div>
       <div className='info'>
-        <div className='item'>
-          {liked ? (
-            <FontAwesomeIcon icon={faHeart} />
-          ) : (
-            <FontAwesomeIcon icon={faHeart} />
-          )}
-          12 Likes
-        </div>
+        <Likes data={data} />
       </div>
     </div>
   );

@@ -81,31 +81,75 @@ router.get('/:postId/comments', async function (req, res, next) {
  * Authorization required: loggedIn
  */
 
-router.post('/:postId/like', ensureLoggedIn, async function (req, res, next) {
+router.post('/:id/like', ensureLoggedIn, async function (req, res, next) {
   try {
-    const { userId, postId } = req.body;
-    await Post.likePost(userId, postId);
+    const { userId } = req.body;
+    const { id } = req.params;
+    await Post.addLike(userId, id, 'post');
   } catch (err) {
     return next(err);
   }
 });
 
+/** POST /posts/postId/comments/id/like
+ *
+ *
+ *
+ * Authorization required: loggedIn
+ */
+
+router.post(
+  '/:postId/comments/:commentId/like',
+  ensureLoggedIn,
+  async function (req, res, next) {
+    try {
+      const { userId } = req.body;
+      const { commentId } = req.params;
+      await Post.addLike(userId, commentId, 'comment');
+    } catch (err) {
+      return next(err);
+    }
+  }
+);
+
 /**
- * Get likes
+ * Get Post likes
  *
  */
 
-router.get('/:postId/like', ensureLoggedIn, async function (req, res, next) {
+router.get('/:id/likes', ensureLoggedIn, async function (req, res, next) {
   try {
-    const { postId } = req.params;
+    const { id } = req.params;
 
-    const result = await Post.getLikes(postId);
-    console.log(result.rows);
+    const result = await Post.getLikes(id, 'post');
+
     const likes = result.rows;
     return res.json({ likes });
   } catch (err) {
     return next(err);
   }
 });
+
+/** GET /posts/postId/comments/id/likes
+ *
+ *
+ *
+ * Authorization required: loggedIn
+ */
+
+router.get(
+  '/:postId/comments/:commentId/likes',
+  ensureLoggedIn,
+  async function (req, res, next) {
+    try {
+      const { commentId } = req.params;
+      const results = await Post.getLikes(commentId, 'comment');
+      const likes = results.rows;
+      return res.json({ likes });
+    } catch (err) {
+      return next(err);
+    }
+  }
+);
 
 module.exports = router;

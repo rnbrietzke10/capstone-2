@@ -6,44 +6,22 @@ import {
   // Future addition ⬇️
   // faShareFromSquare,
 } from '@fortawesome/free-solid-svg-icons';
-
+import Likes from '../Likes/Likes';
 import Comments from '../Comments/Comments';
-import Api from '../../ApiHelper';
 import './UserPost.scss';
 import ModalMenuButton from '../ModalMenuButton/ModalMenuButton';
 
 const UserPost = ({ info }) => {
   const [commentOpen, setCommentOpen] = useState(false);
-  const [like, setLike] = useState(false);
-  const [likes, setLikes] = useState([]);
+
   const user = JSON.parse(localStorage.getItem('user'));
-  const token = localStorage.getItem('token');
-  useEffect(() => {
-    const getPostLikes = async () => {
-      const resultsData = await Api.getLikes(info.id, 'posts', token);
-      console.log(
-        'In getPostLikes in UserPost component AFTER API CALL',
-        resultsData
-      );
-      setLikes(resultsData);
-      if (resultsData.includes(user.id)) setLike(true);
-      console.log('likes', likes);
-    };
-    getPostLikes();
-  }, []);
 
   const data = {
     userId: user.id,
     postId: info.id,
+    type: 'posts',
   };
 
-  const handleLike = async () => {
-    await Api.addLike(data, 'posts', token);
-    setLike(true);
-  };
-  const handleUnlike = async () => {
-    setLike(false);
-  };
   const { username, content, postTime } = info;
 
   return (
@@ -69,22 +47,7 @@ const UserPost = ({ info }) => {
           <p>{content}</p>
         </div>
         <div className='info'>
-          <div className='item'>
-            {like ? (
-              <FontAwesomeIcon
-                icon='fa-solid fa-heart'
-                style={{ color: '#e00000' }}
-                onClick={handleUnlike}
-              />
-            ) : (
-              <FontAwesomeIcon
-                icon='fa-regular fa-heart'
-                style={{ color: '#e00000' }}
-                onClick={handleLike}
-              />
-            )}
-            {`${likes.length} Likes`}
-          </div>
+          <Likes data={data} />
           <div className='item' onClick={() => setCommentOpen(!commentOpen)}>
             <FontAwesomeIcon icon={faCommentDots} />
             12 Comments

@@ -29,10 +29,8 @@ class Post {
       [userId, content]
     );
     const postId = result.rows[0].id;
-    console.log(postId);
-    console.log(img);
+
     if (img) {
-      console.log('IN IMAGE IF STATEMENT');
       const addImageQuery = await db.query(`UPDATE posts
                         SET img = '${img}'
                         WHERE id = ${postId}
@@ -40,12 +38,10 @@ class Post {
                                   content,
                                   user_id AS "userId",
                                   img`);
-      // console.log('With Image:', addImageQuery);
 
-      console.log(addImageQuery);
       return addImageQuery;
     }
-    console.log(result.rows[0].id);
+
     return result;
   }
 
@@ -138,7 +134,6 @@ class Post {
              ORDER BY comments.id DESC`,
       [postId]
     );
-    // console.log('getComments Query: ', result);
 
     return result.rows;
   }
@@ -147,15 +142,15 @@ class Post {
    * Like a post
    **/
 
-  static async likePost(userId, postId) {
+  static async addLike(userId, id, idType) {
     const result = await db.query(
       `INSERT INTO likes
            (user_id,
-            post_id
+            ${idType}_id
            )
            VALUES ($1, $2)
           `,
-      [userId, postId]
+      [userId, id]
     );
 
     return result.rows;
@@ -165,15 +160,13 @@ class Post {
    * Get likes
    */
 
-  static async getLikes(postId) {
-    // console.log('POSTID', postId);
+  static async getLikes(id, idType) {
     const result = await db.query(
       `SELECT user_id AS "userId"
        FROM likes
-       WHERE post_id = $1`,
-      [postId]
+       WHERE ${idType}_id = $1`,
+      [id]
     );
-    // console.log('results: ', result);
 
     return result;
   }
