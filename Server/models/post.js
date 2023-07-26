@@ -113,7 +113,7 @@ class Post {
            RETURNING id AS "commentId", content, user_id AS "userId", post_id AS "postId"`,
       [userId, content, postId]
     );
-    return result;
+    return result.rows;
   }
 
   /** Get all comments on a post.

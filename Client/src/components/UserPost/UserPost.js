@@ -8,13 +8,25 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import Likes from '../Likes/Likes';
 import Comments from '../Comments/Comments';
-import './UserPost.scss';
 import ModalMenuButton from '../ModalMenuButton/ModalMenuButton';
+import Api from '../../ApiHelper';
+import './UserPost.scss';
 
 const UserPost = ({ info }) => {
   const [commentOpen, setCommentOpen] = useState(false);
 
   const user = JSON.parse(localStorage.getItem('user'));
+  const [comments, setComments] = useState([]);
+
+  useEffect(() => {
+    const getAllComments = async () => {
+      const data = await Api.getComments(info.id);
+
+      setComments(data);
+    };
+
+    getAllComments();
+  }, []);
 
   const data = {
     userId: user.id,
@@ -50,10 +62,12 @@ const UserPost = ({ info }) => {
           <Likes data={data} />
           <div className='item' onClick={() => setCommentOpen(!commentOpen)}>
             <FontAwesomeIcon icon={faCommentDots} />
-            12 Comments
+            {comments.length !== 1
+              ? `${comments.length} Comments`
+              : `${comments.length} Comment`}
           </div>
         </div>
-        {commentOpen && <Comments postId={info.id} />}
+        {commentOpen && <Comments comments={comments} postId={info.id} />}
       </div>
     </div>
   );

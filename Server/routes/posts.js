@@ -58,6 +58,29 @@ router.patch(':postId', ensureCorrectUser, async function (req, res, next) {
   }
 });
 
+/** POST /posts/:id/comments/new
+ *
+ * Returns {post content, username, postId}
+ *
+ * Authorization required: none
+ */
+
+router.post(
+  '/:id/comments/new',
+  ensureLoggedIn,
+  async function (req, res, next) {
+    try {
+      const { id } = req.params;
+      const { content, userId } = req.body;
+      const comment = await Post.createComment(content, userId, id);
+
+      return res.json({ comment });
+    } catch (err) {
+      return next(err);
+    }
+  }
+);
+
 /** GET /posts/postId/comments
  *
  * Returns comment content, author, postId

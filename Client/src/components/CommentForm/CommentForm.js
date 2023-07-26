@@ -3,7 +3,7 @@ import { useState } from 'react';
 import Api from '../../ApiHelper';
 import './CommentForm.scss';
 
-const CommentForm = () => {
+const CommentForm = ({ postId }) => {
   let INITIAL_STATE = { content: '' };
   const user = JSON.parse(localStorage.getItem('user'));
 
@@ -20,10 +20,11 @@ const CommentForm = () => {
       const token = await localStorage.getItem('token');
       const updatedInfo = {
         content: itemData.content,
-        username: user.username,
+        userId: user.id,
       };
+      console.log(postId);
 
-      await Api.createComment(updatedInfo, token);
+      await Api.createComment(updatedInfo, postId, token);
       setItemData(INITIAL_STATE);
     }
     addComment();

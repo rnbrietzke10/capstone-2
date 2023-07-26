@@ -83,11 +83,16 @@ class Api {
 
   // Create comment
   //User data should contain comment and user token
-  static async createComment(userData, token) {
+  static async createComment(userData, postId, token) {
     this.token = token;
-    let res = await this.request(`comments/new`, userData, 'post');
+    let res = await this.request(
+      `posts/${postId}/comments/new`,
+      userData,
+      'post'
+    );
+    console.log(res.comment);
 
-    return res;
+    return res.comment;
   }
 
   // Get Comments
