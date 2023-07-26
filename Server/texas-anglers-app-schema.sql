@@ -42,7 +42,7 @@ CREATE TABLE comments (
 CREATE TABLE likes (
   id SERIAL PRIMARY KEY,
   user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE, -- user who liked the comment
-  post_id INTEGER REFERENCES users(id) ON DELETE CASCADE, --post or comment liked
+  post_id INTEGER REFERENCES posts(id) ON DELETE CASCADE, --post or comment liked
   created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL,
   comment_id INTEGER REFERENCES comments(id) ON DELETE CASCADE,
 	CHECK(
@@ -51,7 +51,9 @@ CREATE TABLE likes (
 		COALESCE((comment_id)::BOOLEAN::INTEGER, 0)
 		= 1
 	),
-	UNIQUE(user_id, post_id, comment_id)
+	UNIQUE(user_id, post_id),
+
+	UNIQUE(user_id, comment_id)
 );
 -- CREATE TABLE lakes (
 --   handle VARCHAR(25) PRIMARY KEY CHECK (handle = lower(handle)),

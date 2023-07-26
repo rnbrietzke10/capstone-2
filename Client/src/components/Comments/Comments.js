@@ -6,25 +6,25 @@ import Api from '../../ApiHelper';
 import './Comments.scss';
 import UserComment from '../UserComment/UserComment';
 
-const Comments = () => {
+const Comments = ({ postId }) => {
   const [comments, setComments] = useState([]);
 
   useEffect(() => {
-    const getComments = async () => {
-      const data = await Api.getComments();
-      console.log(data);
+    const getAllComments = async () => {
+      const data = await Api.getComments(postId);
+
       setComments(data);
     };
 
-    getComments();
+    getAllComments();
   }, []);
 
   return (
     <div className='Comments'>
       <CommentForm />
-      {comments.map(info => (
-        <UserComment info={info} key={info.commentId} />
-      ))}
+      {comments
+        ? comments.map(info => <UserComment info={info} key={info.commentId} />)
+        : ''}
     </div>
   );
 };

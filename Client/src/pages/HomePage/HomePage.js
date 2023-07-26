@@ -8,7 +8,6 @@ import { UserContext } from '../../contexts/UserContext';
 
 const HomePage = () => {
   const { currentUser, setCurrentUser } = useContext(UserContext);
-  console.log('current user homepage', currentUser);
   useEffect(() => {
     setCurrentUser(JSON.parse(localStorage.getItem('user')));
   }, []);

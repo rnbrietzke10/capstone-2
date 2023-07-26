@@ -106,19 +106,42 @@ class Post {
    *
    **/
 
-  // static async createComment(content, username, postId) {
-  //   const result = await db.query(
-  //     `INSERT INTO posts
-  //          (comment_author,
-  //           content,
-  //           comment_post_id
-  //           )
-  //          VALUES ($1, $2, $3, $4)
-  //          RETURNING comment_id AS "commentId", content, comment_author AS "username", comment_post_id AS "postId"`,
-  //     [username, content, postId]
-  //   );
-  //   return result;
-  // }
+  static async createComment(content, userId, postId) {
+    const result = await db.query(
+      `INSERT INTO comments
+           (user_id,
+            content,
+            post_id
+            )
+           VALUES ($1, $2, $3)
+           RETURNING id AS "commentId", content, user_id AS "userId", post_id AS "postId"`,
+      [userId, content, postId]
+    );
+    return result;
+  }
+
+  /** Get all comments on a post.
+   *
+   * Returns [{ username, content, post_id}, ...]
+   **/
+
+  static async getComments(postId) {
+    const result = await db.query(
+      `SELECT username,
+             content,
+             comments.id,
+             comments.created_at AS "commentTime",
+             profile_img AS "profileImg"
+             FROM comments
+             JOIN users ON users.id = comments.user_id
+             WHERE post_id = $1
+             ORDER BY comments.id DESC`,
+      [postId]
+    );
+    // console.log('getComments Query: ', result);
+
+    return result.rows;
+  }
 
   /**
    * Like a post
@@ -136,6 +159,23 @@ class Post {
     );
 
     return result.rows;
+  }
+
+  /**
+   * Get likes
+   */
+
+  static async getLikes(postId) {
+    // console.log('POSTID', postId);
+    const result = await db.query(
+      `SELECT user_id AS "userId"
+       FROM likes
+       WHERE post_id = $1`,
+      [postId]
+    );
+    // console.log('results: ', result);
+
+    return result;
   }
 }
 

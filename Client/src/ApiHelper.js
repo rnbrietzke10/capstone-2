@@ -78,7 +78,6 @@ class Api {
   // Get posts
   static async getPosts() {
     let res = await this.request(`posts`);
-    console.log('getPosts', res);
     return res.posts;
   }
 
@@ -91,6 +90,13 @@ class Api {
     return res;
   }
 
+  // Get Comments
+  static async getComments(postId, token) {
+    this.token = token;
+    let res = await this.request(`posts/${postId}/comments`);
+    return res.comments;
+  }
+
   // Add like
   // Should contain postId or commentId, user token and the users id
   // postId/commentId will be id in the arguments
@@ -99,6 +105,16 @@ class Api {
     this.token = token;
     const { postId } = data;
     let res = await this.request(`${idType}/${postId}/like`, data, 'post');
+  }
+
+  static async getLikes(postId, idType, token) {
+    this.token = token;
+    let res = await this.request(`${idType}/${postId}/like`);
+    console.log('res in getLikes: ', res);
+
+    const likesUserIds = res.likes.map(like => like.userId);
+    console.log('likeUserIds: ', likesUserIds);
+    return likesUserIds;
   }
 }
 

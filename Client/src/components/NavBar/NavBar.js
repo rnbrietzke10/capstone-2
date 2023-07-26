@@ -99,7 +99,7 @@ const NavBar = () => {
             ''
           )}
         </div>
-        {console.log(currentUser)}
+
         {!currentUser ? (
           <>
             <div className='nav_link_container'>

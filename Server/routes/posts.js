@@ -29,32 +29,15 @@ router.post('/new', ensureLoggedIn, async function (req, res, next) {
   }
 });
 
+/**
+ * Get all posts
+ *
+ */
+
 router.get('/', async function (req, res, next) {
   const posts = await Post.findAll();
   return res.json({ posts });
 });
-
-/** POST /posts/postId/comment/news
- *
- * Returns comment content, author, postId
- *
- * Authorization required: loggedIn
- */
-
-router.post(
-  '/:postId/comment/new',
-  ensureLoggedIn,
-  async function (req, res, next) {
-    try {
-      const { content, username, postId } = req.body;
-      const comment = await Post.createComment(content, username, postId);
-
-      return res.json({ comment });
-    } catch (err) {
-      return next(err);
-    }
-  }
-);
 
 /** PATCH /[postId]
  *
@@ -75,6 +58,22 @@ router.patch(':postId', ensureCorrectUser, async function (req, res, next) {
   }
 });
 
+/** GET /posts/postId/comments
+ *
+ * Returns comment content, author, postId
+ *
+ *
+ */
+
+router.get('/:postId/comments', async function (req, res, next) {
+  try {
+    const comments = await Post.getComments(req.params.postId);
+    return res.json({ comments });
+  } catch (err) {
+    return next(err);
+  }
+});
+
 /** POST /posts/postId/like
  *
  * return true if successful adding to db
@@ -85,7 +84,25 @@ router.patch(':postId', ensureCorrectUser, async function (req, res, next) {
 router.post('/:postId/like', ensureLoggedIn, async function (req, res, next) {
   try {
     const { userId, postId } = req.body;
-    await Post.likePost(postId, userId);
+    await Post.likePost(userId, postId);
+  } catch (err) {
+    return next(err);
+  }
+});
+
+/**
+ * Get likes
+ *
+ */
+
+router.get('/:postId/like', ensureLoggedIn, async function (req, res, next) {
+  try {
+    const { postId } = req.params;
+
+    const result = await Post.getLikes(postId);
+    console.log(result.rows);
+    const likes = result.rows;
+    return res.json({ likes });
   } catch (err) {
     return next(err);
   }

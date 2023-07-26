@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -15,11 +15,25 @@ import ModalMenuButton from '../ModalMenuButton/ModalMenuButton';
 const UserPost = ({ info }) => {
   const [commentOpen, setCommentOpen] = useState(false);
   const [like, setLike] = useState(false);
-  const { profileImg, id } = JSON.parse(localStorage.getItem('user'));
+  const [likes, setLikes] = useState([]);
+  const user = JSON.parse(localStorage.getItem('user'));
   const token = localStorage.getItem('token');
+  useEffect(() => {
+    const getPostLikes = async () => {
+      const resultsData = await Api.getLikes(info.id, 'posts', token);
+      console.log(
+        'In getPostLikes in UserPost component AFTER API CALL',
+        resultsData
+      );
+      setLikes(resultsData);
+      if (resultsData.includes(user.id)) setLike(true);
+      console.log('likes', likes);
+    };
+    getPostLikes();
+  }, []);
 
   const data = {
-    userId: id,
+    userId: user.id,
     postId: info.id,
   };
 
@@ -31,14 +45,13 @@ const UserPost = ({ info }) => {
     setLike(false);
   };
   const { username, content, postTime } = info;
-  console.log(info.id);
 
   return (
     <div className='UserPost'>
       <div className='UserPost_container'>
         <div className='user'>
           <div className='userInfo'>
-            <img src={profileImg} alt='' />
+            <img src={user.profileImg} alt='' />
             <div className='details'>
               <Link
                 to={`/profile/${username}`}
@@ -70,14 +83,14 @@ const UserPost = ({ info }) => {
                 onClick={handleLike}
               />
             )}
-            12 Likes
+            {`${likes.length} Likes`}
           </div>
           <div className='item' onClick={() => setCommentOpen(!commentOpen)}>
             <FontAwesomeIcon icon={faCommentDots} />
             12 Comments
           </div>
         </div>
-        {commentOpen && <Comments />}
+        {commentOpen && <Comments postId={info.id} />}
       </div>
     </div>
   );
