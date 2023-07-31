@@ -8,6 +8,9 @@ const Likes = ({ data }) => {
   const [likes, setLikes] = useState([]);
 
   const token = localStorage.getItem('token');
+  const user = JSON.parse(localStorage.getItem('user'));
+  const { username } = user;
+  data['username'] = username;
 
   const getLikesData = async () => {
     const resultsData = await Api.getLikes(data, token);
@@ -25,19 +28,20 @@ const Likes = ({ data }) => {
     if (updatedLikes.includes(data.userId)) setLike(true);
   };
   const handleUnlike = async () => {
+    await Api.unlike(data, token);
     setLike(false);
   };
   return (
-    <div className='item'>
+    <div className="item">
       {like ? (
         <FontAwesomeIcon
-          icon='fa-solid fa-heart'
+          icon="fa-solid fa-heart"
           style={{ color: '#e00000' }}
           onClick={handleUnlike}
         />
       ) : (
         <FontAwesomeIcon
-          icon='fa-regular fa-heart'
+          icon="fa-regular fa-heart"
           style={{ color: '#e00000' }}
           onClick={handleLike}
         />

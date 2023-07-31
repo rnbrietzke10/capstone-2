@@ -153,6 +153,44 @@ router.get('/:id/likes', ensureLoggedIn, async function (req, res, next) {
   }
 });
 
+/** DELETE posts/[postId]/like =>  { deleted: id }
+ * Unlikes on post
+ * Authorization required: same-user-as-: userId
+ **/
+
+router.delete(
+  '/:postId/like',
+  ensureCorrectUser,
+  async function (req, res, next) {
+    try {
+      const { postId } = req.params;
+      await Post.unlike(postId, 'post');
+      return res.json({ deleted: req.params.id });
+    } catch (err) {
+      return next(err);
+    }
+  }
+);
+
+/** DELETE posts/[postId]/comments/[commentId]/likes =>  { deleted: id }
+ * Unlikes on comment
+ * Authorization required: same-user-as-: userId
+ **/
+
+router.delete(
+  '/:postId/comments/:commentId/like',
+  ensureCorrectUser,
+  async function (req, res, next) {
+    try {
+      const { id } = req.params;
+      await Post.unlike(id);
+      return res.json({ deleted: req.params.id });
+    } catch (err) {
+      return next(err);
+    }
+  }
+);
+
 /** GET /posts/postId/comments/id/likes
  *
  *

@@ -157,6 +157,23 @@ class Post {
   }
 
   /**
+   * unlike a post
+   **/
+
+  static async unlike(id, idType) {
+    const result = await db.query(
+      `DELETE
+           FROM likes
+           WHERE ${idType}_id = $1
+           RETURNING id`,
+      [id]
+    );
+    if (!result.rows[0]) throw new NotFoundError(`Like not found.`);
+
+    return result.rows;
+  }
+
+  /**
    * Get likes
    */
 

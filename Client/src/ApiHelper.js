@@ -118,6 +118,7 @@ class Api {
     await this.request(path, data, 'post');
   }
 
+  // Get all likes for page
   static async getLikes(data, token) {
     this.token = token;
     const { type, postId } = data;
@@ -130,9 +131,22 @@ class Api {
     }
     const res = await this.request(path);
 
-    const likesUserIds = res.likes.map(like => like.userId);
+    const likesUserIds = res.likes.map((like) => like.userId);
 
     return likesUserIds;
+  }
+
+  // Unlike post
+  static async unlike(data, token) {
+    this.token = token;
+    const { type, postId } = data;
+    let path;
+    if (type === 'comments') {
+      path = `posts/${postId}/${type}/${data.commentId}/like`;
+    } else {
+      path = `${type}/${postId}/like`;
+    }
+    await this.request(path, data, 'delete');
   }
 }
 
