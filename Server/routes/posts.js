@@ -182,8 +182,8 @@ router.delete(
   ensureCorrectUser,
   async function (req, res, next) {
     try {
-      const { id } = req.params;
-      await Post.unlike(id);
+      const { commentId } = req.params;
+      await Post.unlike(commentId, 'comment');
       return res.json({ deleted: req.params.id });
     } catch (err) {
       return next(err);
