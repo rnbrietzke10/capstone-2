@@ -57,6 +57,14 @@ class Api {
     return res.user;
   }
 
+  // Update User
+  static async getAllUsers(token) {
+    this.token = token;
+    let res = await this.request(`users`);
+    console.log(res);
+    return res.users;
+  }
+
   // Create post
   //User data should contain post and user token
   static async createPost(userData, token) {
@@ -131,7 +139,7 @@ class Api {
     }
     const res = await this.request(path);
 
-    const likesUserIds = res.likes.map((like) => like.userId);
+    const likesUserIds = res.likes.map(like => like.userId);
 
     return likesUserIds;
   }

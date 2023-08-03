@@ -3,15 +3,19 @@ import Posts from '../../components/Posts/Posts';
 import './UserProfile.scss';
 
 const UserProfile = () => {
+  const user = JSON.parse(localStorage.getItem('user'));
   return (
     <div className='UserProfile_container'>
-      <div className='profile_left'>
-        <header>UserProfile header background image</header>
-        <div className='user_post'>
+      <header>
+        <img className='cover-img' src={user.coverImg} alt='' />
+      </header>
+
+      <div className='profile'>
+        <div className='profile_left'>
           <Posts />
         </div>
+        <RightMenu />
       </div>
-      <RightMenu />
     </div>
   );
 };

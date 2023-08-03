@@ -97,7 +97,6 @@ class User {
       `SELECT username,
                   first_name AS "firstName",
                   last_name AS "lastName",
-                  email,
                   profile_img AS "profileImg"
            FROM users`
     );
