@@ -80,13 +80,19 @@ VALUES ('jburton1',
         'https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mzh8fHBlb3BsZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60');
 
 
-INSERT INTO posts (user_id, content, img)
+INSERT INTO posts (user_id, content, img, post_location)
 VALUES (1,
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Dolor purus non enim praesent elementum facilisis leo vel fringilla.',
-        'https://images.pexels.com/photos/192454/pexels-photo-192454.jpeg?auto=compress&cs=tinysrgb&w=1600'),
+        'https://images.pexels.com/photos/192454/pexels-photo-192454.jpeg?auto=compress&cs=tinysrgb&w=1600', NULL),
        (2,
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Dolor purus non enim praesent elementum facilisis leo vel fringilla.',
-        'https://images.pexels.com/photos/210271/pexels-photo-210271.jpeg?auto=compress&cs=tinysrgb&w=1600');
+        'https://images.pexels.com/photos/210271/pexels-photo-210271.jpeg?auto=compress&cs=tinysrgb&w=1600', 'profile'),
+         (1,
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Dolor purus non enim praesent elementum facilisis leo vel fringilla.',
+        'https://images.pexels.com/photos/192454/pexels-photo-192454.jpeg?auto=compress&cs=tinysrgb&w=1600', 'lake-buchanan'),
+       (2,
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Dolor purus non enim praesent elementum facilisis leo vel fringilla.',
+        'https://images.pexels.com/photos/210271/pexels-photo-210271.jpeg?auto=compress&cs=tinysrgb&w=1600', NULL );
 -- INSERT INTO lakes (handle,
 --                        name,
 --                        description,

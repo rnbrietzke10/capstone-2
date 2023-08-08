@@ -52,7 +52,6 @@ function ensureLoggedIn(req, res, next) {
 
 function ensureCorrectUser(req, res, next) {
   try {
-    console.log('local User: ', res.locals.user);
     const user = res.locals.user;
     if (
       !(

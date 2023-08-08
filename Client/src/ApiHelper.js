@@ -58,11 +58,18 @@ class Api {
   }
 
   // Update User
-  static async getAllUsers(token) {
+  static async getAllUsers(user, token) {
     this.token = token;
-    let res = await this.request(`users`);
+    let res = await this.request(`users`, user);
     console.log(res);
     return res.users;
+  }
+
+  // Add Friend
+  static async addFriend(data, token) {
+    this.token = token;
+    let res = await this.request(`users/add-friend`, data, 'post');
+    return 'Added!';
   }
 
   // Create post

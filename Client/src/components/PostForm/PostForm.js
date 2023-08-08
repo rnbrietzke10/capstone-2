@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faImage } from '@fortawesome/free-solid-svg-icons';
 import Api from '../../ApiHelper';
 import './PostForm.scss';
+import { useLocation, useParams } from 'react-router-dom';
 const PostForm = () => {
   const [addUploadImg, setAddUploadImg] = useState(false);
   let INITIAL_STATE = { content: '', img: '' };
@@ -15,6 +16,14 @@ const PostForm = () => {
     setItemData(data => ({ ...data, [name]: value }));
   };
 
+  const location = useLocation();
+  const urlArr = location.pathname.split('/');
+  let postLocation = urlArr[urlArr.length - 1];
+  if (!postLocation) {
+    postLocation = null;
+    console.log(typeof postLocation);
+  }
+  console.log(postLocation);
   const handleClick = () => setAddUploadImg(!addUploadImg);
 
   const handleSubmit = e => {
@@ -28,6 +37,7 @@ const PostForm = () => {
         content: itemData.content,
         userId: user.id,
         img: itemData.img,
+        postLocation,
       };
 
       await Api.createPost(updatedInfo, token);

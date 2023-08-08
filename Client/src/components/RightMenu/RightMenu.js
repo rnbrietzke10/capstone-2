@@ -1,11 +1,11 @@
 import './RightMenu.scss';
-import FriendsList from '../FriendsList/FriendsList';
+import UsersList from '../UsersList/UsersList';
 
 const RightMenu = () => {
   return (
     <div className='menu'>
-      <h3>Suggested Friends</h3>
-      <FriendsList />
+      <h3>Suggested For You</h3>
+      <UsersList />
     </div>
   );
 };

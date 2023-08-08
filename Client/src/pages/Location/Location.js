@@ -2,16 +2,20 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { lakes } from '../../Data/lakes';
 import { rivers } from '../../Data/rivers';
+import Posts from '../../components/Posts/Posts';
 
 import './Location.scss';
 
 const Location = () => {
   let { lake, river } = useParams();
+
+  console.log(lake);
   const location = lake ? lakes[lake] : rivers[river];
+  let urlParam = lake ? lake : river;
   return (
-    <div className="Location">
+    <div className='Location'>
       <header>
-        <div className="location-info">
+        <div className='location-info'>
           <div>
             <h1>{location.name}</h1>
             <ul>
@@ -37,11 +41,11 @@ const Location = () => {
               )}
             </ul>
           </div>
-          <div className="weather">WEATHER</div>
+          <div className='weather'>WEATHER</div>
           <div>
             <h3>Common Fish in {location.lakeName}</h3>
             <ul>
-              {location.predominantFishSpecies.map((fish) => (
+              {location.predominantFishSpecies.map(fish => (
                 <li key={fish}>{fish}</li>
               ))}
             </ul>
@@ -49,17 +53,18 @@ const Location = () => {
         </div>
       </header>
       <iframe
-        className="lake-map"
+        className='lake-map'
         src={location.mapUrl}
         // width="800"
         // height="600"
         style={{ border: 0 }}
-        allowFullScreen=""
-        loading="lazy"
-        referrerPolicy="no-referrer-when-downgrade"
+        allowFullScreen=''
+        loading='lazy'
+        referrerPolicy='no-referrer-when-downgrade'
         title={location.lakeName}
       ></iframe>
-      <div className=""></div>
+      <div className=''></div>
+      <Posts />
     </div>
   );
 };

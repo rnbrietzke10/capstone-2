@@ -21,7 +21,7 @@ const router = express.Router();
 
 router.get('/', ensureLoggedIn, async function (req, res, next) {
   try {
-    const users = await User.findAll();
+    const users = await User.findAll(res.locals.user.username);
     return res.json({ users });
   } catch (err) {
     return next(err);
@@ -79,6 +79,22 @@ router.delete('/:username', ensureCorrectUser, async function (req, res, next) {
   try {
     await User.remove(req.params.username);
     return res.json({ deleted: req.params.username });
+  } catch (err) {
+    return next(err);
+  }
+});
+
+/** POST /users/add-friend
+ *
+ * Authorization required: ensureLoggedIn
+ **/
+
+router.post('/follow', ensureLoggedIn, async function (req, res, next) {
+  try {
+    const { followerId, followedId } = req.body;
+    const result = await User.follow(followerId, followedId);
+
+    return res.json({ result });
   } catch (err) {
     return next(err);
   }

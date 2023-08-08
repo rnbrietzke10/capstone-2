@@ -18,15 +18,16 @@ class Post {
    *
    **/
 
-  static async createPost(content, userId, img) {
+  static async createPost(content, userId, postLocation, img) {
     const result = await db.query(
       `INSERT INTO posts
            (user_id,
-            content
+            content,
+            post_location
             )
-           VALUES ($1, $2)
+           VALUES ($1, $2, $3)
            RETURNING id`,
-      [userId, content]
+      [userId, content, postLocation]
     );
     const postId = result.rows[0].id;
 
@@ -56,7 +57,8 @@ class Post {
                   content,
                   posts.id,
                   img,
-                  posts.created_at AS "postTime"
+                  posts.created_at AS "postTime",
+                   post_location AS "postLocation"
            FROM posts
            JOIN users ON users.id = posts.user_id
            ORDER BY posts.id DESC`
@@ -74,7 +76,7 @@ class Post {
    * Returns { content, img if an image, postId, username}
    **/
 
-  static async update(data, postId) {
+  static async updatePost(data, id) {
     const { setCols, values } = sqlForPartialUpdate(data, {
       content: 'content',
       img: 'img',
@@ -84,14 +86,15 @@ class Post {
     const querySql = `UPDATE posts
                       SET ${setCols}
                       WHERE post_id = ${postIdVarIdx}
-                      RETURNING post_id,
+                      RETURNING id,
                                 content,
-                                user_id,
+                                user_id AS "userId",
+                                post_location AS "postLocation",
                                 img`;
 
-    const results = await db.query(querySql, [...values, postId]);
+    const results = await db.query(querySql, [...values, id]);
     const post = results.rows[0];
-    if (!post) throw new NotFoundError(`No post with id ${postId}`);
+    if (!post) throw new NotFoundError(`No post with id ${id}`);
 
     return post;
   }

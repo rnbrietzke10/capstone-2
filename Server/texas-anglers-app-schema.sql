@@ -12,14 +12,12 @@ CREATE TABLE users (
   created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE friendships (
-  id SERIAL PRIMARY KEY,
-  user_one INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-  user_two INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-  date_requested TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-  date_accepted TIMESTAMP,
-  date_terminated TIMESTAMP,
-  UNIQUE(user_one, user_two)
+CREATE TABLE followers (
+	id SERIAL PRIMARY KEY,
+	created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+	follower_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+	followed_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+	UNIQUE(follower_id, followed_id)
 );
 
 CREATE TABLE posts (
@@ -27,6 +25,7 @@ CREATE TABLE posts (
   user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE, -- References User id that made post
   content TEXT NOT NULL,
   img TEXT,
+  post_location VARCHAR(100),
   created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 

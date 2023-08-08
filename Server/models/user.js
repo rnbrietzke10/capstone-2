@@ -92,13 +92,16 @@ class User {
    * Returns [{ username, first_name, last_name, email }, ...]
    **/
 
-  static async findAll() {
+  static async findAll(username) {
     const result = await db.query(
-      `SELECT username,
+      `SELECT id,
+                  username,
                   first_name AS "firstName",
                   last_name AS "lastName",
                   profile_img AS "profileImg"
-           FROM users`
+           FROM users
+           WHERE username != $1`,
+      [username]
     );
 
     return result.rows;
@@ -193,6 +196,11 @@ class User {
     const user = result.rows[0];
 
     if (!user) throw new NotFoundError(`No user: ${username}`);
+  }
+
+  /** Add friend */
+  static async addFriend(userId, friendId) {
+    let result = await db.query(`INSERT INTO `);
   }
 }
 
