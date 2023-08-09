@@ -4,6 +4,7 @@ import './UserProfile.scss';
 
 const UserProfile = () => {
   const user = JSON.parse(localStorage.getItem('user'));
+
   return (
     <div className='UserProfile_container'>
       <header>

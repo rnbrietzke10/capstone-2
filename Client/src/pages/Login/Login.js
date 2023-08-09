@@ -24,9 +24,12 @@ const Login = () => {
     const allDataEntered = itemData.username && itemData.password;
     if (allDataEntered) {
       async function login(loginInfo) {
-        await Api.loginUser(loginInfo);
-        const user = await JSON.parse(localStorage.getItem('user'));
-        setCurrentUser(user);
+        const res = await Api.loginUser(loginInfo);
+        console.log('res.allUserInfo.user LOGIN:', res.allUserInfo.user);
+        console.log('LINE 29: ', 'user', JSON.stringify(res.allUserInfo.user));
+        localStorage.setItem('user', JSON.stringify(res.allUserInfo.user));
+        localStorage.setItem('token', res.token);
+        setCurrentUser(res.allUserInfo.user);
       }
 
       login(itemData);

@@ -33,7 +33,7 @@ class Api {
   // Signup user
   static async createUser(userData) {
     let res = await this.request(`auth/register`, userData, 'post');
-
+    console.log(res);
     return res.token;
   }
 
@@ -42,8 +42,7 @@ class Api {
     let res = await this.request('auth/token', userData, 'post');
     this.token = res.token;
     let allUserInfo = await this.request(`users/${userData.username}`);
-    localStorage.setItem('user', JSON.stringify(allUserInfo.user));
-    localStorage.setItem('token', this.token);
+
     console.log('All User Data: ', allUserInfo.user);
 
     return { allUserInfo, token: this.token };

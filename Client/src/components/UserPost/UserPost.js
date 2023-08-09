@@ -39,7 +39,7 @@ const UserPost = ({ info }) => {
   return (
     <div className='UserPost'>
       <div className='UserPost_container'>
-        <div className='user'>
+        <div className='UserPoset_user'>
           <div className='userInfo'>
             <img src={user.profileImg} alt='' />
             <div className='details'>
