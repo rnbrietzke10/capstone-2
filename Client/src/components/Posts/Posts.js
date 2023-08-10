@@ -16,13 +16,18 @@ const Posts = () => {
     console.log(typeof postLocation);
   }
 
+  console.log('POSTS: ', posts);
+
   return (
     <div className='Posts'>
       <PostForm />
       {posts.map(info => {
         console.log('Post Location: ', postLocation);
         if (postLocation !== null) {
-          if (postLocation === info.postLocation) {
+          if (
+            postLocation === info.postLocation ||
+            info.username === postLocation
+          ) {
             return <UserPost info={info} key={info.id} />;
           }
           return '';

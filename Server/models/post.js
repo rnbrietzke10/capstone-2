@@ -54,11 +54,14 @@ class Post {
   static async findAll() {
     const result = await db.query(
       `SELECT username,
+                  first_name AS "firstName",
+                  last_name AS "lastName",
                   content,
                   posts.id,
                   img,
                   posts.created_at AS "postTime",
-                   post_location AS "postLocation"
+                   post_location AS "postLocation",
+                   profile_img AS "profileImg"
            FROM posts
            JOIN users ON users.id = posts.user_id
            ORDER BY posts.id DESC`

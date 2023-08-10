@@ -33,22 +33,30 @@ const UserPost = ({ info }) => {
     type: 'posts',
   };
 
-  const { username, content, postTime } = info;
+  const { firstName, lastName, username, content, postTime, profileImg } = info;
 
+  const date = new Date(postTime.replace(' ', 'T'));
   return (
     <div className='UserPost'>
       <div className='UserPost_container'>
         <div className='UserPost_user'>
           <div className='userInfo'>
-            <img src={currentUser.profileImg} alt='' />
+            <img src={profileImg} alt='' />
             <div className='details'>
               <Link
                 to={`/profile/${username}`}
                 style={{ textDecoration: 'none', color: 'inherit' }}
               >
-                <span className='name'>{username}</span>
+                <span className='name'>{`${firstName} ${lastName}`}</span>
               </Link>
-              <span className='date'>Posted {postTime}</span>
+              <span className='date'>
+                {` Posted:
+                ${date.toLocaleDateString('en-US', {
+                  month: 'long',
+                  day: 'numeric',
+                  year: 'numeric',
+                })}`}
+              </span>
             </div>
           </div>
           <FontAwesomeIcon

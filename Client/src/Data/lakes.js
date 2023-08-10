@@ -3,6 +3,8 @@ export const lakes = {
     key: 'lake-austin',
     name: 'Lake Austin',
     location: 'On the Colorado River in the City of Austin',
+    lat: 30.3516,
+    lng: -97.8062,
     surfaceArea: '1,599 acres',
     maxDepth: '75 feet',
     reservoirControllingAuthority: {
