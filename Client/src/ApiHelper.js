@@ -82,9 +82,9 @@ class Api {
 
   // Create post
   //User data should contain post and user token
-  static async deletePost(userData, token) {
+  static async deletePost(data, token) {
     this.token = token;
-    let res = await this.request(`posts/delete`, userData, 'delete');
+    let res = await this.request(`posts/delete`, data, 'delete');
 
     return res;
   }
@@ -150,7 +150,7 @@ class Api {
     return likesUserIds;
   }
 
-  // Unlike post
+  // Unlike
   static async unlike(data, token) {
     this.token = token;
     const { type, postId } = data;
@@ -163,6 +163,8 @@ class Api {
     await this.request(path, data, 'delete');
   }
 }
+
+// Delete Comment
 
 // for now, put token ("testuser" / "password" on class)
 // Api.token =

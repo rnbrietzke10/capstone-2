@@ -1,21 +1,19 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faCommentDots,
-  // Future addition ⬇️
-  // faShareFromSquare,
-} from '@fortawesome/free-solid-svg-icons';
+import { faCommentDots, faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import Likes from '../Likes/Likes';
 import Comments from '../Comments/Comments';
-import ModalMenuButton from '../ModalMenuButton/ModalMenuButton';
 import Api from '../../ApiHelper';
 import './UserPost.scss';
+import ModalMenu from '../ModalMenu/ModalMenu';
+import { UserContext } from '../../contexts/UserContext';
 
 const UserPost = ({ info }) => {
   const [commentOpen, setCommentOpen] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
-  const user = JSON.parse(localStorage.getItem('user'));
+  const { currentUser } = useContext(UserContext);
   const [comments, setComments] = useState([]);
 
   useEffect(() => {
@@ -29,7 +27,8 @@ const UserPost = ({ info }) => {
   }, []);
 
   const data = {
-    userId: user.id,
+    userId: currentUser.id,
+    username: currentUser.username,
     postId: info.id,
     type: 'posts',
   };
@@ -39,9 +38,9 @@ const UserPost = ({ info }) => {
   return (
     <div className='UserPost'>
       <div className='UserPost_container'>
-        <div className='UserPoset_user'>
+        <div className='UserPost_user'>
           <div className='userInfo'>
-            <img src={user.profileImg} alt='' />
+            <img src={currentUser.profileImg} alt='' />
             <div className='details'>
               <Link
                 to={`/profile/${username}`}
@@ -52,7 +51,13 @@ const UserPost = ({ info }) => {
               <span className='date'>Posted {postTime}</span>
             </div>
           </div>
-          <ModalMenuButton className='modal-menu-btn' />
+          <FontAwesomeIcon
+            icon={faEllipsis}
+            size='xl'
+            className='modal-menu-btn'
+            onClick={() => setShowModal(!showModal)}
+          />
+          {showModal && <ModalMenu setShowModal={setShowModal} data={data} />}
         </div>
         <div className='content'>
           {info.img ? <img src={info.img} alt='' /> : ''}
@@ -74,9 +79,3 @@ const UserPost = ({ info }) => {
 };
 
 export default UserPost;
-
-/* ⬇️ Future addition ⬇️  Will go next to comments and likes in post*/
-/* <div className='item'>
-            <FontAwesomeIcon icon={faShareFromSquare} />
-            Share
-          </div> */

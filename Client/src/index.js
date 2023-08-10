@@ -7,13 +7,16 @@ import { UserProvider } from './contexts/UserContext';
 import reportWebVitals from './reportWebVitals';
 
 import './index.scss';
+import { PostsProvider } from './contexts/PostsContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
       <UserProvider>
-        <App />
+        <PostsProvider>
+          <App />
+        </PostsProvider>
       </UserProvider>
     </BrowserRouter>
   </React.StrictMode>
