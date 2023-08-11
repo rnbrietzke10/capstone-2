@@ -3,19 +3,24 @@
 .Location {
   width: 100%;
   height: 100%;
-  header {
+  .info-container {
     display: flex;
     justify-content: space-between;
     margin: 30px;
-    .location-info {
+    .info-left {
+      height: 400px;
+
       display: flex;
       flex-direction: column;
-      .weather {
-        height: 100px;
-        margin: 30px 0;
-        padding: 10px;
-        border-radius: 5px;
-        background-color: darkslategrey;
+      justify-content: space-evenly;
+      .info-right {
+        .weather {
+          height: 100px;
+          margin: 30px 0;
+          padding: 10px;
+          border-radius: 5px;
+          background-color: darkslategrey;
+        }
       }
     }
     li {
@@ -28,23 +33,42 @@
   }
   .google-maps {
     position: relative;
-
     padding-bottom: 75%; // This is the aspect ratio
-
     height: 0;
-
     overflow: hidden;
   }
 
   .google-maps iframe {
     position: absolute;
-
     top: 0;
-
     left: 0;
-
     width: 100% !important;
-
     height: 100% !important;
+  }
+  .weather-container {
+    margin: 20px 30px;
+    display: flex;
+    justify-content: space-evenly;
+    .weather-card {
+      padding: 30px;
+      border-radius: 5px;
+      box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+        rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+        rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+      .lg {
+        height: 125px;
+      }
+      .condition {
+        display: flex;
+        align-items: center;
+      }
+      p {
+        text-align: center;
+      }
+    }
+  }
+  .future-weather-container {
+    display: flex;
+    flex-direction: column;
   }
 }

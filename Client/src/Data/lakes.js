@@ -29,6 +29,8 @@ export const lakes = {
     key: 'lake-buchanan',
     name: 'Lake Buchanan',
     location: 'On the Colorado River west of the town of Burnet',
+    lat: 30.8182825,
+    lng: -98.4227343,
     surfaceArea: '22,211 acres',
     maxDepth: '132 feet',
     reservoirControllingAuthority: {
@@ -61,6 +63,8 @@ export const lakes = {
     key: 'canyon-lake',
     name: 'Canyon Lake',
     location: 'On the Guadalupe River, 16 miles northwest of New Braunfels ',
+    lat: 29.887686,
+    lng: -98.254852,
     surfaceArea: '8,308 acres',
     maxDepth: '125 feet',
     reservoirControllingAuthority: {
@@ -93,6 +97,8 @@ export const lakes = {
     name: 'Lake Lyndon B. Johnson',
     location:
       'On the Colorado River in Burnet County, near the towns of Marble Falls, Kingsland, and Granite Shoals',
+    lat: 30.663,
+    lng: -98.4402,
     surfaceArea: '6,449  acres',
     maxDepth: '90 feet',
     reservoirControllingAuthority: {
@@ -126,6 +132,8 @@ export const lakes = {
     key: 'lake-travis',
     name: 'Lake Travis',
     location: 'On the Colorado River northwest of Austin',
+    lat: 30.3885,
+    lng: -97.904,
     surfaceArea: '18,622 acres',
     maxDepth: '190 feet',
     reservoirControllingAuthority: {

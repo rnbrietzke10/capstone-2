@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faImage } from '@fortawesome/free-solid-svg-icons';
 import Api from '../../ApiHelper';
 import './PostForm.scss';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 const PostForm = () => {
   const [addUploadImg, setAddUploadImg] = useState(false);
   let INITIAL_STATE = { content: '', img: '' };

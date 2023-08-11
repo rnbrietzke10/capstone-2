@@ -6,6 +6,7 @@
   margin-top: 20px;
   height: calc(100% - 200px);
   flex-direction: column;
+  align-items: center;
 
   header {
     display: flex;
@@ -13,6 +14,8 @@
     margin: 20px;
     justify-content: space-evenly;
     border-radius: 20px;
+
+    max-width: 800px;
     // background-color: #afb3ba;
     -webkit-box-shadow: 3px 3px 10px 0px rgba(39, 55, 34, 0.87);
     -moz-box-shadow: 3px 3px 10px 0px rgba(39, 55, 34, 0.87);

@@ -57,9 +57,6 @@ const Register = () => {
           <h2>Register</h2>
           <form onSubmit={handleSubmit}>
             <div className='form-input-container'>
-              {/* <label htmlFor="username" style={{ color: '#000' }}>
-                Username:
-              </label> */}
               <input
                 id='username'
                 type='text'
