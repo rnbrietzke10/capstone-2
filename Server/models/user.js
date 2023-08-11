@@ -162,6 +162,7 @@ class User {
       lastName: 'last_name',
       profileImg: 'profile_img',
       coverImg: 'cover_img',
+      userId: 'id',
     });
     const usernameVarIdx = '$' + (values.length + 1);
 
@@ -169,6 +170,7 @@ class User {
                       SET ${setCols}
                       WHERE username = ${usernameVarIdx}
                       RETURNING username,
+                                id,
                                 first_name AS "firstName",
                                 last_name AS "lastName",
                                 profile_img AS "profileImg",
@@ -185,7 +187,7 @@ class User {
 
   /** Delete given user from database; returns undefined. */
 
-  static async remove(username) {
+  static async deleteUser(username) {
     let result = await db.query(
       `DELETE
            FROM users

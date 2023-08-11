@@ -77,7 +77,7 @@ router.patch('/:username', ensureCorrectUser, async function (req, res, next) {
 
 router.delete('/:username', ensureCorrectUser, async function (req, res, next) {
   try {
-    await User.remove(req.params.username);
+    await User.deleteUser(req.params.username);
     return res.json({ deleted: req.params.username });
   } catch (err) {
     return next(err);

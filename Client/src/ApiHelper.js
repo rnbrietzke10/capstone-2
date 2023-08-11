@@ -64,6 +64,15 @@ class Api {
     return res.users;
   }
 
+  // Delete user
+
+  static async deleteUser(data, token) {
+    this.token = token;
+    let res = await this.request(`users/${data.username}`, data, 'delete');
+
+    return res;
+  }
+
   // Add Friend
   static async addFriend(data, token) {
     this.token = token;

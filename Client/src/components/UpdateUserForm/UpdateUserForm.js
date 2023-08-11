@@ -1,12 +1,15 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Api from '../../ApiHelper';
 import './UpdateUserForm.scss';
+import { UserContext } from '../../contexts/UserContext';
 
 const UpdateUserForm = () => {
   const navigate = useNavigate();
-  const INITIAL_STATE = JSON.parse(localStorage.getItem('user'));
-  const [itemData, setItemData] = useState(INITIAL_STATE);
+  const { currentUser, setCurrentUser } = useContext(UserContext);
+  const token = localStorage.getItem('token');
+  console.log(currentUser);
+  const [itemData, setItemData] = useState(currentUser);
   const handleChange = e => {
     const { name, value } = e.target;
     setItemData(data => ({ ...data, [name]: value }));
@@ -23,7 +26,6 @@ const UpdateUserForm = () => {
       alert('Please enter all information');
     }
     async function updateData() {
-      const token = await localStorage.getItem('token');
       const updatedInfo = {
         firstName: itemData.firstName,
         lastName: itemData.lastName,
@@ -35,9 +37,25 @@ const UpdateUserForm = () => {
 
       const user = await Api.updateUser(updatedInfo, itemData.username, token);
 
-      localStorage.setItem('user', JSON.stringify(user));
+      setCurrentUser(user);
     }
     updateData();
+    navigate('/');
+  };
+  const logoutHandler = async () => {
+    await localStorage.removeItem('user');
+    await localStorage.removeItem('token');
+    setCurrentUser(null);
+    navigate('/');
+  };
+
+  const handleDelete = async () => {
+    const data = {
+      id: currentUser.id,
+      username: currentUser.username,
+    };
+    await Api.deleteUser(data, token);
+    logoutHandler();
     navigate('/');
   };
 
@@ -118,7 +136,16 @@ const UpdateUserForm = () => {
               onChange={handleChange}
             />
           </div>
-          <button className='btn btn-dark'>Save Changes</button>
+          <div className='btn-container'>
+            <button className='btn btn-dark'>Save Changes</button>
+            <button
+              onClick={handleDelete}
+              className='btn delete-btn'
+              type='button'
+            >
+              Delete Profile
+            </button>
+          </div>
         </form>
       </div>
     </div>
