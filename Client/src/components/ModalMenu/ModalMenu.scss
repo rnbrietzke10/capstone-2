@@ -1,6 +1,6 @@
 .modal-container {
   width: 175px;
-  height: 125px;
+  height: 150px;
   background-color: #ffffff;
   display: flex;
   flex-direction: column;
@@ -9,7 +9,7 @@
   z-index: 2;
   position: absolute;
   right: 0;
-  top: 40px;
+  top: 25px;
   padding: 20px;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
@@ -18,28 +18,39 @@
   -moz-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
   box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
 
-  .modal-menu-items {
-    cursor: pointer;
-    padding: 10px;
-
-    span {
-      margin-left: 10px;
-      font-size: 1.1rem;
-    }
-
-    &:hover {
-      color: #fff;
-      border-radius: 3px;
+  .close-modal {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    .close-modal-btn {
+      cursor: pointer;
     }
   }
-  .delete {
-    &:hover {
-      background-color: red;
+  .modal-menu-items-conatiner {
+    margin-top: 25px;
+    .modal-menu-items {
+      cursor: pointer;
+      padding: 10px;
+
+      span {
+        margin-left: 10px;
+        font-size: 1.1rem;
+      }
+
+      &:hover {
+        color: #fff;
+        border-radius: 3px;
+      }
     }
-  }
-  .edit {
-    &:hover {
-      background-color: #273722;
+    .delete {
+      &:hover {
+        background-color: red;
+      }
+    }
+    .edit {
+      &:hover {
+        background-color: #273722;
+      }
     }
   }
 }

@@ -79,20 +79,19 @@ class Api {
 
     return res;
   }
-
-  // Create post
-  //User data should contain post and user token
-  static async deletePost(data, token) {
-    this.token = token;
-    let res = await this.request(`posts/delete`, data, 'delete');
-
-    return res;
-  }
-
   // Get posts
   static async getPosts() {
     let res = await this.request(`posts`);
     return res.posts;
+  }
+
+  // Delete post
+
+  static async deletePost(data, token) {
+    this.token = token;
+    let res = await this.request(`posts/${data.postId}/delete`, data, 'delete');
+
+    return res;
   }
 
   // Create comment
@@ -114,6 +113,19 @@ class Api {
     this.token = token;
     let res = await this.request(`posts/${postId}/comments`);
     return res.comments;
+  }
+
+  // Delete Comment
+
+  static async deleteComment(data, token) {
+    this.token = token;
+    let res = await this.request(
+      `posts/${data.postId}/comments/${data.commentId}/delete`,
+      data,
+      'delete'
+    );
+
+    return res;
   }
 
   // Add like

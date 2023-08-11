@@ -24,7 +24,7 @@ const UserCard = ({ user }) => {
   };
 
   return (
-    <div className='user'>
+    <div className='UserCard'>
       <img src={user.profileImg} alt='<Username>' />
       <h4>{`${user.firstName} ${user.lastName}`}</h4>
       <button onClick={handleFollow} className={btnInfo.className}>

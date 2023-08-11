@@ -102,6 +102,25 @@ class Post {
     return post;
   }
 
+  /** DELETE post with given id
+   *
+   * Returns {id }
+   *
+   **/
+
+  static async deletePost(id) {
+    const result = await db.query(
+      `DELETE
+           FROM posts
+           WHERE id = $1
+           RETURNING id`,
+      [id]
+    );
+    if (!result.rows[0]) throw new NotFoundError(`Like not found.`);
+
+    return result.rows;
+  }
+
   /** create new comment on post
    *
    * Returns { comment_id, author, content, post_id }
@@ -130,16 +149,37 @@ class Post {
   static async getComments(postId) {
     const result = await db.query(
       `SELECT username,
-             content,
-             comments.id,
-             comments.created_at AS "commentTime",
-             profile_img AS "profileImg"
-             FROM comments
-             JOIN users ON users.id = comments.user_id
-             WHERE post_id = $1
-             ORDER BY comments.id DESC`,
+              first_name AS "firstName",
+              last_name AS "lastName",
+              content,
+              comments.id,
+              comments.created_at AS "commentTime",
+              profile_img AS "profileImg"
+              FROM comments
+              JOIN users ON users.id = comments.user_id
+              WHERE post_id = $1
+              ORDER BY comments.id DESC`,
       [postId]
     );
+
+    return result.rows;
+  }
+
+  /** DELETE post with given id
+   *
+   * Returns {id }
+   *
+   **/
+
+  static async deleteComment(id) {
+    const result = await db.query(
+      `DELETE
+           FROM comments
+           WHERE id = $1
+           RETURNING id`,
+      [id]
+    );
+    if (!result.rows[0]) throw new NotFoundError(`Like not found.`);
 
     return result.rows;
   }

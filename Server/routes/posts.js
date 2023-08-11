@@ -58,6 +58,25 @@ router.patch(':postId', ensureCorrectUser, async function (req, res, next) {
   }
 });
 
+/** DELETE posts/[postId]/delete
+ * Deletes on post
+ * Authorization required: same-user-as-: userId
+ **/
+
+router.delete(
+  '/:postId/delete',
+  ensureCorrectUser,
+  async function (req, res, next) {
+    try {
+      const { postId } = req.params;
+      await Post.deletePost(postId);
+      return res.json({ deleted: req.params.id });
+    } catch (err) {
+      return next(err);
+    }
+  }
+);
+
 /** POST /posts/:id/comments/new
  *
  * Returns {post content, username, postId}
@@ -96,6 +115,25 @@ router.get('/:postId/comments', async function (req, res, next) {
     return next(err);
   }
 });
+
+/** DELETE posts/[postId]/comments/[commentId]/delete
+ * Deletes on post
+ * Authorization required: same-user-as-: userId
+ **/
+
+router.delete(
+  '/:postId/comments/:commentId/delete',
+  ensureCorrectUser,
+  async function (req, res, next) {
+    try {
+      const { commentId } = req.params;
+      await Post.deleteComment(commentId);
+      return res.json({ deleted: req.params.id });
+    } catch (err) {
+      return next(err);
+    }
+  }
+);
 
 /** POST /posts/postId/like
  *

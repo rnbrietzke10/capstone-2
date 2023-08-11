@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react';
+import { useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 import PostForm from '../PostForm/PostForm';
 import UserPost from '../UserPost/UserPost';
@@ -15,8 +15,6 @@ const Posts = () => {
     postLocation = null;
     console.log(typeof postLocation);
   }
-
-  console.log('POSTS: ', posts);
 
   return (
     <div className='Posts'>

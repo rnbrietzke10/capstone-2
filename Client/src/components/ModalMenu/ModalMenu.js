@@ -1,4 +1,3 @@
-// <FontAwesomeIcon icon="fa-solid fa-trash-can" style={{color: "#fa0000",}} />
 import { useRef, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -10,12 +9,16 @@ const ModalMenu = ({ setShowModal, data }) => {
   const token = localStorage.getItem('token');
   const handleClickOutside = e => {
     if (!modalRef.current.contains(e.target)) {
-      console.log('modalRef.current.contains(e.target)');
       setShowModal(false);
     }
   };
+  console.log('Modal Data: ', data);
   const handleDelete = async () => {
-    await Api.deletePost(data, token);
+    if (data.type === 'posts') {
+      await Api.deletePost(data, token);
+    } else {
+      await Api.deleteComment(data, token);
+    }
   };
 
   useEffect(() => {
@@ -28,21 +31,30 @@ const ModalMenu = ({ setShowModal, data }) => {
         ref={modalRef}
         onClick={() => setShowModal(false)}
       >
-        <div className='modal-menu-items delete' onClick={handleDelete}>
+        <div className='close-modal'>
           <FontAwesomeIcon
-            icon='fa-solid fa-trash-can'
-            // style={{ color: '#000' }}
+            icon='fa-solid fa-xmark'
+            className='close-modal-btn'
             size='xl'
           />
-          <span>Delete</span>
         </div>
-        <div className='modal-menu-items edit'>
-          <FontAwesomeIcon
-            icon='fa-solid fa-pen-to-square'
-            // style={{ color: '#000' }}
-            size='xl'
-          />
-          <span>Edit</span>
+        <div className='modal-menu-items-conatiner'>
+          <div className='modal-menu-items delete' onClick={handleDelete}>
+            <FontAwesomeIcon
+              icon='fa-solid fa-trash-can'
+              // style={{ color: '#000' }}
+              size='xl'
+            />
+            <span>Delete</span>
+          </div>
+          <div className='modal-menu-items edit'>
+            <FontAwesomeIcon
+              icon='fa-solid fa-pen-to-square'
+              // style={{ color: '#000' }}
+              size='xl'
+            />
+            <span>Edit</span>
+          </div>
         </div>
       </div>
     </>
