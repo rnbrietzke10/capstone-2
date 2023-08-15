@@ -8,13 +8,15 @@ import Api from '../../ApiHelper';
 import './UserPost.scss';
 import ModalMenu from '../ModalMenu/ModalMenu';
 import { UserContext } from '../../contexts/UserContext';
+import EditPostForm from '../EditPostForm/EditPostForm';
 
 const UserPost = ({ info }) => {
   const [commentOpen, setCommentOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [comments, setComments] = useState([]);
+  const [showEditForm, setShowEditForm] = useState(false);
 
   const { currentUser } = useContext(UserContext);
-  const [comments, setComments] = useState([]);
 
   useEffect(() => {
     const getAllComments = async () => {
@@ -65,7 +67,13 @@ const UserPost = ({ info }) => {
             className='modal-menu-btn'
             onClick={() => setShowModal(!showModal)}
           />
-          {showModal && <ModalMenu setShowModal={setShowModal} data={data} />}
+          {showModal && (
+            <ModalMenu
+              setShowModal={setShowModal}
+              data={data}
+              setShowEditForm={setShowEditForm}
+            />
+          )}
         </div>
         <div className='content'>
           {info.img ? <img src={info.img} alt='' /> : ''}
@@ -82,6 +90,7 @@ const UserPost = ({ info }) => {
         </div>
         {commentOpen && <Comments comments={comments} postId={info.id} />}
       </div>
+      {showEditForm ? <EditPostForm postData={info} /> : ''}
     </div>
   );
 };

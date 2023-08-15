@@ -1,14 +1,16 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faImage } from '@fortawesome/free-solid-svg-icons';
 import Api from '../../ApiHelper';
 import './PostForm.scss';
-import { useLocation } from 'react-router-dom';
+import { UserContext } from '../../contexts/UserContext';
+
 const PostForm = () => {
   const [addUploadImg, setAddUploadImg] = useState(false);
   let INITIAL_STATE = { content: '', img: '' };
-  const user = JSON.parse(localStorage.getItem('user'));
+  const { currentUser } = useContext(UserContext);
 
   const [itemData, setItemData] = useState(INITIAL_STATE);
   const handleChange = e => {
@@ -31,11 +33,11 @@ const PostForm = () => {
 
     async function addPost() {
       const token = await localStorage.getItem('token');
-      const userId = user.id;
+      const userId = currentUser.id;
       console.log('type of', typeof userId);
       const updatedInfo = {
         content: itemData.content,
-        userId: user.id,
+        userId: currentUser.id,
         img: itemData.img,
         postLocation,
       };
@@ -45,12 +47,13 @@ const PostForm = () => {
     }
     addPost();
   };
+
   return (
     <div className='PostForm'>
       <div
         className='profile-img'
         style={{
-          backgroundImage: `url('https://images.pexels.com/photos/209810/pexels-photo-209810.jpeg?auto=compress&cs=tinysrgb&w=1600')`,
+          backgroundImage: `url(${currentUser.profileImg})`,
         }}
       />
       <form onSubmit={handleSubmit}>
