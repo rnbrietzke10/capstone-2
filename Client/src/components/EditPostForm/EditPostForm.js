@@ -1,12 +1,15 @@
 import { useContext, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import { UserContext } from '../../contexts/UserContext';
+
 import Api from '../../ApiHelper';
 
 import './EditPostForm.scss';
-import { UserContext } from '../../contexts/UserContext';
-const EditPostForm = ({ postData }) => {
-  const user = useContext(UserContext);
-
+const EditPostForm = props => {
+  const { currentUser } = useContext(UserContext);
+  const { postData } = props;
   const [itemData, setItemData] = useState(postData);
 
   const handleChange = e => {
@@ -19,14 +22,14 @@ const EditPostForm = ({ postData }) => {
 
     async function updatePost() {
       const token = await localStorage.getItem('token');
-      const userId = user.id;
-      console.log('type of', typeof userId);
+      const userId = currentUser.id;
+
       const updatedInfo = {
         content: itemData.content,
         img: itemData.img,
       };
 
-      await Api.updatePost(updatedInfo, token);
+      await Api.updatePost(updatedInfo, postData.id, token);
     }
     updatePost();
   };
@@ -34,33 +37,58 @@ const EditPostForm = ({ postData }) => {
   if (postData.content !== itemData.content || postData.img !== itemData.img) {
     disabled = false;
   }
+  console.log('UPDATE POST MODAL');
   return (
-    <div className='EditPostForm'>
-      <form onSubmit={handleSubmit}>
-        <input
-          id='content'
-          type='text'
-          name='content'
-          value={itemData.content}
-          placeholder={`What's on your mind?`}
-          onChange={handleChange}
-        />
-        <div className='form-input-row'>
-          <input
-            id='img'
-            type='text'
-            name='img'
-            value={itemData.img}
-            placeholder={`Add image URL`}
-            onChange={handleChange}
-          />
-
-          <button disabled={disabled} className='btn btn-dark'>
-            Update Post
-          </button>
+    <Modal
+      {...props}
+      size='lg'
+      aria-labelledby='contained-modal-title-vcenter'
+      centered
+    >
+      <Modal.Header closeButton>
+        <Modal.Title id='contained-modal-title-vcenter'>Edit Post</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <div className='EditPostForm'>
+          <form id='editPostForm' onSubmit={handleSubmit}>
+            <div className='form-input-row'>
+              <label htmlFor='content'>Content: </label>
+              <input
+                id='content'
+                type='text'
+                name='content'
+                value={itemData.content}
+                placeholder={`What's on your mind?`}
+                onChange={handleChange}
+              />
+            </div>
+            <div className='form-input-row'>
+              <label htmlFor='img'>Image Url: </label>
+              <input
+                id='img'
+                type='text'
+                name='img'
+                value={itemData.img}
+                placeholder={`Add image URL`}
+                onChange={handleChange}
+              />
+            </div>
+          </form>
         </div>
-      </form>
-    </div>
+      </Modal.Body>
+      <Modal.Footer>
+        <button
+          type='submit'
+          form='editPostForm'
+          disabled={disabled}
+          className='btn btn-dark'
+          onClick={props.onHide}
+        >
+          Update Post
+        </button>
+        <Button onClick={props.onHide}>Close</Button>
+      </Modal.Footer>
+    </Modal>
   );
 };
 

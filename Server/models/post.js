@@ -79,7 +79,8 @@ class Post {
    * Returns { content, img if an image, postId, username}
    **/
 
-  static async updatePost(data, id) {
+  static async updatePost(id, data) {
+    console.log(data);
     const { setCols, values } = sqlForPartialUpdate(data, {
       content: 'content',
       img: 'img',
@@ -88,7 +89,7 @@ class Post {
 
     const querySql = `UPDATE posts
                       SET ${setCols}
-                      WHERE post_id = ${postIdVarIdx}
+                      WHERE id = ${postIdVarIdx}
                       RETURNING id,
                                 content,
                                 user_id AS "userId",

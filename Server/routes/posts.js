@@ -49,14 +49,19 @@ router.get('/', async function (req, res, next) {
  * Authorization required: same-user-as-userId on post
  **/
 
-router.patch(':postId', ensureCorrectUser, async function (req, res, next) {
-  try {
-    const post = await Post.update(req.params.postId, req.body);
-    return res.json({ post });
-  } catch (err) {
-    return next(err);
+router.patch(
+  '/:postId/update',
+  ensureCorrectUser,
+  async function (req, res, next) {
+    try {
+      console.log('INSIDE PATCH ROUTE');
+      const post = await Post.updatePost(req.params.postId, req.body);
+      return res.json({ post });
+    } catch (err) {
+      return next(err);
+    }
   }
-});
+);
 
 /** DELETE posts/[postId]/delete
  * Deletes on post

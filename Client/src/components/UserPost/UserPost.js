@@ -15,7 +15,7 @@ const UserPost = ({ info }) => {
   const [showModal, setShowModal] = useState(false);
   const [comments, setComments] = useState([]);
   const [showEditForm, setShowEditForm] = useState(false);
-
+  const { firstName, lastName, username, content, postTime, profileImg } = info;
   const { currentUser } = useContext(UserContext);
 
   useEffect(() => {
@@ -27,71 +27,78 @@ const UserPost = ({ info }) => {
 
     getAllComments();
   }, []);
+  console.log('info', info);
 
   const data = {
-    userId: currentUser.id,
-    username: currentUser.username,
+    username: username,
     postId: info.id,
     type: 'posts',
   };
-
-  const { firstName, lastName, username, content, postTime, profileImg } = info;
+  console.log('data: ', data);
 
   const date = new Date(postTime.replace(' ', 'T'));
   return (
-    <div className='UserPost'>
-      <div className='UserPost_container'>
-        <div className='UserPost_user'>
-          <div className='userInfo'>
-            <img src={profileImg} alt='' />
-            <div className='details'>
-              <Link
-                to={`/profile/${username}`}
-                style={{ textDecoration: 'none', color: 'inherit' }}
-              >
-                <span className='name'>{`${firstName} ${lastName}`}</span>
-              </Link>
-              <span className='date'>
-                {` Posted:
+    <>
+      <div className='UserPost'>
+        <div className='UserPost_container'>
+          <div className='UserPost_user'>
+            <div className='userInfo'>
+              <img src={profileImg} alt='' />
+              <div className='details'>
+                <Link
+                  to={`/profile/${username}`}
+                  style={{ textDecoration: 'none', color: 'inherit' }}
+                >
+                  <span className='name'>{`${firstName} ${lastName}`}</span>
+                </Link>
+                <span className='date'>
+                  {` Posted:
                 ${date.toLocaleDateString('en-US', {
                   month: 'long',
                   day: 'numeric',
                   year: 'numeric',
                 })}`}
-              </span>
+                </span>
+              </div>
+            </div>
+            <FontAwesomeIcon
+              icon={faEllipsis}
+              size='xl'
+              className='modal-menu-btn'
+              onClick={() => setShowModal(!showModal)}
+            />
+
+            {showModal && (
+              <ModalMenu
+                setShowModal={setShowModal}
+                data={data}
+                setShowEditForm={setShowEditForm}
+              />
+            )}
+          </div>
+          <div className='content'>
+            {info.img ? <img src={info.img} alt='' /> : ''}
+            <p>{content}</p>
+          </div>
+          <div className='info'>
+            <Likes data={data} />
+            <div className='item' onClick={() => setCommentOpen(!commentOpen)}>
+              <FontAwesomeIcon icon={faCommentDots} />
+              {comments.length !== 1
+                ? `${comments.length} Comments`
+                : `${comments.length} Comment`}
             </div>
           </div>
-          <FontAwesomeIcon
-            icon={faEllipsis}
-            size='xl'
-            className='modal-menu-btn'
-            onClick={() => setShowModal(!showModal)}
-          />
-          {showModal && (
-            <ModalMenu
-              setShowModal={setShowModal}
-              data={data}
-              setShowEditForm={setShowEditForm}
-            />
-          )}
+          {commentOpen && <Comments comments={comments} postId={info.id} />}
         </div>
-        <div className='content'>
-          {info.img ? <img src={info.img} alt='' /> : ''}
-          <p>{content}</p>
-        </div>
-        <div className='info'>
-          <Likes data={data} />
-          <div className='item' onClick={() => setCommentOpen(!commentOpen)}>
-            <FontAwesomeIcon icon={faCommentDots} />
-            {comments.length !== 1
-              ? `${comments.length} Comments`
-              : `${comments.length} Comment`}
-          </div>
-        </div>
-        {commentOpen && <Comments comments={comments} postId={info.id} />}
       </div>
-      {showEditForm ? <EditPostForm postData={info} /> : ''}
-    </div>
+      {console.log(showEditForm)}
+      <EditPostForm
+        show={showEditForm}
+        onHide={() => setShowEditForm(false)}
+        postData={info}
+      />
+    </>
   );
 };
 

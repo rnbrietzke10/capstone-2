@@ -94,6 +94,16 @@ class Api {
     return res.posts;
   }
 
+  // Update post
+  static async updatePost(postData, postId, token) {
+    this.token = token;
+    console.log('POSTDATA FROM APIHELPER: ', postData);
+    let res = await this.request(`posts/${postId}/update`, postData, 'patch');
+    console.log('AFTER');
+
+    return res.post;
+  }
+
   // Delete post
 
   static async deletePost(data, token) {
