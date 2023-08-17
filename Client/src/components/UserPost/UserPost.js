@@ -20,9 +20,9 @@ const UserPost = ({ info }) => {
 
   useEffect(() => {
     const getAllComments = async () => {
-      const data = await Api.getComments(info.id);
+      const res = await Api.getComments(info.id);
 
-      setComments(data);
+      setComments(res);
     };
 
     getAllComments();
@@ -30,7 +30,10 @@ const UserPost = ({ info }) => {
 
   const data = {
     username: username,
+    currentUserUsername: currentUser.username,
+    userId: info.userId,
     postId: info.id,
+    currentUserId: currentUser.id,
     type: 'posts',
   };
 

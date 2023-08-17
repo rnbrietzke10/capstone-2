@@ -73,10 +73,24 @@ class Api {
     return res.users;
   }
 
-  // Add Friend
+  // Follow user
   static async follow(data, token) {
     this.token = token;
     await this.request(`users/follow`, data, 'post');
+  }
+
+  // Unfollow user
+
+  static async unfollow(data, token) {
+    this.token = token;
+    const { currentUserUsername } = data;
+    let res = await this.request(
+      `users/${currentUserUsername}/unfollow`,
+      data,
+      'delete'
+    );
+
+    return res;
   }
 
   // GET following list

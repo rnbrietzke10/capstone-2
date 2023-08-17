@@ -23,7 +23,6 @@ const Posts = () => {
     <div className='Posts'>
       <PostForm />
       {posts.map(info => {
-        console.log(info);
         if (following.includes(info.userId) || info.userId === currentUser.id) {
           if (postLocation !== null) {
             if (

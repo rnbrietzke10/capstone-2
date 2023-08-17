@@ -84,7 +84,7 @@ router.delete('/:username', ensureCorrectUser, async function (req, res, next) {
   }
 });
 
-/** POST /users/add-friend
+/** POST /users/follow
  *
  * Authorization required: ensureLoggedIn
  **/
@@ -99,6 +99,25 @@ router.post('/follow', ensureLoggedIn, async function (req, res, next) {
     return next(err);
   }
 });
+
+/** DELETE /users/unfollow
+ *
+ * Authorization required: ensureCorrectUser
+ **/
+
+router.delete(
+  '/:username/unfollow',
+  ensureCorrectUser,
+  async function (req, res, next) {
+    try {
+      const { userId, currentUserId } = req.body;
+      await User.unfollow(userId, currentUserId);
+      return 'unfollowed';
+    } catch (err) {
+      return next(err);
+    }
+  }
+);
 
 /** GET /[id]/following
  *

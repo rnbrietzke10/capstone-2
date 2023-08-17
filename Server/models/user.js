@@ -200,13 +200,24 @@ class User {
     if (!user) throw new NotFoundError(`No user: ${username}`);
   }
 
-  /** Add friend */
+  /** Follow user */
   static async follow(followerId, followedId) {
     let result = await db.query(
       `INSERT INTO followers
         (follower_id, followed_id )
         VALUES ($1,$2)`,
       [followerId, followedId]
+    );
+  }
+
+  /** Delete follow relationship from database; returns undefined. */
+
+  static async unfollow(followedId, followerId) {
+    let result = await db.query(
+      `DELETE
+           FROM followers
+           WHERE followed_id = $1 AND follower_id =$2`,
+      [followedId, followerId]
     );
   }
 

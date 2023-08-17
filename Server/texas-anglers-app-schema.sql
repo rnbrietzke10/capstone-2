@@ -34,7 +34,6 @@ CREATE TABLE comments (
   post_id INTEGER REFERENCES posts(id), --post replied to
   user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE, -- References User id that made comment
   content TEXT NOT NULL,
-  img VARCHAR(300),
   created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
 

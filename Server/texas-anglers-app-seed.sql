@@ -96,6 +96,21 @@ VALUES (1,
           (4,
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Dolor purus non enim praesent elementum facilisis leo vel fringilla.',
         'https://images.pexels.com/photos/210271/pexels-photo-210271.jpeg?auto=compress&cs=tinysrgb&w=1600', NULL );
+
+INSERT INTO followers (follower_id, followed_id )
+        VALUES (1,2), (5,2), (4,2), (2,1),
+                (4,1), (5,4), (4,8), (5,8),(2,8);
+
+INSERT INTO comments (post_id, user_id, content)
+        VALUES (4, 1, 'lor purus non enim praesent elementum facilisis leo vel fringilla.'),
+        (4, 5, 'Comment from userId 5 lor purus non enim praesent elementum facilisis leo vel fringilla.'),
+        (4, 4, 'Comment from userId 2 lor purus non enim praesent elementum facilisis leo vel fringilla.'),
+        (1, 4, 'lor purus non enim praesent elementum facilisis leo vel fringilla.'),
+        (1, 5, 'Comment from userId 5 lor purus non enim praesent elementum facilisis leo vel fringilla.'),
+        (1, 2, 'Comment from userId 2 lor purus non enim praesent elementum facilisis leo vel fringilla.'),
+        (5, 4, 'lor purus non enim praesent elementum facilisis leo vel fringilla.'),
+        (5, 5, 'Comment from userId 5 lor purus non enim praesent elementum facilisis leo vel fringilla.'),
+        (5, 2, 'Comment from userId 2 lor purus non enim praesent elementum facilisis leo vel fringilla.');
 -- INSERT INTO lakes (handle,
 --                        name,
 --                        description,

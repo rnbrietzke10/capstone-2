@@ -14,55 +14,57 @@ const UserComment = ({ info, postId }) => {
     info;
   const user = JSON.parse(localStorage.getItem('user'));
   const [showModal, setShowModal] = useState(false);
+  const [showEditForm, setShowEditForm] = useState(false);
 
   const data = {
-    userId: user.id,
+    userId: info.id,
     commentId: info.id,
     type: 'comments',
-    postId: postId,
+    postId,
     username,
   };
 
   const date = new Date(commentTime.replace(' ', 'T'));
 
   return (
-    <div className='UserComment_container'>
-      <div className='UserComment_user'>
-        <div className='userInfo'>
-          <img src={profileImg} alt={username} />
-          <div className='details'>
-            <Link
-              to={`/profile/${username}`}
-              style={{ textDecoration: 'none', color: 'inherit' }}
-            >
-              <span className='name'>{`${firstName} ${lastName}`}</span>
-            </Link>
-            <span className='date'>
-              {' '}
-              {` Posted:
+    <>
+      <div className='UserComment_container'>
+        <div className='UserComment_user'>
+          <div className='userInfo'>
+            <img src={profileImg} alt={username} />
+            <div className='details'>
+              <Link
+                to={`/profile/${username}`}
+                style={{ textDecoration: 'none', color: 'inherit' }}
+              >
+                <span className='name'>{`${firstName} ${lastName}`}</span>
+              </Link>
+              <span className='date'>
+                {` Posted:
                 ${date.toLocaleDateString('en-US', {
                   month: 'long',
                   day: 'numeric',
                   year: 'numeric',
                 })}`}
-            </span>
+              </span>
+            </div>
           </div>
+          <FontAwesomeIcon
+            icon={faEllipsis}
+            size='xl'
+            className='modal-menu-btn'
+            onClick={() => setShowModal(!showModal)}
+          />
+          {showModal && <ModalMenu setShowModal={setShowModal} data={data} />}
         </div>
-        <FontAwesomeIcon
-          icon={faEllipsis}
-          size='xl'
-          className='modal-menu-btn'
-          onClick={() => setShowModal(!showModal)}
-        />
-        {showModal && <ModalMenu setShowModal={setShowModal} data={data} />}
+        <div className='content'>
+          <p>{content}</p>
+        </div>
+        <div className='info'>
+          <Likes data={data} setShowEditForm={setShowEditForm} />
+        </div>
       </div>
-      <div className='content'>
-        <p>{content}</p>
-      </div>
-      <div className='info'>
-        <Likes data={data} />
-      </div>
-    </div>
+    </>
   );
 };
 
