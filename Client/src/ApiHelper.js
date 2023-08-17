@@ -154,6 +154,19 @@ class Api {
     return res.comments;
   }
 
+  static async updateComment(data, token) {
+    this.token = token;
+    console.log('COMMENTDATA FROM APIHELPER: ', data);
+    let res = await this.request(
+      `posts/${data.postId}/comments/${data.commentId}/update`,
+      data,
+      'patch'
+    );
+    console.log('AFTER');
+
+    return res.post;
+  }
+
   // Delete Comment
 
   static async deleteComment(data, token) {

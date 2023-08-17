@@ -22,6 +22,10 @@ const ModalMenu = ({ setShowModal, data, setShowEditForm }) => {
       setShowModal(false);
     }
   };
+  const handleShowEditForm = () => {
+    if (data.type === 'posts') {
+    }
+  };
   console.log('CURRENT  USER: ', currentUser);
   const handleDelete = async () => {
     if (data.type === 'posts') {

@@ -105,6 +105,33 @@ router.post(
   }
 );
 
+/** PATCH /[postId]/comments/[commentId]
+ *
+ * Data can include:
+ *   { content, commentId userId, postId}
+ *
+ * Returns { content, commentId, postId, userId}
+ *
+ * Authorization required: same-user-as-userId on post
+ **/
+
+router.patch(
+  '/:postId/comments/:commentId/update',
+  ensureCorrectUser,
+  async function (req, res, next) {
+    console.log(req.body.content);
+    try {
+      console.log('INSIDE PATCH ROUTE');
+      const comment = await Post.updateComment(req.params.commentId, {
+        content: req.body.content,
+      });
+      return res.json({ comment });
+    } catch (err) {
+      return next(err);
+    }
+  }
+);
+
 /** GET /posts/postId/comments
  *
  * Returns comment content, author, postId

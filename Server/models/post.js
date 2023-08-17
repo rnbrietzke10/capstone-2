@@ -143,6 +143,35 @@ class Post {
     return result.rows;
   }
 
+  /** Update post
+   *  This is a "partial update" --- it's fine if data doesn't contain all the fields; this only changes provided ones.
+   *
+   * Data can include:
+   *   { content, img, userId, postId}
+   *
+   * Returns { content, img if an image, postId, username}
+   **/
+
+  static async updateComment(id, data) {
+    const { setCols, values } = sqlForPartialUpdate(data, {
+      content: 'content',
+    });
+    const commentIdVarIdx = '$' + (values.length + 1);
+
+    const querySql = `UPDATE comments
+                      SET ${setCols}
+                      WHERE id = ${commentIdVarIdx}
+                      RETURNING id,
+                                content,
+                                user_id AS "userId"`;
+
+    const results = await db.query(querySql, [...values, id]);
+    const comment = results.rows[0];
+    if (!comment) throw new NotFoundError(`No comment with id ${id}`);
+
+    return comment;
+  }
+
   /** Get all comments on a post.
    *
    * Returns [{ username, content, post_id}, ...]

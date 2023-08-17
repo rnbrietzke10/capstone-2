@@ -7,6 +7,7 @@ import Likes from '../Likes/Likes';
 
 import './UserComment.scss';
 import ModalMenu from '../ModalMenu/ModalMenu';
+import EditCommentForm from '../EditCommentForm/EditCommentForm';
 
 const UserComment = ({ info, postId }) => {
   console.log('COMMENT INFO: ', info);
@@ -19,6 +20,7 @@ const UserComment = ({ info, postId }) => {
   const data = {
     userId: info.id,
     commentId: info.id,
+    content,
     type: 'comments',
     postId,
     username,
@@ -55,15 +57,26 @@ const UserComment = ({ info, postId }) => {
             className='modal-menu-btn'
             onClick={() => setShowModal(!showModal)}
           />
-          {showModal && <ModalMenu setShowModal={setShowModal} data={data} />}
+          {showModal && (
+            <ModalMenu
+              setShowModal={setShowModal}
+              data={data}
+              setShowEditForm={setShowEditForm}
+            />
+          )}
         </div>
         <div className='content'>
           <p>{content}</p>
         </div>
         <div className='info'>
-          <Likes data={data} setShowEditForm={setShowEditForm} />
+          <Likes data={data} />
         </div>
       </div>
+      <EditCommentForm
+        show={showEditForm}
+        onHide={() => setShowEditForm(false)}
+        commentData={data}
+      />
     </>
   );
 };
