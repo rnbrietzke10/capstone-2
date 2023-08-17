@@ -26,7 +26,10 @@ const UserCard = ({ user }) => {
   return (
     <div className='UserCard'>
       <img src={user.profileImg} alt='<Username>' />
-      <h4>{`${user.firstName} ${user.lastName}`}</h4>
+      <h4>
+        {user.firstName} <br />
+        {user.lastName}
+      </h4>
       <button onClick={handleFollow} className={btnInfo.className}>
         {btnInfo.text}
       </button>

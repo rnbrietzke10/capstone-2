@@ -27,14 +27,12 @@ const UserPost = ({ info }) => {
 
     getAllComments();
   }, []);
-  console.log('info', info);
 
   const data = {
     username: username,
     postId: info.id,
     type: 'posts',
   };
-  console.log('data: ', data);
 
   const date = new Date(postTime.replace(' ', 'T'));
   return (
@@ -92,7 +90,6 @@ const UserPost = ({ info }) => {
           {commentOpen && <Comments comments={comments} postId={info.id} />}
         </div>
       </div>
-      {console.log(showEditForm)}
       <EditPostForm
         show={showEditForm}
         onHide={() => setShowEditForm(false)}

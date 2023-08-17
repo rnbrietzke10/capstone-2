@@ -56,14 +56,6 @@ class Api {
     return res.user;
   }
 
-  // Update User
-  static async getAllUsers(user, token) {
-    this.token = token;
-    let res = await this.request(`users`, user);
-    console.log(res);
-    return res.users;
-  }
-
   // Delete user
 
   static async deleteUser(data, token) {
@@ -73,6 +65,14 @@ class Api {
     return res;
   }
 
+  // Get All Users
+  static async getAllUsers(token) {
+    this.token = token;
+    let res = await this.request(`users`);
+    console.log(res.users);
+    return res.users;
+  }
+
   // Add Friend
   static async addFriend(data, token) {
     this.token = token;
@@ -80,6 +80,13 @@ class Api {
     return 'Added!';
   }
 
+  // GET following list
+  static async getFollowingList(id, token) {
+    this.token = token;
+    let res = await this.request(`users/${id}/following`);
+    const listOfIds = res.following.map(follow => follow.followed_id);
+    return listOfIds;
+  }
   // Create post
   //User data should contain post and user token
   static async createPost(userData, token) {

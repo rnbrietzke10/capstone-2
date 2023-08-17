@@ -1,15 +1,16 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import Api from '../../ApiHelper';
 import UserCard from '../UserCard/UserCard';
+import { FollowingContext } from '../../contexts/FollowingContext';
 
 const UsersList = () => {
   const [users, setUsers] = useState([]);
   const token = localStorage.getItem('token');
-  const currentUser = JSON.parse(localStorage.getItem('user'));
-  console.log(currentUser);
+  const { following, setFollowing } = useContext(FollowingContext);
+
   useEffect(() => {
     const getUsers = async () => {
-      const result = await Api.getAllUsers(currentUser, token);
+      const result = await Api.getAllUsers(token);
       console.log(result);
 
       setUsers(result);
@@ -19,9 +20,12 @@ const UsersList = () => {
   return (
     <div>
       <ul>
-        {users.map(user => (
-          <UserCard user={user} />
-        ))}
+        {users.map(user => {
+          const { id } = user;
+          if (following.indexOf(id) === -1) {
+            return <UserCard user={user} />;
+          } else return '';
+        })}
       </ul>
     </div>
   );

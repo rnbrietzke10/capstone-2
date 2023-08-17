@@ -204,6 +204,17 @@ class User {
   static async addFriend(userId, friendId) {
     let result = await db.query(`INSERT INTO `);
   }
+
+  /** Get following list */
+  static async getFollowingList(id) {
+    let result = await db.query(
+      `SELECT followed_id
+                                  FROM followers
+                                  WHERE follower_id = $1 `,
+      [id]
+    );
+    return result.rows;
+  }
 }
 
 module.exports = User;

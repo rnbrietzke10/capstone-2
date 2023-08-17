@@ -93,6 +93,9 @@ VALUES (1,
        (2,
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Dolor purus non enim praesent elementum facilisis leo vel fringilla.',
         'https://images.pexels.com/photos/210271/pexels-photo-210271.jpeg?auto=compress&cs=tinysrgb&w=1600', NULL );
+          (4,
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Dolor purus non enim praesent elementum facilisis leo vel fringilla.',
+        'https://images.pexels.com/photos/210271/pexels-photo-210271.jpeg?auto=compress&cs=tinysrgb&w=1600', NULL );
 -- INSERT INTO lakes (handle,
 --                        name,
 --                        description,

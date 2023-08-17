@@ -37,7 +37,7 @@ const EditPostForm = props => {
   if (postData.content !== itemData.content || postData.img !== itemData.img) {
     disabled = false;
   }
-  console.log('UPDATE POST MODAL');
+
   return (
     <Modal
       {...props}

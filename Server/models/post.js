@@ -56,6 +56,7 @@ class Post {
       `SELECT username,
                   first_name AS "firstName",
                   last_name AS "lastName",
+                  users.id AS "userId",
                   content,
                   posts.id,
                   img,

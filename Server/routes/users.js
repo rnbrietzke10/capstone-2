@@ -100,4 +100,21 @@ router.post('/follow', ensureLoggedIn, async function (req, res, next) {
   }
 });
 
+/** GET /[id]/following
+ *
+ * Returns { [list of following ] }
+ *
+ *
+ * Authorization required: logged in
+ **/
+
+router.get('/:id/following', ensureLoggedIn, async function (req, res, next) {
+  try {
+    const following = await User.getFollowingList(req.params.id);
+    return res.json({ following });
+  } catch (err) {
+    return next(err);
+  }
+});
+
 module.exports = router;
