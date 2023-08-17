@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
+import _ from 'lodash';
 import Api from '../../ApiHelper';
 import UserCard from '../UserCard/UserCard';
 import { FollowingContext } from '../../contexts/FollowingContext';
@@ -17,15 +18,33 @@ const UsersList = () => {
     };
     getUsers();
   }, []);
+
+  let usersNotFollowed = [];
+  users.forEach(user => {
+    const { id } = user;
+    if (following.indexOf(id) === -1) {
+      usersNotFollowed.push(user);
+    }
+  });
+  let suggestedUsers = [];
+
+  let randNum;
+  if (usersNotFollowed) {
+    for (let i = 0; i < usersNotFollowed.length; i++) {
+      randNum = Math.floor(Math.random() * usersNotFollowed.length);
+      if (suggestedUsers.indexOf(usersNotFollowed[randNum]) === -1) {
+        suggestedUsers.push(usersNotFollowed[randNum]);
+      }
+      if (suggestedUsers.length === 3) break;
+    }
+  }
+
   return (
     <div>
-      <ul>
-        {users.map(user => {
-          const { id } = user;
-          if (following.indexOf(id) === -1) {
-            return <UserCard user={user} />;
-          } else return '';
-        })}
+      <ul style={{ paddingLeft: 0 }}>
+        {suggestedUsers.map(user => (
+          <UserCard user={user} setFollowing={setFollowing} />
+        ))}
       </ul>
     </div>
   );
