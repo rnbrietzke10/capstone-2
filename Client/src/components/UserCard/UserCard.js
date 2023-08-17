@@ -1,26 +1,20 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import Api from '../../ApiHelper';
 
 import './UserCard.scss';
-const UserCard = ({ user }) => {
-  const [btnInfo, setBtnInfo] = useState({
-    className: 'follow',
-    text: 'Follow',
-  });
-  const currentUser = JSON.parse(localStorage.getItem('user'));
+import { UserContext } from '../../contexts/UserContext';
+const UserCard = ({ user, setFollowing }) => {
+  const { currentUser } = useContext(UserContext);
   const token = localStorage.getItem('token');
 
   const data = {
-    currentUserId: currentUser.id,
-    followingUserId: user.id,
+    followerId: currentUser.id,
+    followedId: user.id,
   };
   const handleFollow = async () => {
-    const result = await Api.addFriend(data, token);
-    console.log(result);
-    setBtnInfo({
-      className: 'followed',
-      text: '✔️',
-    });
+    await Api.follow(data, token);
+    const followingList = await Api.getFollowingList(currentUser.id, token);
+    setFollowing(followingList);
   };
 
   return (
@@ -30,8 +24,8 @@ const UserCard = ({ user }) => {
         {user.firstName} <br />
         {user.lastName}
       </h4>
-      <button onClick={handleFollow} className={btnInfo.className}>
-        {btnInfo.text}
+      <button onClick={handleFollow} className='follow'>
+        Follow
       </button>
     </div>
   );

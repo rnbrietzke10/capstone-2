@@ -74,10 +74,9 @@ class Api {
   }
 
   // Add Friend
-  static async addFriend(data, token) {
+  static async follow(data, token) {
     this.token = token;
-    let res = await this.request(`users/add-friend`, data, 'post');
-    return 'Added!';
+    await this.request(`users/follow`, data, 'post');
   }
 
   // GET following list

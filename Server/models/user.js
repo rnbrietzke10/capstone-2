@@ -201,8 +201,13 @@ class User {
   }
 
   /** Add friend */
-  static async addFriend(userId, friendId) {
-    let result = await db.query(`INSERT INTO `);
+  static async follow(followerId, followedId) {
+    let result = await db.query(
+      `INSERT INTO followers
+        (follower_id, followed_id )
+        VALUES ($1,$2)`,
+      [followerId, followedId]
+    );
   }
 
   /** Get following list */

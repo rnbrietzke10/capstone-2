@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
-import _ from 'lodash';
+
 import Api from '../../ApiHelper';
 import UserCard from '../UserCard/UserCard';
 import { FollowingContext } from '../../contexts/FollowingContext';
