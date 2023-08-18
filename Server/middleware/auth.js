@@ -57,7 +57,7 @@ function ensureCorrectUser(req, res, next) {
       !(
         user &&
         (user.username === req.params.username ||
-          user.username === req.body.username)
+          user.username === req.body.currentUserUsername)
       )
     ) {
       throw new UnauthorizedError();

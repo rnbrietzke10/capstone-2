@@ -11,16 +11,17 @@ import EditCommentForm from '../EditCommentForm/EditCommentForm';
 import { UserContext } from '../../contexts/UserContext';
 
 const UserComment = ({ info, postId }) => {
-  console.log('COMMENT INFO: ', info);
   const { firstName, lastName, username, content, commentTime, profileImg } =
     info;
   const { currentUser } = useContext(UserContext);
   const [showModal, setShowModal] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
   const likeData = {
-    userId: currentUser.id,
+    currentUserId: currentUser.id,
+    currentUserUsername: currentUser.username,
     id: info.id,
     postId,
+    type: 'comments',
   };
   const data = {
     currentUserId: currentUser.id,
@@ -28,7 +29,7 @@ const UserComment = ({ info, postId }) => {
     commentId: info.id,
     content,
   };
-  console.log(data);
+
   const date = new Date(commentTime.replace(' ', 'T'));
 
   return (
@@ -72,7 +73,7 @@ const UserComment = ({ info, postId }) => {
           <p>{content}</p>
         </div>
         <div className='info'>
-          <Likes data={data} />
+          <Likes data={likeData} />
         </div>
       </div>
       <EditCommentForm

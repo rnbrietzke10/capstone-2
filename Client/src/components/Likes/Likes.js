@@ -7,31 +7,40 @@ import { UserContext } from '../../contexts/UserContext';
 const Likes = ({ data }) => {
   const [like, setLike] = useState(false);
   const [likes, setLikes] = useState([]);
+  const [numLikes, setNumLikes] = useState(likes.length);
 
   const token = localStorage.getItem('token');
   const { currentUser } = useContext(UserContext);
-  // const { username } = user;
-  // data['currentUserUsername'] = username;
 
   const getLikesData = async () => {
     const resultsData = await Api.getLikes(data, token);
-    console.log(likes);
+
     setLikes(resultsData);
+
     if (resultsData.includes(currentUser.id)) setLike(true);
+    setNumLikes(resultsData.length);
   };
   useEffect(() => {
     getLikesData();
   }, []);
+
+  /**
+   * Like
+   */
   const handleLike = async () => {
-    console.log('likes data sent', data);
     await Api.addLike(data, token);
     const updatedLikes = await getLikesData();
 
     if (updatedLikes.includes(currentUser.id)) setLike(true);
   };
+
+  /**
+   * unLike
+   */
   const handleUnlike = async () => {
     await Api.unlike(data, token);
     setLike(false);
+    await getLikesData();
   };
   return (
     <div className='item'>
@@ -48,7 +57,7 @@ const Likes = ({ data }) => {
           onClick={handleLike}
         />
       )}
-      {`${likes.length} Likes`}
+      {`${numLikes} Likes`}
     </div>
   );
 };

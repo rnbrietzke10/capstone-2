@@ -33,7 +33,7 @@ class Api {
   // Signup user
   static async createUser(userData) {
     let res = await this.request(`auth/register`, userData, 'post');
-    console.log(res);
+
     return res.token;
   }
 
@@ -42,8 +42,6 @@ class Api {
     let res = await this.request('auth/token', userData, 'post');
     this.token = res.token;
     let allUserInfo = await this.request(`users/${userData.username}`);
-
-    console.log('All User Data: ', allUserInfo.user);
 
     return { allUserInfo, token: this.token };
   }
@@ -69,7 +67,7 @@ class Api {
   static async getAllUsers(token) {
     this.token = token;
     let res = await this.request(`users`);
-    console.log(res.users);
+
     return res.users;
   }
 
@@ -113,9 +111,8 @@ class Api {
   // Update post
   static async updatePost(postData, postId, token) {
     this.token = token;
-    console.log('POSTDATA FROM APIHELPER: ', postData);
+
     let res = await this.request(`posts/${postId}/update`, postData, 'patch');
-    console.log('AFTER');
 
     return res.post;
   }
@@ -138,7 +135,6 @@ class Api {
       userData,
       'post'
     );
-    console.log(res.comment);
 
     return res.comment;
   }
@@ -152,13 +148,11 @@ class Api {
 
   static async updateComment(data, token) {
     this.token = token;
-    console.log('COMMENTDATA FROM APIHELPER: ', data);
     let res = await this.request(
       `posts/${data.postId}/comments/${data.commentId}/update`,
       data,
       'patch'
     );
-    console.log('AFTER');
 
     return res.post;
   }
@@ -178,59 +172,49 @@ class Api {
 
   // Add like to post
   // Should contain postId or commentId, user token and the users id
-  // postId will be id in the arguments
-  // idType will specify wether it is a post or comment
-  static async addPostLike(data, token) {
-    this.token = token;
-
-    await this.request(`posts/${data.id}/like`, data, 'post');
-  }
-
-  // Get all likes for post
-  static async getPostLikes(data, token) {
-    this.token = token;
-
-    const res = await this.request(`posts/${data.id}/likes`);
-
-    const likesUserIds = res.likes.map(like => like.userId);
-
-    return likesUserIds;
-  }
-
-  // Add like to comment
-  // Should contain postId or commentId, user token and the users id
   // postId/commentId will be id in the arguments
   // idType will specify wether it is a post or comment
-  static async addCommentLike(data, token) {
+  static async addLike(data, token) {
     this.token = token;
+    const { type, postId, id } = data;
 
-    await this.request(
-      `posts/${data.postId}/comments/${data.id}/like`,
-      data,
-      'post'
-    );
+    let path;
+    if (type === 'comments') {
+      path = `posts/${postId}/${type}/${id}/like`;
+    } else {
+      path = `${type}/${postId}/like`;
+    }
+
+    await this.request(path, data, 'post');
+
+    return true;
   }
 
-  // Get all likes for comment
-  static async getCommentLikes(data, token) {
+  // Get all likes for page
+  static async getLikes(data, token) {
     this.token = token;
+    const { type, postId, id } = data;
 
-    const res = await this.request(
-      `posts/${data.postId}/comments/${data.id}/likes`
-    );
+    let path;
+    if (type === 'comments') {
+      path = `posts/${postId}/${type}/${id}/likes`;
+    } else {
+      path = `${type}/${postId}/likes`;
+    }
+    const res = await this.request(path);
 
     const likesUserIds = res.likes.map(like => like.userId);
-
     return likesUserIds;
   }
 
   // Unlike
   static async unlike(data, token) {
     this.token = token;
-    const { type, postId } = data;
+    const { type, postId, id } = data;
+
     let path;
     if (type === 'comments') {
-      path = `posts/${postId}/${type}/${data.commentId}/like`;
+      path = `posts/${postId}/${type}/${id}/like`;
     } else {
       path = `${type}/${postId}/like`;
     }

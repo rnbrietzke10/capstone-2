@@ -54,7 +54,6 @@ router.patch(
   ensureCorrectUser,
   async function (req, res, next) {
     try {
-      console.log('INSIDE PATCH ROUTE');
       const post = await Post.updatePost(req.params.postId, req.body);
       return res.json({ post });
     } catch (err) {
@@ -119,7 +118,6 @@ router.patch(
   '/:postId/comments/:commentId/update',
   ensureCorrectUser,
   async function (req, res, next) {
-    console.log(req.body.content);
     try {
       console.log('INSIDE PATCH ROUTE');
       const comment = await Post.updateComment(req.params.commentId, {
@@ -176,9 +174,12 @@ router.delete(
 
 router.post('/:id/like', ensureLoggedIn, async function (req, res, next) {
   try {
-    const { userId } = req.body;
+    console.log(req.body);
+    const { currentUserId } = req.body;
     const { id } = req.params;
-    await Post.addLike(userId, id, 'post');
+    await Post.addLike(currentUserId, id, 'post');
+    console.log('AFTER ADDING TO DB');
+    return res.json({ LIKED: true });
   } catch (err) {
     return next(err);
   }
@@ -233,9 +234,10 @@ router.post(
   ensureLoggedIn,
   async function (req, res, next) {
     try {
-      const { userId } = req.body;
+      const { currentUserId } = req.body;
       const { commentId } = req.params;
-      await Post.addLike(userId, commentId, 'comment');
+      await Post.addLike(currentUserId, commentId, 'comment');
+      return res.json({ LIKED: true });
     } catch (err) {
       return next(err);
     }
@@ -252,6 +254,7 @@ router.delete(
   ensureCorrectUser,
   async function (req, res, next) {
     try {
+      console.log(req.params);
       const { commentId } = req.params;
       await Post.unlike(commentId, 'comment');
       return res.json({ deleted: req.params.id });

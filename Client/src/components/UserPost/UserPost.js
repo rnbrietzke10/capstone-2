@@ -15,7 +15,8 @@ const UserPost = ({ info }) => {
   const [showModal, setShowModal] = useState(false);
   const [comments, setComments] = useState([]);
   const [showEditForm, setShowEditForm] = useState(false);
-  const { firstName, lastName, username, content, postTime, profileImg } = info;
+  const { firstName, lastName, username, content, postTime, profileImg, img } =
+    info;
   const { currentUser } = useContext(UserContext);
 
   useEffect(() => {
@@ -28,10 +29,22 @@ const UserPost = ({ info }) => {
     getAllComments();
   }, []);
 
-  const data = {
+  const postData = {
     currentUserUsername: currentUser.username,
+    currentUserId: currentUser.id,
     type: 'posts',
     content,
+    img,
+    postId: info.id,
+    userId: info.id,
+  };
+
+  const data = {
+    currentUserUsername: currentUser.username,
+    postUsername: username,
+    type: 'posts',
+    content,
+    img,
     postId: info.id,
     userId: info.id,
   };
@@ -82,7 +95,7 @@ const UserPost = ({ info }) => {
             <p>{content}</p>
           </div>
           <div className='info'>
-            <Likes data={data} />
+            <Likes data={postData} />
             <div className='item' onClick={() => setCommentOpen(!commentOpen)}>
               <FontAwesomeIcon icon={faCommentDots} />
               {comments.length !== 1
