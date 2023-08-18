@@ -6,11 +6,13 @@ import { faImage } from '@fortawesome/free-solid-svg-icons';
 import Api from '../../ApiHelper';
 import './PostForm.scss';
 import { UserContext } from '../../contexts/UserContext';
+import { PostsContext } from '../../contexts/PostsContext';
 
 const PostForm = () => {
   const [addUploadImg, setAddUploadImg] = useState(false);
   let INITIAL_STATE = { content: '', img: '' };
   const { currentUser } = useContext(UserContext);
+  const { setPosts } = useContext(PostsContext);
 
   const [itemData, setItemData] = useState(INITIAL_STATE);
   const handleChange = e => {
@@ -43,6 +45,8 @@ const PostForm = () => {
 
       await Api.createPost(updatedInfo, token);
       setItemData(INITIAL_STATE);
+      const updatedPosts = await Api.getPosts();
+      setPosts(updatedPosts);
     }
     addPost();
   };

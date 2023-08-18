@@ -7,10 +7,13 @@ import { UserContext } from '../../contexts/UserContext';
 import Api from '../../ApiHelper';
 
 import './EditCommentForm.scss';
+import { CommentsContext } from '../../contexts/CommentsContext';
 
 const EditCommentForm = props => {
   const { currentUser } = useContext(UserContext);
+  const { comments, setComments } = useContext(CommentsContext);
   const { commentData } = props;
+  console.log(commentData);
   const [itemData, setItemData] = useState(commentData);
 
   const handleChange = e => {
@@ -28,10 +31,16 @@ const EditCommentForm = props => {
         content: itemData.content,
         commentId: commentData.commentId,
         postId: commentData.postId,
-        username: currentUser.username,
+        currentUserUsername: currentUser.username,
       };
-
       await Api.updateComment(updatedInfo, token);
+      // Get list of comments
+
+      const res = await Api.getComments(commentData.postId);
+      const updatedComments = {};
+      updatedComments[commentData.postId] = res;
+      console.log('updatedComments: ', updatedComments);
+      setComments(comments => ({ ...updatedComments, ...comments }));
     }
     updateComment();
   };

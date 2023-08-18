@@ -111,6 +111,7 @@ class Api {
   // Update post
   static async updatePost(postData, postId, token) {
     this.token = token;
+    console.log(postData);
 
     let res = await this.request(`posts/${postId}/update`, postData, 'patch');
 
@@ -140,9 +141,9 @@ class Api {
   }
 
   // Get Comments
-  static async getComments(postId, token) {
+  static async getComments(id, token) {
     this.token = token;
-    let res = await this.request(`posts/${postId}/comments`);
+    let res = await this.request(`posts/${id}/comments`);
     return res.comments;
   }
 
@@ -154,7 +155,7 @@ class Api {
       'patch'
     );
 
-    return res.post;
+    return res.comment;
   }
 
   // Delete Comment

@@ -183,6 +183,7 @@ class Post {
               users.id AS "userId",
               first_name AS "firstName",
               last_name AS "lastName",
+               post_id AS "postId",
               content,
               comments.id,
               comments.created_at AS "commentTime",

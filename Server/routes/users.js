@@ -92,9 +92,9 @@ router.delete('/:username', ensureCorrectUser, async function (req, res, next) {
 router.post('/follow', ensureLoggedIn, async function (req, res, next) {
   try {
     const { followerId, followedId } = req.body;
-    const result = await User.follow(followerId, followedId);
+    await User.follow(followerId, followedId);
 
-    return res.json({ result });
+    return res.json({ follow: true });
   } catch (err) {
     return next(err);
   }
@@ -112,7 +112,7 @@ router.delete(
     try {
       const { userId, currentUserId } = req.body;
       await User.unfollow(userId, currentUserId);
-      return 'unfollowed';
+      return res.json({ unfollow: true });
     } catch (err) {
       return next(err);
     }

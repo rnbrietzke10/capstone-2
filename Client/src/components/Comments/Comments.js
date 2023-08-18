@@ -2,13 +2,17 @@ import CommentForm from '../CommentForm/CommentForm';
 
 import './Comments.scss';
 import UserComment from '../UserComment/UserComment';
+import { useContext } from 'react';
+import { CommentsContext } from '../../contexts/CommentsContext';
 
-const Comments = ({ comments, postId }) => {
+const Comments = ({ postId }) => {
+  const { comments } = useContext(CommentsContext);
+  console.log(comments);
   return (
-    <div className="Comments">
+    <div className='Comments'>
       <CommentForm postId={postId} />
-      {comments
-        ? comments.map((info) => (
+      {comments[postId]
+        ? comments[postId].map(info => (
             <UserComment postId={postId} info={info} key={info.commentId} />
           ))
         : ''}

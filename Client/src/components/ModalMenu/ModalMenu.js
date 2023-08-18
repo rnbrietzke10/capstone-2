@@ -9,7 +9,7 @@ import { PostsContext } from '../../contexts/PostsContext';
 
 const ModalMenu = ({ setShowModal, data, setShowEditForm }) => {
   const modalRef = useRef(null);
-  console.log('DATA Modal Menu:', data);
+
   const token = localStorage.getItem('token');
   const { currentUser } = useContext(UserContext);
   const { following, setFollowing } = useContext(FollowingContext);
@@ -36,7 +36,6 @@ const ModalMenu = ({ setShowModal, data, setShowEditForm }) => {
 
     setFollowing(followingList);
     const updatedPosts = await Api.getPosts();
-    console.log(updatedPosts);
     setPosts(updatedPosts);
   };
 
@@ -50,8 +49,6 @@ const ModalMenu = ({ setShowModal, data, setShowEditForm }) => {
   };
 
   const handleUnfollow = async () => {
-    console.log('DATA: ', data);
-    console.log('Token: ', token);
     const { username } = currentUser;
     await Api.unfollow(data, username, token);
     updateData();
@@ -59,7 +56,7 @@ const ModalMenu = ({ setShowModal, data, setShowEditForm }) => {
   useEffect(() => {
     document.addEventListener('click', handleClickOutside, true);
   }, []);
-  if (data.username === currentUser.username) {
+  if (data.currentUserUsername === currentUser.username) {
     return (
       <>
         <div

@@ -25,6 +25,7 @@ const UserComment = ({ info, postId }) => {
   };
   const data = {
     currentUserId: currentUser.id,
+    currentUserUsername: currentUser.username,
     postId,
     commentId: info.id,
     content,
@@ -79,7 +80,7 @@ const UserComment = ({ info, postId }) => {
       <EditCommentForm
         show={showEditForm}
         onHide={() => setShowEditForm(false)}
-        commentData={data}
+        commentData={{ currentUserUsername: currentUser.username, ...data }}
       />
     </>
   );

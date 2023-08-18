@@ -5,11 +5,14 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
 import './App.scss';
+import { CommentsProvider } from './contexts/CommentsContext';
 function App() {
   return (
     <div className='App'>
       <NavBar />
-      <AppRoutes />
+      <CommentsProvider>
+        <AppRoutes />
+      </CommentsProvider>
     </div>
   );
 }

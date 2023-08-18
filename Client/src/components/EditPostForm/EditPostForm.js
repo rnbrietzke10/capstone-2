@@ -7,8 +7,10 @@ import { UserContext } from '../../contexts/UserContext';
 import Api from '../../ApiHelper';
 
 import './EditPostForm.scss';
+import { PostsContext } from '../../contexts/PostsContext';
 const EditPostForm = props => {
   const { currentUser } = useContext(UserContext);
+  const { setPosts } = useContext(PostsContext);
   const { postData } = props;
   const [itemData, setItemData] = useState(postData);
 
@@ -22,14 +24,16 @@ const EditPostForm = props => {
 
     async function updatePost() {
       const token = await localStorage.getItem('token');
-      const userId = currentUser.id;
 
       const updatedInfo = {
         content: itemData.content,
         img: itemData.img,
+        currentUserUsername: postData.currentUserUsername,
       };
 
       await Api.updatePost(updatedInfo, postData.id, token);
+      const updatedPosts = await Api.getPosts();
+      setPosts(updatedPosts);
     }
     updatePost();
   };

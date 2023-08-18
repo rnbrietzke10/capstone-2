@@ -9,46 +9,46 @@ import './UserPost.scss';
 import ModalMenu from '../ModalMenu/ModalMenu';
 import { UserContext } from '../../contexts/UserContext';
 import EditPostForm from '../EditPostForm/EditPostForm';
+import { CommentsContext } from '../../contexts/CommentsContext';
 
 const UserPost = ({ info }) => {
   const [commentOpen, setCommentOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [comments, setComments] = useState([]);
+  console.log('INFO: ', info);
   const [showEditForm, setShowEditForm] = useState(false);
   const { firstName, lastName, username, content, postTime, profileImg, img } =
     info;
   const { currentUser } = useContext(UserContext);
+  const { comments, setComments } = useContext(CommentsContext);
+  console.log(comments);
+  const [numComments, setNumComments] = useState(0);
+
+  console.log(numComments);
+  const getAllComments = async id => {
+    const res = await Api.getComments(id);
+    const updatedComments = {};
+    updatedComments[id] = res;
+    setComments(comments => ({ ...updatedComments, ...comments }));
+    if (res !== undefined) setNumComments(res.length);
+  };
 
   useEffect(() => {
-    const getAllComments = async () => {
-      const res = await Api.getComments(info.id);
-
-      setComments(res);
-    };
-
-    getAllComments();
+    getAllComments(info.id);
   }, []);
+  console.log(comments);
 
   const postData = {
     currentUserUsername: currentUser.username,
     currentUserId: currentUser.id,
     type: 'posts',
+    postUsername: username,
     content,
     img,
     postId: info.id,
     userId: info.id,
   };
 
-  const data = {
-    currentUserUsername: currentUser.username,
-    postUsername: username,
-    type: 'posts',
-    content,
-    img,
-    postId: info.id,
-    userId: info.id,
-  };
-  console.log('POSTS DATA', data);
+  console.log('COMMENTS[INFO.ID]', comments[info.id]);
 
   const date = new Date(postTime.replace(' ', 'T'));
   return (
@@ -85,7 +85,7 @@ const UserPost = ({ info }) => {
             {showModal && (
               <ModalMenu
                 setShowModal={setShowModal}
-                data={data}
+                data={postData}
                 setShowEditForm={setShowEditForm}
               />
             )}
@@ -98,18 +98,18 @@ const UserPost = ({ info }) => {
             <Likes data={postData} />
             <div className='item' onClick={() => setCommentOpen(!commentOpen)}>
               <FontAwesomeIcon icon={faCommentDots} />
-              {comments.length !== 1
-                ? `${comments.length} Comments`
-                : `${comments.length} Comment`}
+              {numComments !== 1
+                ? `${numComments} Comments`
+                : `${numComments} Comment`}
             </div>
           </div>
-          {commentOpen && <Comments comments={comments} postId={info.id} />}
+          {commentOpen && <Comments postId={info.id} />}
         </div>
       </div>
       <EditPostForm
         show={showEditForm}
         onHide={() => setShowEditForm(false)}
-        postData={info}
+        postData={{ currentUserUsername: currentUser.username, ...info }}
       />
     </>
   );
