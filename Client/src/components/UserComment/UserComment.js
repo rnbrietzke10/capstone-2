@@ -29,6 +29,7 @@ const UserComment = ({ info, postId }) => {
     postId,
     commentId: info.id,
     content,
+    userId: info.userId,
   };
 
   const date = new Date(commentTime.replace(' ', 'T'));

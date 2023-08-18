@@ -13,7 +13,7 @@ class Api {
   static token;
 
   static async request(endpoint, data = {}, method = 'get') {
-    console.debug('API Call:', endpoint, data, method);
+    // console.debug('API Call:', endpoint, data, method);
 
     const url = `${BASE_URL}/${endpoint}`;
     const headers = { Authorization: `Bearer ${this.token}` };
@@ -111,7 +111,6 @@ class Api {
   // Update post
   static async updatePost(postData, postId, token) {
     this.token = token;
-    console.log(postData);
 
     let res = await this.request(`posts/${postId}/update`, postData, 'patch');
 

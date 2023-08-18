@@ -6,13 +6,19 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
 import './App.scss';
 import { CommentsProvider } from './contexts/CommentsContext';
+import { FollowingProvider } from './contexts/FollowingContext';
+import { PostsProvider } from './contexts/PostsContext';
 function App() {
   return (
     <div className='App'>
       <NavBar />
-      <CommentsProvider>
-        <AppRoutes />
-      </CommentsProvider>
+      <FollowingProvider>
+        <PostsProvider>
+          <CommentsProvider>
+            <AppRoutes />
+          </CommentsProvider>
+        </PostsProvider>
+      </FollowingProvider>
     </div>
   );
 }

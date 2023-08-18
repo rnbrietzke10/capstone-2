@@ -35,6 +35,7 @@ const ModalMenu = ({ setShowModal, data, setShowEditForm }) => {
     const followingList = await Api.getFollowingList(currentUser.id, token);
 
     setFollowing(followingList);
+
     const updatedPosts = await Api.getPosts();
     setPosts(updatedPosts);
   };
@@ -45,18 +46,19 @@ const ModalMenu = ({ setShowModal, data, setShowEditForm }) => {
       followedId: data.userId,
     };
     await Api.follow(followingData, token);
-    updateData();
+    await updateData();
   };
 
   const handleUnfollow = async () => {
     const { username } = currentUser;
+
     await Api.unfollow(data, username, token);
-    updateData();
+    await updateData();
   };
   useEffect(() => {
     document.addEventListener('click', handleClickOutside, true);
   }, []);
-  if (data.currentUserUsername === currentUser.username) {
+  if (data.postUsername === currentUser.username) {
     return (
       <>
         <div

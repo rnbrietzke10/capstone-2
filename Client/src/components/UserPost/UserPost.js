@@ -14,16 +14,15 @@ import { CommentsContext } from '../../contexts/CommentsContext';
 const UserPost = ({ info }) => {
   const [commentOpen, setCommentOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  console.log('INFO: ', info);
+
   const [showEditForm, setShowEditForm] = useState(false);
   const { firstName, lastName, username, content, postTime, profileImg, img } =
     info;
   const { currentUser } = useContext(UserContext);
-  const { comments, setComments } = useContext(CommentsContext);
-  console.log(comments);
+  const { setComments } = useContext(CommentsContext);
+
   const [numComments, setNumComments] = useState(0);
 
-  console.log(numComments);
   const getAllComments = async id => {
     const res = await Api.getComments(id);
     const updatedComments = {};
@@ -35,7 +34,6 @@ const UserPost = ({ info }) => {
   useEffect(() => {
     getAllComments(info.id);
   }, []);
-  console.log(comments);
 
   const postData = {
     currentUserUsername: currentUser.username,
@@ -45,10 +43,8 @@ const UserPost = ({ info }) => {
     content,
     img,
     postId: info.id,
-    userId: info.id,
+    userId: info.userId,
   };
-
-  console.log('COMMENTS[INFO.ID]', comments[info.id]);
 
   const date = new Date(postTime.replace(' ', 'T'));
   return (

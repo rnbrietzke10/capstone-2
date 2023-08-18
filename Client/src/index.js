@@ -9,17 +9,14 @@ import reportWebVitals from './reportWebVitals';
 import './index.scss';
 import { PostsProvider } from './contexts/PostsContext';
 import { FollowingProvider } from './contexts/FollowingContext';
+import { CommentsProvider } from './contexts/CommentsContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
       <UserProvider>
-        <FollowingProvider>
-          <PostsProvider>
-            <App />
-          </PostsProvider>
-        </FollowingProvider>
+        <App />
       </UserProvider>
     </BrowserRouter>
   </React.StrictMode>
