@@ -17,7 +17,7 @@ const EditCommentForm = props => {
     const { name, value } = e.target;
     setItemData(data => ({ ...data, [name]: value }));
   };
-  console.log(commentData);
+
   const handleSubmit = e => {
     e.preventDefault();
 
@@ -30,7 +30,6 @@ const EditCommentForm = props => {
         postId: commentData.postId,
         username: currentUser.username,
       };
-      console.log('UPDATED INFO: ', updatedInfo);
 
       await Api.updateComment(updatedInfo, token);
     }
@@ -40,7 +39,6 @@ const EditCommentForm = props => {
   if (commentData.content !== itemData.content) {
     disabled = false;
   }
-  console.log('INSIDE EDIT COMMENT FORM');
 
   return (
     <Modal
@@ -49,7 +47,6 @@ const EditCommentForm = props => {
       aria-labelledby='contained-modal-title-vcenter'
       centered
     >
-      {console.log('MODAL')}
       <Modal.Header closeButton>
         <Modal.Title id='contained-modal-title-vcenter'>Edit Post</Modal.Title>
       </Modal.Header>

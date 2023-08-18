@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
@@ -8,24 +8,27 @@ import Likes from '../Likes/Likes';
 import './UserComment.scss';
 import ModalMenu from '../ModalMenu/ModalMenu';
 import EditCommentForm from '../EditCommentForm/EditCommentForm';
+import { UserContext } from '../../contexts/UserContext';
 
 const UserComment = ({ info, postId }) => {
   console.log('COMMENT INFO: ', info);
   const { firstName, lastName, username, content, commentTime, profileImg } =
     info;
-  const user = JSON.parse(localStorage.getItem('user'));
+  const { currentUser } = useContext(UserContext);
   const [showModal, setShowModal] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
-
+  const likeData = {
+    userId: currentUser.id,
+    id: info.id,
+    postId,
+  };
   const data = {
-    userId: info.id,
+    currentUserId: currentUser.id,
+    postId,
     commentId: info.id,
     content,
-    type: 'comments',
-    postId,
-    username,
   };
-
+  console.log(data);
   const date = new Date(commentTime.replace(' ', 'T'));
 
   return (

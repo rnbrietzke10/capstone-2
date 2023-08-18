@@ -81,14 +81,10 @@ class Api {
 
   // Unfollow user
 
-  static async unfollow(data, token) {
+  static async unfollow(data, username, token) {
     this.token = token;
-    const { currentUserUsername } = data;
-    let res = await this.request(
-      `users/${currentUserUsername}/unfollow`,
-      data,
-      'delete'
-    );
+
+    let res = await this.request(`users/${username}/unfollow`, data, 'delete');
 
     return res;
   }
@@ -180,34 +176,48 @@ class Api {
     return res;
   }
 
-  // Add like
+  // Add like to post
+  // Should contain postId or commentId, user token and the users id
+  // postId will be id in the arguments
+  // idType will specify wether it is a post or comment
+  static async addPostLike(data, token) {
+    this.token = token;
+
+    await this.request(`posts/${data.id}/like`, data, 'post');
+  }
+
+  // Get all likes for post
+  static async getPostLikes(data, token) {
+    this.token = token;
+
+    const res = await this.request(`posts/${data.id}/likes`);
+
+    const likesUserIds = res.likes.map(like => like.userId);
+
+    return likesUserIds;
+  }
+
+  // Add like to comment
   // Should contain postId or commentId, user token and the users id
   // postId/commentId will be id in the arguments
   // idType will specify wether it is a post or comment
-  static async addLike(data, token) {
+  static async addCommentLike(data, token) {
     this.token = token;
-    const { type, postId } = data;
-    let path;
-    if (type === 'comments') {
-      path = `posts/${postId}/${type}/${data.commentId}/like`;
-    } else {
-      path = `${type}/${postId}/like`;
-    }
-    await this.request(path, data, 'post');
+
+    await this.request(
+      `posts/${data.postId}/comments/${data.id}/like`,
+      data,
+      'post'
+    );
   }
 
-  // Get all likes for page
-  static async getLikes(data, token) {
+  // Get all likes for comment
+  static async getCommentLikes(data, token) {
     this.token = token;
-    const { type, postId } = data;
 
-    let path;
-    if (type === 'comments') {
-      path = `posts/${postId}/${type}/${data.commentId}/likes`;
-    } else {
-      path = `${type}/${postId}/likes`;
-    }
-    const res = await this.request(path);
+    const res = await this.request(
+      `posts/${data.postId}/comments/${data.id}/likes`
+    );
 
     const likesUserIds = res.likes.map(like => like.userId);
 

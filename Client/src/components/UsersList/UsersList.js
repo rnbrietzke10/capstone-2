@@ -12,7 +12,6 @@ const UsersList = () => {
   useEffect(() => {
     const getUsers = async () => {
       const result = await Api.getAllUsers(token);
-      console.log(result);
 
       setUsers(result);
     };

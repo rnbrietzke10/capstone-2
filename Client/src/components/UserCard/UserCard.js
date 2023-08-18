@@ -12,7 +12,8 @@ const UserCard = ({ user, setFollowing }) => {
     followedId: user.id,
   };
   const handleFollow = async () => {
-    await Api.follow(data, token);
+    const { username } = currentUser;
+    await Api.follow(data, username, token);
     const followingList = await Api.getFollowingList(currentUser.id, token);
     setFollowing(followingList);
   };

@@ -10,6 +10,8 @@
 
   header {
     display: flex;
+    flex-direction: column-reverse;
+    width: 90%;
     height: 400px;
     margin: 20px;
     justify-content: space-evenly;
@@ -21,7 +23,7 @@
     -moz-box-shadow: 3px 3px 10px 0px rgba(39, 55, 34, 0.87);
     box-shadow: 3px 3px 10px 0px rgba(39, 55, 34, 0.87);
     @include md {
-      flex-direction: column-reverse;
+      flex-direction: row;
 
       height: 500px;
       width: 90%;
@@ -29,31 +31,50 @@
   }
 
   .info-container {
-    flex: 1;
+    flex: 2;
     margin: 30px;
     margin-right: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
     h2 {
-      font-size: 2rem;
+      font-size: 1.5rem;
+      @include md {
+        font-size: 3rem;
+      }
     }
     .info {
       margin-top: 10px;
       h3 {
-        width: 30%;
+        font-size: 1rem;
+        width: 90%;
         border-bottom: 1px solid #343434;
         margin-bottom: 10px;
+        @include md {
+          font-size: 2rem;
+        }
       }
       ul {
         list-style: none;
-
+        margin-top: 10px;
+        padding-left: 0;
         li {
           .info_link {
             text-decoration: none;
             color: #000;
+            font-size: 0.8rem;
             font-weight: 700;
             line-height: 1.5rem;
+            @include md {
+              font-size: 1.5rem;
+            }
           }
           span {
             margin-left: 10px;
+            font-size: 0.8rem;
+            @include md {
+              font-size: 1.25rem;
+            }
           }
         }
       }
@@ -64,7 +85,7 @@
     overflow: hidden;
     flex: 2;
     border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
+    border-top-left-radius: 5px;
 
     @include md {
       width: 100%;

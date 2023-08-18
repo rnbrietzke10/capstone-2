@@ -16,7 +16,7 @@ export const FollowingProvider = ({ children }) => {
       const token = await localStorage.getItem('token');
 
       const list = await Api.getFollowingList(currentUser.id, token);
-      console.log('LIST: ', list);
+
       setFollowing(list);
     };
     getFollowing();

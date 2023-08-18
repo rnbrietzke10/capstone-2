@@ -22,7 +22,6 @@ const CommentForm = ({ postId }) => {
         content: itemData.content,
         userId: user.id,
       };
-      console.log(postId);
 
       await Api.createComment(updatedInfo, postId, token);
       setItemData(INITIAL_STATE);

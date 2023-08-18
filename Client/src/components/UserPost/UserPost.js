@@ -29,13 +29,13 @@ const UserPost = ({ info }) => {
   }, []);
 
   const data = {
-    username: username,
     currentUserUsername: currentUser.username,
-    userId: info.userId,
-    postId: info.id,
-    currentUserId: currentUser.id,
     type: 'posts',
+    content,
+    postId: info.id,
+    userId: info.id,
   };
+  console.log('POSTS DATA', data);
 
   const date = new Date(postTime.replace(' ', 'T'));
   return (

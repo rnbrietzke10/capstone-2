@@ -180,6 +180,7 @@ class Post {
   static async getComments(postId) {
     const result = await db.query(
       `SELECT username,
+              users.id AS "userId",
               first_name AS "firstName",
               last_name AS "lastName",
               content,

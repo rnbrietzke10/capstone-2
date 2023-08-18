@@ -23,9 +23,8 @@ const PostForm = () => {
   let postLocation = urlArr[urlArr.length - 1];
   if (!postLocation) {
     postLocation = null;
-    console.log(typeof postLocation);
   }
-  console.log(postLocation);
+
   const handleClick = () => setAddUploadImg(!addUploadImg);
 
   const handleSubmit = e => {
@@ -34,11 +33,11 @@ const PostForm = () => {
     async function addPost() {
       const token = await localStorage.getItem('token');
       const userId = currentUser.id;
-      console.log('type of', typeof userId);
+
       const updatedInfo = {
         content: itemData.content,
-        userId: currentUser.id,
         img: itemData.img,
+        userId,
         postLocation,
       };
 

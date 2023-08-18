@@ -8,7 +8,7 @@ const UpdateUserForm = () => {
   const navigate = useNavigate();
   const { currentUser, setCurrentUser } = useContext(UserContext);
   const token = localStorage.getItem('token');
-  console.log(currentUser);
+
   const [itemData, setItemData] = useState(currentUser);
   const handleChange = e => {
     const { name, value } = e.target;

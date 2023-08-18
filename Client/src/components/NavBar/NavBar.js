@@ -11,7 +11,6 @@ import { UserContext } from '../../contexts/UserContext';
 
 const NavBar = () => {
   const { currentUser } = useContext(UserContext);
-  console.log('CURRENT USER NAVBAR: ', currentUser);
   const [clickLakes, setClickLakes] = useState(false);
   const [clickRivers, setClickRivers] = useState(false);
   const [clickUserProfile, setClickUserProfile] = useState(false);

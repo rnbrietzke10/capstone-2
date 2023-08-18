@@ -184,27 +184,6 @@ router.post('/:id/like', ensureLoggedIn, async function (req, res, next) {
   }
 });
 
-/** POST /posts/postId/comments/id/like
- *
- *
- *
- * Authorization required: loggedIn
- */
-
-router.post(
-  '/:postId/comments/:commentId/like',
-  ensureLoggedIn,
-  async function (req, res, next) {
-    try {
-      const { userId } = req.body;
-      const { commentId } = req.params;
-      await Post.addLike(userId, commentId, 'comment');
-    } catch (err) {
-      return next(err);
-    }
-  }
-);
-
 /**
  * Get Post likes
  *
@@ -236,6 +215,27 @@ router.delete(
       const { postId } = req.params;
       await Post.unlike(postId, 'post');
       return res.json({ deleted: req.params.id });
+    } catch (err) {
+      return next(err);
+    }
+  }
+);
+
+/** POST /posts/postId/comments/id/like
+ *
+ *
+ *
+ * Authorization required: loggedIn
+ */
+
+router.post(
+  '/:postId/comments/:commentId/like',
+  ensureLoggedIn,
+  async function (req, res, next) {
+    try {
+      const { userId } = req.body;
+      const { commentId } = req.params;
+      await Post.addLike(userId, commentId, 'comment');
     } catch (err) {
       return next(err);
     }

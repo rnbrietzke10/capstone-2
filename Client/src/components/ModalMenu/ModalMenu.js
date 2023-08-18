@@ -13,6 +13,7 @@ const ModalMenu = ({ setShowModal, data, setShowEditForm }) => {
   const token = localStorage.getItem('token');
   const { currentUser } = useContext(UserContext);
   const { following, setFollowing } = useContext(FollowingContext);
+
   const { setPosts } = useContext(PostsContext);
   const handleClickOutside = e => {
     if (
@@ -22,11 +23,7 @@ const ModalMenu = ({ setShowModal, data, setShowEditForm }) => {
       setShowModal(false);
     }
   };
-  const handleShowEditForm = () => {
-    if (data.type === 'posts') {
-    }
-  };
-  console.log('CURRENT  USER: ', currentUser);
+
   const handleDelete = async () => {
     if (data.type === 'posts') {
       await Api.deletePost(data, token);
@@ -36,6 +33,7 @@ const ModalMenu = ({ setShowModal, data, setShowEditForm }) => {
   };
   const updateData = async () => {
     const followingList = await Api.getFollowingList(currentUser.id, token);
+
     setFollowing(followingList);
     const updatedPosts = await Api.getPosts();
     console.log(updatedPosts);
@@ -45,14 +43,17 @@ const ModalMenu = ({ setShowModal, data, setShowEditForm }) => {
   const handleFollow = async () => {
     const followingData = {
       followerId: currentUser.id,
-      followedId: data.id,
+      followedId: data.userId,
     };
     await Api.follow(followingData, token);
     updateData();
   };
 
   const handleUnfollow = async () => {
-    await Api.unfollow(data, token);
+    console.log('DATA: ', data);
+    console.log('Token: ', token);
+    const { username } = currentUser;
+    await Api.unfollow(data, username, token);
     updateData();
   };
   useEffect(() => {
