@@ -2,20 +2,18 @@ const bcrypt = require('bcrypt');
 
 const db = require('../db.js');
 const { BCRYPT_WORK_FACTOR } = require('../config');
-
+process.env.NODE_ENV = 'test';
 async function commonBeforeAll() {
   // noinspection SqlWithoutWhere
   await db.query('DELETE FROM users');
 
+  // ('u3', $3, 'U3F', 'U3L', 'u3@email.com', 'img.jpeg', 'img.png')
   await db.query(
     `
-        INSERT INTO users(username,
-                          password,
-                          first_name,
-                          last_name,
-                          email)
-        VALUES ('u1', $1, 'U1F', 'U1L', 'u1@email.com'),
-               ('u2', $2, 'U2F', 'U2L', 'u2@email.com')
+        INSERT INTO users(username, password, first_name, last_name, email, profile_img, cover_img)
+        VALUES ('u1', $1, 'U1F', 'U1L', 'u1@email.com', 'img.jpeg', 'img.png'),
+               ('u2', $2, 'U2F', 'U2L', 'u2@email.com', 'img.jpeg', 'img.png')
+
         RETURNING username`,
     [
       await bcrypt.hash('password1', BCRYPT_WORK_FACTOR),

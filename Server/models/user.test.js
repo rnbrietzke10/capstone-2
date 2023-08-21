@@ -24,11 +24,15 @@ afterAll(commonAfterAll);
 describe('authenticate', function () {
   test('works', async function () {
     const user = await User.authenticate('u1', 'password1');
+    user.id = 1;
     expect(user).toEqual({
+      id: 1,
       username: 'u1',
       firstName: 'U1F',
       lastName: 'U1L',
       email: 'u1@email.com',
+      // profileImg: 'img.jpeg',
+      // coverImg: 'img.png',
     });
   });
 
@@ -93,19 +97,16 @@ describe('register', function () {
 
 describe('findAll', function () {
   test('works', async function () {
-    const users = await User.findAll();
+    const users = await User.findAll('u1');
+
+    users.forEach(user => delete user.id);
+
     expect(users).toEqual([
-      {
-        username: 'u1',
-        firstName: 'U1F',
-        lastName: 'U1L',
-        email: 'u1@email.com',
-      },
       {
         username: 'u2',
         firstName: 'U2F',
         lastName: 'U2L',
-        email: 'u2@email.com',
+        profileImg: 'img.jpeg',
       },
     ]);
   });
@@ -116,11 +117,15 @@ describe('findAll', function () {
 describe('get', function () {
   test('works', async function () {
     let user = await User.get('u1');
+    user.id = 1;
     expect(user).toEqual({
+      id: 1,
       username: 'u1',
       firstName: 'U1F',
       lastName: 'U1L',
       email: 'u1@email.com',
+      profileImg: 'img.jpeg',
+      coverImg: 'img.png',
     });
   });
 
@@ -143,15 +148,17 @@ describe('update', function () {
     email: 'new@email.com',
   };
 
-  test('works: set password', async function () {
-    let newPassword = await User.update('u1', {
-      password: 'new',
-    });
-    expect(newPassword).toEqual({
+  test('works: update user data', async function () {
+    let updatedUser = await User.update('u1', updateData);
+    updatedUser.id = 1;
+    expect(updatedUser).toEqual({
       username: 'u1',
-      firstName: 'U1F',
-      lastName: 'U1L',
-      email: 'u1@email.com',
+      firstName: 'NewF',
+      lastName: 'NewF',
+      email: 'new@email.com',
+      profileImg: 'img.jpeg',
+      coverImg: 'img.png',
+      id: 1,
     });
     const found = await db.query("SELECT * FROM users WHERE username = 'u1'");
     expect(found.rows.length).toEqual(1);
@@ -180,18 +187,70 @@ describe('update', function () {
   });
 });
 
-/************************************** remove */
+/************************************** Delete User */
 
-describe('remove', function () {
+describe('delete user', function () {
   test('works', async function () {
-    await User.remove('u1');
+    await User.deleteUser('u1');
     const res = await db.query("SELECT * FROM users WHERE username='u1'");
     expect(res.rows.length).toEqual(0);
   });
 
   test('not found if no such user', async function () {
     try {
-      await User.remove('nope');
+      await User.deleteUser('nope');
+      fail();
+    } catch (err) {
+      expect(err instanceof NotFoundError).toBeTruthy();
+    }
+  });
+});
+
+/************************************** Follow User */
+
+describe('follow user', function () {
+  test('works', async function () {
+    // Need to get ids for each user
+    await await User.follow();
+  });
+  test('unable to follow user does not exist', async function () {
+    try {
+      await User.follow();
+      fail();
+    } catch (err) {
+      expect(err instanceof BadRequestError).toBeTruthy();
+    }
+  });
+});
+
+/************************************** Unfollow User */
+
+describe('follow user', function () {
+  test('works', async function () {
+    // Need to get ids for each user
+    await await User.unfollow();
+  });
+  test('unable to unfollow user ', async function () {
+    try {
+      await User.unfollow();
+      fail();
+    } catch (err) {
+      expect(err instanceof BadRequestError).toBeTruthy();
+    }
+  });
+});
+
+/************************************** Get following list */
+
+describe('user following list', function () {
+  test('get list of all users that are be followed by given user Id', async function () {
+    // need userId
+    const following = await User.getFollowingList();
+  });
+
+  test('not found if no such user', async function () {
+    try {
+      await User.getFollowingList('nope');
       fail();
     } catch (err) {
       expect(err instanceof NotFoundError).toBeTruthy();

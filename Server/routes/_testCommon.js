@@ -3,7 +3,7 @@
 const db = require('../db.js');
 const User = require('../models/user');
 const { createToken } = require('../helpers/tokens');
-
+process.env.NODE_ENV = 'test';
 async function commonBeforeAll() {
   // noinspection SqlWithoutWhere
   await db.query('DELETE FROM users');

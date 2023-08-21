@@ -205,9 +205,13 @@ class User {
     let result = await db.query(
       `INSERT INTO followers
         (follower_id, followed_id )
-        VALUES ($1,$2)`,
+        VALUES ($1,$2)
+        RETURNING id`,
       [followerId, followedId]
     );
+    const id = result.rows[0];
+    if (!id) throw new BadRequestError('Unable to follow user');
+    return true;
   }
 
   /** Delete follow relationship from database; returns undefined. */
@@ -219,6 +223,9 @@ class User {
            WHERE followed_id = $1 AND follower_id =$2`,
       [followedId, followerId]
     );
+    const id = result.rows[0];
+    if (!id) throw new BadRequestError('Unable to unfollow user');
+    return true;
   }
 
   /** Get following list */
@@ -229,7 +236,13 @@ class User {
                                   WHERE follower_id = $1 `,
       [id]
     );
-    return result.rows;
+
+    const following = result.rows;
+    console.log(!result.rows);
+    if (following.length === 0) {
+      throw new NotFoundError(`No user: ${id}`);
+    }
+    return following;
   }
 }
 
