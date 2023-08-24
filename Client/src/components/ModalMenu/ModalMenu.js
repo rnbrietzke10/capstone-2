@@ -76,23 +76,19 @@ const ModalMenu = ({ setShowModal, data, setShowEditForm }) => {
 
           <div className='modal-menu-items-conatiner'>
             <div className='modal-menu-items delete' onClick={handleDelete}>
-              <FontAwesomeIcon
-                icon='fa-solid fa-trash-can'
-                // style={{ color: '#000' }}
-                size='xl'
-              />
-              <span>Delete</span>
+              <button className='modal-btn'>
+                <FontAwesomeIcon icon='fa-solid fa-trash-can' size='xl' /> {''}
+                Delete
+              </button>
             </div>
             <div
               className='modal-menu-items edit'
               onClick={() => setShowEditForm(true)}
             >
-              <FontAwesomeIcon
-                icon='fa-solid fa-pen-to-square'
-                // style={{ color: '#000' }}
-                size='xl'
-              />
-              <span>Edit</span>
+              <button className='modal-btn'>
+                <FontAwesomeIcon icon='fa-solid fa-pen-to-square' size='xl' />
+                {''} Edit
+              </button>
             </div>
           </div>
         </div>

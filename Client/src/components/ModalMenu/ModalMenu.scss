@@ -1,10 +1,8 @@
 .modal-container {
   width: 175px;
-  // height: 150px;
   background-color: #ffffff;
   display: flex;
   flex-direction: column;
-  //   justify-content: space-between;
 
   z-index: 2;
   position: absolute;
@@ -31,12 +29,18 @@
     .modal-menu-items {
       cursor: pointer;
       padding: 10px;
+      transition: 0.3s;
 
-      span {
+      .modal-btn {
         margin-left: 10px;
         font-size: 1.1rem;
+        background: transparent;
+        border: none;
+        transition: 0.3s;
+        &:hover {
+          color: #fff;
+        }
       }
-
       &:hover {
         color: #fff;
         border-radius: 3px;
