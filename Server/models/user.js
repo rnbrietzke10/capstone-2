@@ -78,7 +78,7 @@ class User {
             email
             )
            VALUES ($1, $2, $3, $4, $5)
-           RETURNING username, first_name AS "firstName", last_name AS "lastName", email`,
+           RETURNING id, username, first_name AS "firstName", last_name AS "lastName", email`,
       [username, hashedPassword, firstName, lastName, email]
     );
 
@@ -209,6 +209,7 @@ class User {
         RETURNING id`,
       [followerId, followedId]
     );
+
     const id = result.rows[0];
     if (!id) throw new BadRequestError('Unable to follow user');
     return true;
@@ -220,12 +221,13 @@ class User {
     let result = await db.query(
       `DELETE
            FROM followers
-           WHERE followed_id = $1 AND follower_id =$2`,
+           WHERE followed_id = $1 AND follower_id =$2
+           RETURNING id`,
       [followedId, followerId]
     );
     const id = result.rows[0];
     if (!id) throw new BadRequestError('Unable to unfollow user');
-    return true;
+    return id;
   }
 
   /** Get following list */
@@ -238,7 +240,7 @@ class User {
     );
 
     const following = result.rows;
-    console.log(!result.rows);
+
     if (following.length === 0) {
       throw new NotFoundError(`No user: ${id}`);
     }

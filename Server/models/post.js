@@ -18,7 +18,7 @@ class Post {
    *
    **/
 
-  static async createPost(content, userId, postLocation, img) {
+  static async createPost({ content, userId, postLocation, img }) {
     const result = await db.query(
       `INSERT INTO posts
            (user_id,
@@ -26,24 +26,31 @@ class Post {
             post_location
             )
            VALUES ($1, $2, $3)
-           RETURNING id`,
+           RETURNING id AS "postId",
+                                  content,
+                                  user_id AS "userId"`,
       [userId, content, postLocation]
     );
-    const postId = result.rows[0].id;
+
+    const postId = result.rows[0].postId;
 
     if (img) {
-      const addImageQuery = await db.query(`UPDATE posts
-                        SET img = '${img}'
-                        WHERE id = ${postId}
+      const addImageQuery = await db.query(
+        `UPDATE posts
+                        SET img = $1
+                        WHERE id = $2
                         RETURNING id AS "postId",
                                   content,
                                   user_id AS "userId",
-                                  img`);
+                                  post_location AS "postLocation",
+                                  img`,
+        [img, postId]
+      );
 
-      return addImageQuery;
+      return addImageQuery.rows[0];
     }
 
-    return result;
+    return result.rows[0];
   }
 
   /** Find all post.
@@ -81,7 +88,6 @@ class Post {
    **/
 
   static async updatePost(id, data) {
-    console.log(data);
     const { setCols, values } = sqlForPartialUpdate(data, {
       content: 'content',
       img: 'img',
@@ -91,7 +97,7 @@ class Post {
     const querySql = `UPDATE posts
                       SET ${setCols}
                       WHERE id = ${postIdVarIdx}
-                      RETURNING id,
+                      RETURNING id AS "postId",
                                 content,
                                 user_id AS "userId",
                                 post_location AS "postLocation",
@@ -118,9 +124,9 @@ class Post {
            RETURNING id`,
       [id]
     );
-    if (!result.rows[0]) throw new NotFoundError(`Like not found.`);
+    if (!result.rows[0]) throw new NotFoundError(`Post with ${id} not found.`);
 
-    return result.rows;
+    return result.rows[0];
   }
 
   /** create new comment on post
@@ -140,7 +146,7 @@ class Post {
            RETURNING id AS "commentId", content, user_id AS "userId", post_id AS "postId"`,
       [userId, content, postId]
     );
-    return result.rows;
+    return result.rows[0];
   }
 
   /** Update post
@@ -161,13 +167,15 @@ class Post {
     const querySql = `UPDATE comments
                       SET ${setCols}
                       WHERE id = ${commentIdVarIdx}
-                      RETURNING id,
+                      RETURNING id AS "commentId",
                                 content,
                                 user_id AS "userId"`;
 
     const results = await db.query(querySql, [...values, id]);
     const comment = results.rows[0];
-    if (!comment) throw new NotFoundError(`No comment with id ${id}`);
+
+    if (!comment)
+      throw new NotFoundError(`Unable to update comment with id ${id}`);
 
     return comment;
   }
@@ -214,7 +222,7 @@ class Post {
     );
     if (!result.rows[0]) throw new NotFoundError(`Like not found.`);
 
-    return result.rows;
+    return result.rows[0];
   }
 
   /**
@@ -228,28 +236,28 @@ class Post {
             ${idType}_id
            )
            VALUES ($1, $2)
-          `,
+          RETURNING id`,
       [userId, id]
     );
 
-    return result.rows;
+    return result.rows[0];
   }
 
   /**
    * unlike a post
    **/
 
-  static async unlike(id, idType) {
+  static async unlike(id, idType, userId) {
     const result = await db.query(
       `DELETE
            FROM likes
-           WHERE ${idType}_id = $1
+           WHERE ${idType}_id = $1 AND user_id = $2
            RETURNING id`,
-      [id]
+      [id, userId]
     );
     if (!result.rows[0]) throw new NotFoundError(`Like not found.`);
 
-    return result.rows;
+    return result.rows[0];
   }
 
   /**
@@ -264,7 +272,7 @@ class Post {
       [id]
     );
 
-    return result;
+    return result.rows;
   }
 }
 

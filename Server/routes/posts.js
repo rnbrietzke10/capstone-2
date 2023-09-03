@@ -21,7 +21,7 @@ const router = express.Router();
 router.post('/new', ensureLoggedIn, async function (req, res, next) {
   try {
     const { content, userId, postLocation, img } = req.body;
-    const post = await Post.createPost(content, userId, postLocation, img);
+    const post = await Post.createPost(req.body);
 
     return res.json({ post });
   } catch (err) {

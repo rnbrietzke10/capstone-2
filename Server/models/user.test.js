@@ -8,31 +8,51 @@ const {
 const db = require('../db.js');
 const User = require('./user.js');
 const {
-  commonBeforeAll,
   commonBeforeEach,
   commonAfterEach,
   commonAfterAll,
 } = require('./_testCommon');
 
-beforeAll(commonBeforeAll);
 beforeEach(commonBeforeEach);
 afterEach(commonAfterEach);
 afterAll(commonAfterAll);
-
+const context = {};
 /************************************** authenticate */
+beforeEach(async () => {
+  await db.query('DELETE FROM users');
+
+  context.userA = await User.register({
+    username: 'u1',
+    firstName: 'U1F',
+    lastName: 'U1L',
+    email: 'user1@user.com',
+    password: 'password1',
+  });
+
+  context.userB = await User.register({
+    username: 'u2',
+    firstName: 'U2F',
+    lastName: 'U2L',
+    email: 'user2@user.com',
+    password: 'password2',
+  });
+  context.userC = await User.register({
+    username: 'u3',
+    firstName: 'U3F',
+    lastName: 'U3L',
+    email: 'user3@user.com',
+    password: 'password3',
+  });
+});
 
 describe('authenticate', function () {
   test('works', async function () {
     const user = await User.authenticate('u1', 'password1');
-    user.id = 1;
     expect(user).toEqual({
-      id: 1,
       username: 'u1',
       firstName: 'U1F',
       lastName: 'U1L',
-      email: 'u1@email.com',
-      // profileImg: 'img.jpeg',
-      // coverImg: 'img.png',
+      email: 'user1@user.com',
     });
   });
 
@@ -65,18 +85,18 @@ describe('register', function () {
     email: 'test@test.com',
   };
 
-  test('works', async function () {
+  test('should register new user', async function () {
     let user = await User.register({
       ...newUser,
       password: 'password',
     });
-    expect(user).toEqual(newUser);
+    expect(user).toEqual({ id: user.id, ...newUser });
     const found = await db.query("SELECT * FROM users WHERE username = 'new'");
     expect(found.rows.length).toEqual(1);
     expect(found.rows[0].password.startsWith('$2b$')).toEqual(true);
   });
 
-  test('bad request with dup data', async function () {
+  test('should throw error with duplicate user data', async function () {
     try {
       await User.register({
         ...newUser,
@@ -95,41 +115,48 @@ describe('register', function () {
 
 /************************************** findAll */
 
-describe('findAll', function () {
-  test('works', async function () {
-    const users = await User.findAll('u1');
-
-    users.forEach(user => delete user.id);
-
-    expect(users).toEqual([
+describe('findAll()', function () {
+  test('should return list of users', async function () {
+    const otherUsers = [
       {
+        id: context.userB.id,
         username: 'u2',
         firstName: 'U2F',
         lastName: 'U2L',
-        profileImg: 'img.jpeg',
+        profileImg: null,
       },
-    ]);
+      {
+        id: context.userC.id,
+        username: 'u3',
+        firstName: 'U3F',
+        lastName: 'U3L',
+        profileImg: null,
+      },
+    ];
+
+    const users = await User.findAll('u1');
+
+    expect(users).toEqual(otherUsers);
   });
 });
 
 /************************************** get */
 
-describe('get', function () {
-  test('works', async function () {
+describe('get(username)', function () {
+  test('should return user with given username', async function () {
     let user = await User.get('u1');
-    user.id = 1;
     expect(user).toEqual({
-      id: 1,
+      id: context.userA.id,
       username: 'u1',
       firstName: 'U1F',
       lastName: 'U1L',
-      email: 'u1@email.com',
-      profileImg: 'img.jpeg',
-      coverImg: 'img.png',
+      email: 'user1@user.com',
+      profileImg: null,
+      coverImg: null,
     });
   });
 
-  test('not found if no such user', async function () {
+  test('should throw error if no such user', async function () {
     try {
       await User.get('nope');
       fail();
@@ -141,16 +168,18 @@ describe('get', function () {
 
 /************************************** update */
 
-describe('update', function () {
+describe('update(username, data)', function () {
   const updateData = {
     firstName: 'NewF',
     lastName: 'NewF',
     email: 'new@email.com',
+    profileImg: 'img.jpeg',
+    coverImg: 'img.png',
   };
 
-  test('works: update user data', async function () {
+  test('should update user data', async function () {
     let updatedUser = await User.update('u1', updateData);
-    updatedUser.id = 1;
+
     expect(updatedUser).toEqual({
       username: 'u1',
       firstName: 'NewF',
@@ -158,14 +187,14 @@ describe('update', function () {
       email: 'new@email.com',
       profileImg: 'img.jpeg',
       coverImg: 'img.png',
-      id: 1,
+      id: context.userA.id,
     });
     const found = await db.query("SELECT * FROM users WHERE username = 'u1'");
     expect(found.rows.length).toEqual(1);
     expect(found.rows[0].password.startsWith('$2b$')).toEqual(true);
   });
 
-  test('not found if no such user', async function () {
+  test('should throw error if no user is found', async function () {
     try {
       await User.update('nope', {
         firstName: 'test',
@@ -176,7 +205,7 @@ describe('update', function () {
     }
   });
 
-  test('bad request if no data', async function () {
+  test('should throw error if no data', async function () {
     expect.assertions(1);
     try {
       await User.update('c1', {});
@@ -209,26 +238,19 @@ describe('delete user', function () {
 /************************************** Follow User */
 
 describe('follow user', function () {
-  test('works', async function () {
-    // Need to get ids for each user
-    await await User.follow();
-  });
-  test('unable to follow user does not exist', async function () {
-    try {
-      await User.follow();
-      fail();
-    } catch (err) {
-      expect(err instanceof BadRequestError).toBeTruthy();
-    }
+  test('should be follow user with given id', async function () {
+    await User.follow(context.userA.id, context.userB.id);
   });
 });
 
 /************************************** Unfollow User */
 
-describe('follow user', function () {
-  test('works', async function () {
+describe('unfollow user', function () {
+  test('should unfollow user with given ids', async function () {
     // Need to get ids for each user
-    await await User.unfollow();
+    await User.follow(context.userA.id, context.userB.id);
+    const res = await User.unfollow(context.userB.id, context.userA.id);
+    expect(res).toBeTruthy();
   });
   test('unable to unfollow user ', async function () {
     try {
@@ -245,12 +267,13 @@ describe('follow user', function () {
 describe('user following list', function () {
   test('get list of all users that are be followed by given user Id', async function () {
     // need userId
-    const following = await User.getFollowingList();
+    await User.follow(context.userB.id, context.userA.id);
+    const following = await User.getFollowingList(context.userB.id);
   });
 
   test('not found if no such user', async function () {
     try {
-      await User.getFollowingList('nope');
+      await User.getFollowingList();
       fail();
     } catch (err) {
       expect(err instanceof NotFoundError).toBeTruthy();

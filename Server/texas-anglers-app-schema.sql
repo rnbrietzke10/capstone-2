@@ -31,7 +31,7 @@ CREATE TABLE posts (
 
 CREATE TABLE comments (
   id SERIAL PRIMARY KEY,
-  post_id INTEGER REFERENCES posts(id), --post replied to
+  post_id INTEGER NOT NULL REFERENCES posts(id) ON DELETE CASCADE, --post replied to
   user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE, -- References User id that made comment
   content TEXT NOT NULL,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL

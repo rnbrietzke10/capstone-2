@@ -22,7 +22,7 @@ const router = express.Router();
 router.get('/', ensureLoggedIn, async function (req, res, next) {
   try {
     const users = await User.findAll(res.locals.user.username);
-    console.log(users);
+
     return res.json({ users });
   } catch (err) {
     return next(err);

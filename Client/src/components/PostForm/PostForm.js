@@ -34,12 +34,11 @@ const PostForm = () => {
 
     async function addPost() {
       const token = await localStorage.getItem('token');
-      const userId = currentUser.id;
 
       const updatedInfo = {
         content: itemData.content,
         img: itemData.img,
-        userId,
+        userId: currentUser.id,
         postLocation,
       };
 
