@@ -21,11 +21,12 @@ const UserComment = ({ info, postId }) => {
     currentUserUsername: currentUser.username,
     id: info.id,
     postId,
-    type: 'comments',
+    type: 'comment',
   };
   const data = {
     currentUserId: currentUser.id,
     currentUserUsername: currentUser.username,
+    postUsername: info.username,
     postId,
     commentId: info.id,
     content,

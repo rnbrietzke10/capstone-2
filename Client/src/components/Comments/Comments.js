@@ -7,7 +7,7 @@ import { CommentsContext } from '../../contexts/CommentsContext';
 
 const Comments = ({ postId }) => {
   const { comments } = useContext(CommentsContext);
-  console.log(comments);
+
   return (
     <div className='Comments'>
       <CommentForm postId={postId} />

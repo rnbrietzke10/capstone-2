@@ -8,31 +8,6 @@ process.env.NODE_ENV = 'test';
 async function commonBeforeAll() {
   // noinspection SqlWithoutWhere
   await db.query('DELETE FROM users');
-
-  // await User.register({
-  //   username: 'u1',
-  //   firstName: 'U1F',
-  //   lastName: 'U1L',
-  //   email: 'user1@user.com',
-  //   password: 'password1',
-  // });
-  // await User.register({
-  //   username: 'u2',
-  //   firstName: 'U2F',
-  //   lastName: 'U2L',
-  //   email: 'user2@user.com',
-  //   password: 'password2',
-  // });
-  // await User.register({
-  //   username: 'u3',
-  //   firstName: 'U3F',
-  //   lastName: 'U3L',
-  //   email: 'user3@user.com',
-  //   password: 'password3',
-  // });
-
-  const postContent1 = 'first post';
-  await Post.createPost(postContent1);
 }
 
 async function commonBeforeEach() {

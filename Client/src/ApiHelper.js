@@ -13,7 +13,7 @@ class Api {
   static token;
 
   static async request(endpoint, data = {}, method = 'get') {
-    // console.debug('API Call:', endpoint, data, method);
+    console.debug('API Call:', endpoint, data, method);
 
     const url = `${BASE_URL}/${endpoint}`;
     const headers = { Authorization: `Bearer ${this.token}` };
@@ -82,7 +82,11 @@ class Api {
   static async unfollow(data, username, token) {
     this.token = token;
 
-    let res = await this.request(`users/${username}/unfollow`, data, 'delete');
+    let res = await this.request(
+      `users/${username}/unfollow/${data.userId}/${data.currentUserId}`,
+      {},
+      'delete'
+    );
 
     return res;
   }
@@ -196,8 +200,8 @@ class Api {
     const { type, postId, id } = data;
 
     let path;
-    if (type === 'comments') {
-      path = `posts/${postId}/${type}/${id}/likes`;
+    if (type === 'comment') {
+      path = `posts/${postId}/comments/${id}/likes`;
     } else {
       path = `${type}/${postId}/likes`;
     }
@@ -208,15 +212,15 @@ class Api {
   }
 
   // Unlike
-  static async unlike(data, token) {
+  static async unlike(data, userId, token) {
     this.token = token;
     const { type, postId, id } = data;
 
     let path;
     if (type === 'comments') {
-      path = `posts/${postId}/${type}/${id}/like`;
+      path = `posts/${postId}/${type}/${id}/like/${userId}`;
     } else {
-      path = `${type}/${postId}/like`;
+      path = `${type}/${postId}/like/${userId}`;
     }
     await this.request(path, data, 'delete');
   }

@@ -8,8 +8,6 @@
 
 const express = require('express');
 const axios = require('axios');
-const { ensureLoggedIn } = require('../middleware/auth');
-const { BadRequestError } = require('../expressError');
 
 const router = express.Router();
 //   , ensureLoggedIn

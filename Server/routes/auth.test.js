@@ -10,6 +10,7 @@ const {
   commonAfterEach,
   commonAfterAll,
 } = require('./_testCommon');
+const User = require('../models/user');
 
 beforeAll(commonBeforeAll);
 beforeEach(commonBeforeEach);
@@ -17,7 +18,15 @@ afterEach(commonAfterEach);
 afterAll(commonAfterAll);
 
 /************************************** POST /auth/token */
-
+beforeEach(async () => {
+  await User.register({
+    username: 'u1',
+    firstName: 'U1F',
+    lastName: 'U1L',
+    email: 'user1@user.com',
+    password: 'password1',
+  });
+});
 describe('POST /auth/token', function () {
   test('works', async function () {
     const resp = await request(app).post('/auth/token').send({

@@ -38,7 +38,7 @@ const Likes = ({ data }) => {
    * unLike
    */
   const handleUnlike = async () => {
-    await Api.unlike(data, token);
+    await Api.unlike(data, currentUser.id, token);
     setLike(false);
     await getLikesData();
   };

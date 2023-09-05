@@ -11,9 +11,9 @@ import { CommentsContext } from '../../contexts/CommentsContext';
 
 const EditCommentForm = props => {
   const { currentUser } = useContext(UserContext);
-  const { comments, setComments } = useContext(CommentsContext);
+  const { setComments } = useContext(CommentsContext);
   const { commentData } = props;
-  console.log(commentData);
+
   const [itemData, setItemData] = useState(commentData);
 
   const handleChange = e => {
@@ -39,7 +39,7 @@ const EditCommentForm = props => {
       const res = await Api.getComments(commentData.postId);
       const updatedComments = {};
       updatedComments[commentData.postId] = res;
-      console.log('updatedComments: ', updatedComments);
+
       setComments(comments => ({ ...updatedComments, ...comments }));
     }
     updateComment();

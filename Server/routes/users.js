@@ -107,11 +107,11 @@ router.post('/follow', ensureLoggedIn, async function (req, res, next) {
  **/
 
 router.delete(
-  '/:username/unfollow',
+  '/:username/unfollow/:userId/:currentUserId',
   ensureCorrectUser,
   async function (req, res, next) {
     try {
-      const { userId, currentUserId } = req.body;
+      const { userId, currentUserId } = req.params;
       await User.unfollow(userId, currentUserId);
       return res.json({ unfollow: true });
     } catch (err) {

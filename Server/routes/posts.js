@@ -20,7 +20,6 @@ const router = express.Router();
 
 router.post('/new', ensureLoggedIn, async function (req, res, next) {
   try {
-    const { content, userId, postLocation, img } = req.body;
     const post = await Post.createPost(req.body);
 
     return res.json({ post });
@@ -79,7 +78,7 @@ router.delete(
     try {
       const { postId } = req.params;
       await Post.deletePost(postId);
-      return res.json({ deleted: req.params.id });
+      return res.json({ deleted: req.params.postId });
     } catch (err) {
       return next(err);
     }
@@ -162,7 +161,7 @@ router.delete(
     try {
       const { commentId } = req.params;
       await Post.deleteComment(commentId);
-      return res.json({ deleted: req.params.id });
+      return res.json({ deleted: req.params.commentId });
     } catch (err) {
       return next(err);
     }
@@ -182,7 +181,7 @@ router.post('/:id/like', ensureLoggedIn, async function (req, res, next) {
     const { id } = req.params;
     await Post.addLike(currentUserId, id, 'post');
 
-    return res.json({ LIKED: true });
+    return res.json({ liked: true });
   } catch (err) {
     return next(err);
   }
@@ -193,13 +192,13 @@ router.post('/:id/like', ensureLoggedIn, async function (req, res, next) {
  *
  */
 
-router.get('/:id/likes', ensureLoggedIn, async function (req, res, next) {
+router.get('/:postId/likes', ensureLoggedIn, async function (req, res, next) {
   try {
-    const { id } = req.params;
+    const { postId } = req.params;
 
-    const result = await Post.getLikes(id, 'post');
+    const result = await Post.getLikes(postId, 'post');
 
-    const likes = result.rows;
+    const likes = result;
     return res.json({ likes });
   } catch (err) {
     return next(err);
@@ -212,13 +211,13 @@ router.get('/:id/likes', ensureLoggedIn, async function (req, res, next) {
  **/
 
 router.delete(
-  '/:postId/like',
+  '/:postId/like/:userId',
   ensureCorrectUser,
   async function (req, res, next) {
     try {
-      const { postId } = req.params;
-      await Post.unlike(postId, 'post');
-      return res.json({ deleted: req.params.id });
+      const { postId, userId } = req.params;
+      const result = await Post.unlike(postId, 'post', userId);
+      return res.json({ result });
     } catch (err) {
       return next(err);
     }
@@ -240,7 +239,7 @@ router.post(
       const { currentUserId } = req.body;
       const { commentId } = req.params;
       await Post.addLike(currentUserId, commentId, 'comment');
-      return res.json({ LIKED: true });
+      return res.json({ liked: true });
     } catch (err) {
       return next(err);
     }
@@ -253,13 +252,13 @@ router.post(
  **/
 
 router.delete(
-  '/:postId/comments/:commentId/like',
+  '/:postId/comments/:commentId/like/:userId',
   ensureCorrectUser,
   async function (req, res, next) {
     try {
-      const { commentId } = req.params;
-      await Post.unlike(commentId, 'comment');
-      return res.json({ deleted: req.params.id });
+      const { commentId, userId } = req.params;
+      const result = await Post.unlike(commentId, 'comment', userId);
+      return res.json({ deleted: result.id });
     } catch (err) {
       return next(err);
     }
@@ -279,8 +278,10 @@ router.get(
   async function (req, res, next) {
     try {
       const { commentId } = req.params;
+
       const results = await Post.getLikes(commentId, 'comment');
-      const likes = results.rows;
+      const likes = results;
+
       return res.json({ likes });
     } catch (err) {
       return next(err);

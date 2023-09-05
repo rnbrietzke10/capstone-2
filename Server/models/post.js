@@ -271,7 +271,6 @@ class Post {
        WHERE ${idType}_id = $1`,
       [id]
     );
-
     return result.rows;
   }
 }
