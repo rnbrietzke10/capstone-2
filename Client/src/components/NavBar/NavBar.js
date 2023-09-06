@@ -1,16 +1,108 @@
-import { useState, useContext } from 'react';
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import Dropdown from '../Dropdown/Dropdown';
+
 import { lakes } from '../../Data/lakes';
 import { rivers } from '../../Data/rivers';
 import './NavBar.scss';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faXmark, faBars } from '@fortawesome/free-solid-svg-icons';
-import UserProfileDropdown from '../UserProfileDropdown/UserProfileDropdown';
+
 import { UserContext } from '../../contexts/UserContext';
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
+import Offcanvas from 'react-bootstrap/Offcanvas';
 
 const NavBar = () => {
   const { currentUser } = useContext(UserContext);
+  const lakesArray = Object.keys(lakes);
+  const riversArray = Object.keys(rivers);
+  return (
+    <>
+      <Navbar key='md' expand='md' id='navbar' className='  mb-3'>
+        <Container fluid>
+          <Navbar.Brand as={Link} to='/' className='logo'></Navbar.Brand>
+          <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-md`} />
+          <Navbar.Offcanvas
+            id={`offcanvasNavbar-expand-md`}
+            aria-labelledby={`offcanvasNavbarLabel-expand-md`}
+            placement='end'
+          >
+            <Offcanvas.Header closeButton>
+              <Offcanvas.Title id={`offcanvasNavbarLabel-expand-md`}>
+                Texas Anglers
+              </Offcanvas.Title>
+            </Offcanvas.Header>
+            <Offcanvas.Body>
+              <Nav className='justify-content-end flex-grow-1 pe-3 left-nav-container'>
+                <NavDropdown
+                  title={<span className='dropdown-title'>Lakes</span>}
+                  id={`offcanvasNavbarDropdown-expand-md`}
+                  style={{ color: '#fff' }}
+                >
+                  {lakesArray.map(lake => (
+                    <NavDropdown.Item
+                      as={Link}
+                      to={`/lakes/${lake}`}
+                      key={lake}
+                    >
+                      {lakes[lake].name}
+                    </NavDropdown.Item>
+                  ))}
+                </NavDropdown>
+                <NavDropdown
+                  title={<span className='dropdown-title'>Rivers</span>}
+                  id={`offcanvasNavbarDropdown-expand-md`}
+                >
+                  {riversArray.map(river => (
+                    <NavDropdown.Item
+                      as={Link}
+                      to={`/rivers/${river}`}
+                      key={river}
+                    >
+                      {rivers[river].name}
+                    </NavDropdown.Item>
+                  ))}
+                </NavDropdown>
+                <NavDropdown
+                  align='end'
+                  title={
+                    <img
+                      className='thumbnail-image'
+                      src={currentUser.profileImg}
+                      alt='user pic'
+                    />
+                  }
+                  id={`offcanvasNavbarDropdown-expand-md`}
+                >
+                  <NavDropdown.Item
+                    as={Link}
+                    to={`/users/${currentUser.username}`}
+                  >
+                    {`${currentUser.firstName} ${currentUser.lastName}'s Profile`}
+                  </NavDropdown.Item>
+                  <NavDropdown.Item
+                    as={Link}
+                    to={`/users/${currentUser.username}/update`}
+                  >
+                    Update Profile
+                  </NavDropdown.Item>
+                </NavDropdown>
+              </Nav>
+            </Offcanvas.Body>
+          </Navbar.Offcanvas>
+        </Container>
+      </Navbar>
+      )
+    </>
+  );
+};
+
+export default NavBar;
+
+/**************** old nav bar */
+
+/**
+ *
   const [clickLakes, setClickLakes] = useState(false);
   const [clickRivers, setClickRivers] = useState(false);
   const [clickUserProfile, setClickUserProfile] = useState(false);
@@ -146,6 +238,4 @@ const NavBar = () => {
       </div>
     </div>
   );
-};
-
-export default NavBar;
+ */
