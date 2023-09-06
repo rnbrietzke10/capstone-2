@@ -7,6 +7,8 @@ import { rivers } from '../../Data/rivers';
 
 import Posts from '../../components/Posts/Posts';
 import './Location.scss';
+import Weather from '../../components/Weather/Weather';
+import { weatherData } from '../../Data/tempWeatherData';
 
 const Location = () => {
   const [weather, setWeather] = useState(null);
@@ -17,21 +19,22 @@ const Location = () => {
   const { lat, lng } = location;
 
   useEffect(() => {
+    const BASE_URL = process.env.REACT_APP_BASE_URL || 'http://localhost:8080';
     const getWeather = async (lat, lng) => {
       const token = await localStorage.getItem('token');
       const data = await axios.get(
-        `http://localhost:8080/weather?lat=${lat}&lng=${lng}`,
+        `${BASE_URL}/weather?lat=${lat}&lng=${lng}`,
         {
           Authorization: `Bearer ${token}`,
         }
       );
-      console.log('DATA', data);
+
       setWeather(data.data);
     };
     getWeather(lat, lng);
   }, []);
 
-  console.log('Weather', weather);
+  // console.log('Weather', weather.data);
 
   return (
     <div className='Location'>
@@ -86,41 +89,9 @@ const Location = () => {
           ></iframe>
         </aside>
       </main>
-      {weather ? (
-        <div className='weather-container'>
-          <div className='weather-card current'>
-            <h3> Current Weather</h3>
-            <div className='condition'>
-              <img
-                className='condition-icon'
-                src={weather.data.current.condition.icon}
-                alt={weather.data.current.condition.text}
-              />
-
-              <h4 className='temperature'>
-                {`${weather.data.current.temp_f}`}&deg;
-              </h4>
-            </div>
-            <p>Feels like {weather.data.current.feelslike_f}&deg;</p>
-          </div>
-          <div className='future-weather-container'>
-            <h3> Future Weather</h3>
-            <div className='weather-card future'>
-              <div className='condition'>
-                <img
-                  className='condition-icon'
-                  src={weather.data.current.condition.icon}
-                  alt={weather.data.current.condition.text}
-                />
-              </div>
-              <h4 className='temperature'>
-                {`Temperature: ${weather.data.current.temp_f}`}&deg;
-              </h4>
-            </div>
-          </div>
-        </div>
-      ) : null}
-      <Posts />
+      {weather ? <Weather weather={weather.data} /> : null}
+      {/* {weatherData ? <Weather weather={weatherData} /> : null} */}
+      <Posts className='location-post' />
     </div>
   );
 };

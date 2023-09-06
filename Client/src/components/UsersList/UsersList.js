@@ -3,7 +3,7 @@ import { useState, useEffect, useContext } from 'react';
 import Api from '../../ApiHelper';
 import UserCard from '../UserCard/UserCard';
 import { FollowingContext } from '../../contexts/FollowingContext';
-
+import './UsersList.scss';
 const UsersList = () => {
   const [users, setUsers] = useState([]);
   const token = localStorage.getItem('token');
@@ -39,13 +39,11 @@ const UsersList = () => {
   }
 
   return (
-    <div>
-      <ul style={{ paddingLeft: 0 }}>
-        {suggestedUsers.map(user => (
-          <UserCard user={user} setFollowing={setFollowing} />
-        ))}
-      </ul>
-    </div>
+    <ul className='user-list' style={{ paddingLeft: 0 }}>
+      {suggestedUsers.map(user => (
+        <UserCard user={user} setFollowing={setFollowing} />
+      ))}
+    </ul>
   );
 };
 

@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import Api from '../../ApiHelper';
 
 import './UserCard.scss';
@@ -21,11 +21,13 @@ const UserCard = ({ user, setFollowing }) => {
 
   return (
     <div className='UserCard'>
-      <img src={user.profileImg} alt='<Username>' />
-      <h4>
-        {user.firstName} <br />
-        {user.lastName}
-      </h4>
+      <div className='user-info'>
+        <img src={user.profileImg} alt='<Username>' />
+        <h4 className='user-name'>
+          {user.firstName} <br />
+          {user.lastName}
+        </h4>
+      </div>
       <button onClick={handleFollow} className='follow'>
         Follow
       </button>

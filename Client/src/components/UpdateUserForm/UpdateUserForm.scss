@@ -30,13 +30,25 @@
     form {
       display: flex;
       flex-direction: column;
-      gap: 30px;
+      gap: 10px;
       width: 100%;
       .form-input-container {
         margin-top: 10px;
         display: flex;
         flex-direction: column;
-        align-items: flex-start;
+        @include md {
+          flex-direction: row;
+        }
+        label {
+          font-weight: 700;
+          @include md {
+            margin: auto;
+          }
+
+          @include md {
+            width: 175px;
+          }
+        }
 
         input {
           border: none;
@@ -48,13 +60,24 @@
       .btn-container {
         display: flex;
         justify-content: space-evenly;
+        flex-direction: column;
+        align-items: center;
+        @include sm {
+          flex-direction: row;
+        }
         .btn {
           width: 40%;
           padding: 10px;
           border: none;
           border-radius: 3px;
+          margin-top: 30px;
+          margin-bottom: 10px;
           font-weight: bold;
           cursor: pointer;
+
+          @include sm {
+            margin-bottom: 0;
+          }
         }
         .btn-dark {
           background-color: #4b644a;

@@ -65,7 +65,7 @@ const UpdateUserForm = () => {
         <h2>Update Profile</h2>
         <form onSubmit={handleSubmit}>
           <div className='form-input-container'>
-            {/* <label htmlFor='username'>Username:</label> */}
+            <label htmlFor='username'>Username:</label>
             <input
               id='username'
               type='text'
@@ -77,7 +77,7 @@ const UpdateUserForm = () => {
             />
           </div>
           <div className='form-input-container'>
-            {/* <label htmlFor='firstName'>First Name:</label> */}
+            <label htmlFor='firstName'>First Name:</label>
             <input
               id='firstName'
               type='text'
@@ -89,7 +89,7 @@ const UpdateUserForm = () => {
             />
           </div>
           <div className='form-input-container'>
-            {/* <label htmlFor='lastName'>Last Name:</label> */}
+            <label htmlFor='lastName'>Last Name:</label>
             <input
               id='lastName'
               type='text'
@@ -101,7 +101,7 @@ const UpdateUserForm = () => {
             />
           </div>{' '}
           <div className='form-input-container'>
-            {/* <label htmlFor='email'>Email:</label> */}
+            <label htmlFor='email'>Email:</label>
             <input
               id='email'
               type='email'
@@ -113,7 +113,7 @@ const UpdateUserForm = () => {
             />
           </div>
           <div className='form-input-container'>
-            {/* <label htmlFor='profileImg'>Profile Picture:</label> */}
+            <label htmlFor='profileImg'>Profile Picture:</label>
             <input
               id='profileImg'
               type='profileImg'
@@ -125,7 +125,7 @@ const UpdateUserForm = () => {
             />
           </div>
           <div className='form-input-container'>
-            {/* <label htmlFor='coverImg'>Cover Photos:</label> */}
+            <label htmlFor='coverImg'>Cover Photo:</label>
             <input
               id='coverImg'
               type='coverImg'

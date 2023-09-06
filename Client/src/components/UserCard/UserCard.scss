@@ -1,21 +1,46 @@
+@import '../../_breakpoints.scss';
+
 .UserCard {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+
   padding: 5px 10px;
   border-radius: 5px;
   margin-top: 15px;
   box-shadow: 1px 3px 4px 0px rgba(0, 0, 0, 0.59);
   -webkit-box-shadow: 1px 3px 4px 0px rgba(0, 0, 0, 0.59);
   -moz-box-shadow: 1px 3px 4px 0px rgba(0, 0, 0, 0.59);
-  min-width: 275px;
-  img {
-    margin-right: 15px;
-    height: 50px;
-    width: 50px;
-    border-radius: 50%;
+  width: 175px;
+  margin: 10px;
+  @include lg {
+    width: 300px;
+    justify-content: space-between;
+  }
+
+  .user-info {
+    display: flex;
+    flex-direction: column;
+    @include lg {
+      flex-direction: row;
+    }
+    img {
+      margin-right: 15px;
+      height: 50px;
+      width: 50px;
+      border-radius: 50%;
+    }
+    .user-name {
+      margin-top: 10px;
+      font-size: 1rem;
+      @include lg {
+        margin-top: 0;
+      }
+    }
   }
   .follow {
+    font-size: 0.75rem;
+    align-self: flex-start;
+    margin-top: 10px;
     margin-left: 15px;
     padding: 5px 10px;
     background-color: green;
@@ -23,5 +48,11 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
+
+    @include lg {
+      font-size: 1rem;
+      margin-top: 0;
+      align-self: center;
+    }
   }
 }

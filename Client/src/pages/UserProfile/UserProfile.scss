@@ -1,5 +1,5 @@
+@import '../../_breakpoints.scss';
 .UserProfile_container {
-  height: calc(100vh - 100px);
   display: flex;
   flex-direction: column;
   width: 95%;
@@ -17,11 +17,16 @@
   }
   .profile {
     display: flex;
-    align-items: flex-start;
-    justify-content: center;
+    flex-direction: column-reverse;
+    align-items: center;
+    @include lg {
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: center;
+    }
 
     .profile_left {
-      width: 60%;
+      min-width: 400px;
       margin: 20px;
       display: flex;
       // flex-direction: column;
