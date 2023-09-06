@@ -18,7 +18,7 @@ const NavBar = () => {
   const riversArray = Object.keys(rivers);
   return (
     <>
-      <Navbar key='md' expand='md' id='navbar' className='  mb-3'>
+      <Navbar key='md' expand='md' id='navbar' className='mb-3' sticky='top'>
         <Container fluid>
           <Navbar.Brand as={Link} to='/' className='logo'></Navbar.Brand>
           <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-md`} />
@@ -92,7 +92,6 @@ const NavBar = () => {
           </Navbar.Offcanvas>
         </Container>
       </Navbar>
-      )
     </>
   );
 };
