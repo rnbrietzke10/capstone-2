@@ -185,7 +185,7 @@ class Api {
 
     let path;
     if (type === 'comment') {
-      path = `posts/${postId}/${type}/${id}/like`;
+      path = `posts/${postId}/comments/${id}/like`;
     } else {
       path = `${type}/${postId}/like`;
     }
