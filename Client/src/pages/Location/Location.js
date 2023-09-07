@@ -44,7 +44,10 @@ const Location = () => {
             <h1>{location.name}</h1>
             <ul>
               <li>
-                <span>Location: </span>
+                <span>
+                  Location:
+                  <br />{' '}
+                </span>
                 {location.location}
               </li>
               {lake ? (

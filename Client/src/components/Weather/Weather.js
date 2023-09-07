@@ -14,7 +14,7 @@ const Weather = ({ weather }) => {
         <h3> Forecast</h3>
         <div className='WeatherCard-container'>
           {weather.forecast.forecastday.map(day => {
-            return <WeatherCard weather={day} />;
+            return <WeatherCard weather={day} key={day.date} />;
           })}
         </div>
       </div>

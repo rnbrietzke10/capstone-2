@@ -1,33 +1,33 @@
 @import '../../_breakpoints.scss';
 
 .container {
+  margin-top: -80px;
+
   .login {
+    flex-direction: column;
     @include lg {
-      flex-direction: column;
+      flex-direction: row;
+      flex: 1;
     }
 
-    flex-direction: row;
-
     .bg-img {
+      //   gap will add space between elements in the flexbox
+      gap: 10px;
+      color: #fff;
       background: linear-gradient(
           rgba(75, 100, 74, 0.8),
           rgba(75, 100, 74, 0.8)
         ),
         url('../../assets/pexels-the-lazy-artist-gallery-1569002.jpg') center;
       background-size: cover;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      border-bottom-left-radius: 0;
       @include lg {
         border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
-        border-bottom-left-radius: 0;
+        border-bottom-left-radius: 10px;
+        border-top-right-radius: 0;
       }
-
-      //   gap will add space between elements in the flexbox
-      gap: 30px;
-      color: #fff;
-
-      border-top-left-radius: 10px;
-      border-bottom-left-radius: 10px;
-      border-top-right-radius: 0;
     }
   }
 }

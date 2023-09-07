@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { lakes } from '../../Data/lakes';
 import { rivers } from '../../Data/rivers';
@@ -13,9 +13,20 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 
 const NavBar = () => {
-  const { currentUser } = useContext(UserContext);
+  const { currentUser, setCurrentUser } = useContext(UserContext);
+
   const lakesArray = Object.keys(lakes);
   const riversArray = Object.keys(rivers);
+
+  const navigate = useNavigate();
+
+  const logoutHandler = async () => {
+    await localStorage.removeItem('user');
+    await localStorage.removeItem('token');
+    setCurrentUser(null);
+    navigate('/');
+  };
+
   return (
     <>
       <Navbar key='md' expand='md' id='navbar' className='mb-3' sticky='top'>
@@ -34,59 +45,77 @@ const NavBar = () => {
             </Offcanvas.Header>
             <Offcanvas.Body>
               <Nav className='justify-content-end flex-grow-1 pe-3 left-nav-container'>
-                <NavDropdown
-                  title={<span className='dropdown-title'>Lakes</span>}
-                  id={`offcanvasNavbarDropdown-expand-md`}
-                  style={{ color: '#fff' }}
-                >
-                  {lakesArray.map(lake => (
-                    <NavDropdown.Item
-                      as={Link}
-                      to={`/lakes/${lake}`}
-                      key={lake}
+                {/* User logged in  */}
+                {currentUser ? (
+                  <>
+                    <NavDropdown
+                      title={<span className='dropdown-title'>Lakes</span>}
+                      id={`offcanvasNavbarDropdown-expand-md`}
+                      style={{ color: '#fff' }}
                     >
-                      {lakes[lake].name}
-                    </NavDropdown.Item>
-                  ))}
-                </NavDropdown>
-                <NavDropdown
-                  title={<span className='dropdown-title'>Rivers</span>}
-                  id={`offcanvasNavbarDropdown-expand-md`}
-                >
-                  {riversArray.map(river => (
-                    <NavDropdown.Item
-                      as={Link}
-                      to={`/rivers/${river}`}
-                      key={river}
+                      {lakesArray.map(lake => (
+                        <NavDropdown.Item
+                          as={Link}
+                          to={`/lakes/${lake}`}
+                          key={lake}
+                        >
+                          {lakes[lake].name}
+                        </NavDropdown.Item>
+                      ))}
+                    </NavDropdown>
+                    <NavDropdown
+                      title={<span className='dropdown-title'>Rivers</span>}
+                      id={`offcanvasNavbarDropdown-expand-md`}
                     >
-                      {rivers[river].name}
-                    </NavDropdown.Item>
-                  ))}
-                </NavDropdown>
-                <NavDropdown
-                  align='end'
-                  title={
-                    <img
-                      className='thumbnail-image'
-                      src={currentUser.profileImg}
-                      alt='user pic'
-                    />
-                  }
-                  id={`offcanvasNavbarDropdown-expand-md`}
-                >
-                  <NavDropdown.Item
-                    as={Link}
-                    to={`/users/${currentUser.username}`}
-                  >
-                    {`${currentUser.firstName} ${currentUser.lastName}'s Profile`}
-                  </NavDropdown.Item>
-                  <NavDropdown.Item
-                    as={Link}
-                    to={`/users/${currentUser.username}/update`}
-                  >
-                    Update Profile
-                  </NavDropdown.Item>
-                </NavDropdown>
+                      {riversArray.map(river => (
+                        <NavDropdown.Item
+                          as={Link}
+                          to={`/rivers/${river}`}
+                          key={river}
+                        >
+                          {rivers[river].name}
+                        </NavDropdown.Item>
+                      ))}
+                    </NavDropdown>
+
+                    <NavDropdown
+                      align='end'
+                      title={
+                        <img
+                          className='thumbnail-image'
+                          src={currentUser.profileImg}
+                          alt='user pic'
+                        />
+                      }
+                      id={`offcanvasNavbarDropdown-expand-md`}
+                    >
+                      <NavDropdown.Item
+                        as={Link}
+                        to={`/users/${currentUser.username}`}
+                      >
+                        {`${currentUser.firstName} ${currentUser.lastName}'s Profile`}
+                      </NavDropdown.Item>
+                      <NavDropdown.Item
+                        as={Link}
+                        to={`/users/${currentUser.username}/update`}
+                      >
+                        Update Profile
+                      </NavDropdown.Item>
+                      <NavDropdown.Item onClick={logoutHandler}>
+                        Log Out
+                      </NavDropdown.Item>
+                    </NavDropdown>
+                  </>
+                ) : (
+                  <>
+                    <Nav.Link id='nav-link' as={Link} to={`/register`}>
+                      Sign up
+                    </Nav.Link>
+                    <Nav.Link id='nav-link' as={Link} to={`/login`}>
+                      Login
+                    </Nav.Link>
+                  </>
+                )}
               </Nav>
             </Offcanvas.Body>
           </Navbar.Offcanvas>

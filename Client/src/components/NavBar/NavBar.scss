@@ -43,3 +43,17 @@
 .dropdown-toggle::after {
   display: none !important;
 }
+
+#nav-link {
+  color: #000;
+  font-size: 2rem;
+
+  @include md {
+    color: #fff;
+    font-size: 1.5rem;
+    margin-right: 5px;
+    &:hover {
+      color: #fff;
+    }
+  }
+}

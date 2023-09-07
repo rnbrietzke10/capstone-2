@@ -1,7 +1,8 @@
 export const rivers = {
   'guadalupe-river': {
     name: 'Guadalupe River',
-    location: '',
+    location:
+      'Runs from Kerr County, Texas, to San Antonio Bay on the Gulf of Mexico.',
     lat: 29.251783,
     lng: -98.067788,
     mapUrl:
