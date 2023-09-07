@@ -89,8 +89,8 @@ const Location = () => {
           ></iframe>
         </aside>
       </main>
-      {weather ? <Weather weather={weather.data} /> : null}
-      {/* {weatherData ? <Weather weather={weatherData} /> : null} */}
+      {/* {weather ? <Weather weather={weather.data} /> : null} */}
+      {weatherData ? <Weather weather={weatherData} /> : null}
       <Posts className='location-post' />
     </div>
   );
