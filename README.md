@@ -2,8 +2,13 @@
 
 <!-- Description of what the app does brief user flow -->
 
-<!-- ## Deployed Site:
-View the deployed app [here](https://coding-quiz-app-rb.herokuapp.com/signup). -->
+## Deployed Site:
+
+View the deployed app [Texas Anglers App](https://texas-anglers-app-kxvr.onrender.com/).
+
+- Demo user Credentials:
+  - Username: demoUser
+  - password: password
 
 ## APIs Used
 
