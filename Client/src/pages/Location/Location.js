@@ -8,7 +8,7 @@ import { rivers } from '../../Data/rivers';
 import Posts from '../../components/Posts/Posts';
 import './Location.scss';
 import Weather from '../../components/Weather/Weather';
-import { weatherData } from '../../Data/tempWeatherData';
+// import { weatherData } from '../../Data/tempWeatherData';
 
 const Location = () => {
   const [weather, setWeather] = useState(null);
@@ -92,8 +92,8 @@ const Location = () => {
           ></iframe>
         </aside>
       </main>
-      {/* {weather ? <Weather weather={weather.data} /> : null} */}
-      {weatherData ? <Weather weather={weatherData} /> : null}
+      {weather ? <Weather weather={weather.data} /> : null}
+      {/* { weatherData ? <Weather weather={weatherData} /> : null} */}
       <Posts className='location-post' />
     </div>
   );

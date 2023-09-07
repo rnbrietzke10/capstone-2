@@ -34,6 +34,8 @@ const UpdateUserForm = () => {
         profileImg: itemData.profileImg,
         coverImg: itemData.coverImg,
       };
+      if (!updatedInfo.profileImg) updatedInfo.profileImg = '';
+      if (!updatedInfo.coverImg) updatedInfo.coverImg = '';
 
       const user = await Api.updateUser(updatedInfo, itemData.username, token);
 

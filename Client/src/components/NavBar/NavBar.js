@@ -19,7 +19,22 @@ const NavBar = () => {
   const riversArray = Object.keys(rivers);
 
   const navigate = useNavigate();
-
+  let title;
+  if (currentUser) {
+    if (currentUser.profileImg) {
+      title = (
+        <img
+          className='thumbnail-image'
+          src={currentUser.profileImg}
+          alt='user pic'
+        />
+      );
+    } else {
+      title = (
+        <span className='dropdown-title'>{`${currentUser.firstName} ${currentUser.lastName}`}</span>
+      );
+    }
+  }
   const logoutHandler = async () => {
     await localStorage.removeItem('user');
     await localStorage.removeItem('token');
@@ -80,13 +95,7 @@ const NavBar = () => {
 
                     <NavDropdown
                       align='end'
-                      title={
-                        <img
-                          className='thumbnail-image'
-                          src={currentUser.profileImg}
-                          alt='user pic'
-                        />
-                      }
+                      title={title}
                       id={`offcanvasNavbarDropdown-expand-md`}
                     >
                       <NavDropdown.Item
