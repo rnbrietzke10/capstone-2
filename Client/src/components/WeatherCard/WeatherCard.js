@@ -3,11 +3,27 @@ import React from 'react';
 import './WeatherCard.scss';
 
 const WeatherCard = ({ weather }) => {
-  const dateObj = new Date(weather.date);
+  const dateArray = weather.date.split('-');
+  const monthArray = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
 
   return (
     <div className='future'>
-      <h6>{dateObj.toDateString()}</h6>
+      <h6>{`${monthArray[dateArray[1] - 1]} ${dateArray[2]}, ${
+        dateArray[0]
+      }`}</h6>
       <img
         className='condition-icon'
         src={weather.day.condition.icon}

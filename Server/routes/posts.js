@@ -6,7 +6,7 @@
 
 const express = require('express');
 const { ensureCorrectUser, ensureLoggedIn } = require('../middleware/auth');
-const { BadRequestError } = require('../expressError');
+
 const Post = require('../models/post');
 
 const router = express.Router();

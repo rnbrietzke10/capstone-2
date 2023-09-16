@@ -16,9 +16,8 @@ router.get('/', async function (req, res, next) {
     const lat = req.query.lat;
     const lng = req.query.lng;
     const result = await axios.get(
-      `http://api.weatherapi.com/v1/forecast.json?key=${process.env.WEATHER_API_KEY}&q=${lat},${lng}&days=3&aqi=no&alerts=no`
+      `http://api.weatherapi.com/v1/forecast.json?key=${process.env.WEATHER_API_KEY}&q=${lat},${lng}&days=4&aqi=no&alerts=no`
     );
-    console.log('RESULT DATA', result.data);
     const data = result.data;
     return res.json({ data });
   } catch (err) {

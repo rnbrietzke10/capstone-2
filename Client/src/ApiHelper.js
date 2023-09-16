@@ -99,6 +99,8 @@ class Api {
     const listOfIds = res.following.map(follow => follow.followed_id);
     return listOfIds;
   }
+
+  /*************** Post **********************/
   // Create post
   //User data should contain post and user token
   static async createPost(userData, token) {
@@ -226,8 +228,6 @@ class Api {
     await this.request(path, data, 'delete');
   }
 }
-
-// Delete Comment
 
 // for now, put token ("testuser" / "password" on class)
 // Api.token =
